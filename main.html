@@ -19,13 +19,15 @@
         </div>
 
         <div id="sidebar">
-          <div id="uploadHolder">
+          <div class="dropdown">
             <div id="uploadIcon">
-              <img src="photobooth/uploadIcon-01.svg" onclick="upload()"/>
+              <img src="photobooth/uploadIcon-01.svg" />
+              <!-- onclick needs to do same as btn -->
             </div>
-
-            <div id="upload">
-              <p>upload</p>
+            <button onclick="toggleUpload()" class="dropbtn">upload</button>
+            <div id="myDropdown" class="dropdown-content">
+              <input type="file" id="fileSelector">
+              <button id="uploadButton" onclick="uploadFile()">upload</button>
             </div>
           </div>
 
