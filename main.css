@@ -8,6 +8,7 @@ main{
   display: flex;
   flex-direction: row;
   justify-content: stretch;
+  height: 80vh;
 }
 
 #sidebar{
@@ -32,6 +33,5 @@ main{
 }
 
 #uploadIcon, #filterIcon, #favoritesIcon{
-  padding-top: 20px;
-  padding-right: 5px;
+  padding-top: 20%;
 }
