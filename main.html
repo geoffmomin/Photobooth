@@ -16,16 +16,21 @@
 
       <div id="contents">
         <div id="pictures">
+          <div class="pictureContainer">
+            <img id="loadingImage"/>
+          </div>
         </div>
 
         <div id="sidebar">
-          <div id="uploadHolder">
+          <div class="dropdown">
             <div id="uploadIcon">
               <img src="photobooth/uploadIcon-01.svg" />
+              <!-- onclick needs to do same as btn -->
             </div>
-
-            <div id="upload">
-              <p>upload</p>
+            <button onclick="toggleUpload()" class="dropbtn">upload</button>
+            <div id="myDropdown" class="dropdown-content">
+              <input type="file" id="fileSelector" onchange="readFile()">
+              <button id="uploadButton" onclick="uploadFile()">upload</button>
             </div>
           </div>
 
