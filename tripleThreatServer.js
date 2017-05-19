@@ -3,6 +3,27 @@ var express = require('express');
 var formidable = require('formidable');  // we upload images in forms
 // this is good for parsing forms and reading in the images
 
+var sqlite3 = require("sqlite3").verbose();  // use sqlite
+var dbFile = "photos.db";
+var db = new sqlite3.Database(dbFile);  // new object, old DB
+
+//for db ops
+function errorCallback(err) {
+    if (err) {
+	console.log("error: ",err,"\n");
+    }
+}
+
+function dataCallback(err, tableData) {
+    if (err) {
+	console.log("error: ",err,"\n");
+    } else {
+	console.log("got: ",tableData,"\n");
+    }
+}
+//for db ops
+
+
 // make a new express server object
 var app = express();
 
@@ -42,22 +63,34 @@ app.post('/', function (request, response){
 	console.log('success');
 	sendCode(201,response,'recieved file');  // respond to browser
     });
+    //finished uploading to public
+
+    //upload to db
+    db.run(
+	'INSERT OR REPLACE INTO photoLabels VALUES ("SOS.jpg", "", 0)',
+	errorCallback);
+  console.log("db func");
+  // db.close();
+  db.get(
+	'SELECT favorite FROM photoLabels WHERE fileName = ?',
+	["hula.jpg"],dataCallback);
+
 
 });
 
-// You know what this is, right? 
+// You know what this is, right?
 var port = 8650;
 app.listen(port);
-console.log("listening to: " + port);
+console.log ("listening to port: " + port);
 
 // sends off an HTTP response with the given status code and message
 function sendCode(code,response,message) {
     response.status(code);
     response.send(message);
 }
-    
+
 // Stuff for dummy query answering
-// We'll replace this with a real database someday! 
+// We'll replace this with a real database someday!
 function answer(query, response) {
 var labels = {hula:
 "Dance, Performing Arts, Sports, Entertainment, Quinceañera, Event, Hula, Folk Dance",
@@ -75,4 +108,3 @@ var labels = {hula:
 	    sendCode(400,response,"requested photo not found");
     }
 }
-
