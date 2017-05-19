@@ -1,5 +1,6 @@
 var port = 8650;
 
+
 function toggleUpload() {
       document.getElementById("myDropdown").classList.toggle("show");
 }
@@ -76,4 +77,5 @@ function uploadFile(){
 
   //make the picture clear after uploading
   document.getElementById('loadingImage').style.opacity = 1.0;
-}
+
+} //uploadfile()
