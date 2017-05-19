@@ -51,7 +51,7 @@ main{
 }
 
 #contents{
-  border: 2px solid;
+  border: 2px solid red;
   display: flex;
   flex-direction: row;
   justify-content: stretch;
@@ -67,14 +67,15 @@ main{
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  border: 2px solid;
+  justify-content: flex-start;
+  border: 5px solid blue;
   flex: 7;
   margin: 5px;
   background-color: pink;
 }
 
 .pictureContainer {
-  border: 1px solid orange;
+  border: 3px solid orange;
   display: flex;
   flex-direction: column;
 }
