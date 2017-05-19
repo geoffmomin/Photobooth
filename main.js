@@ -44,14 +44,14 @@ function readFile() {
 	     image.src = fr.result;
     };
     fr.readAsDataURL(selectedFile);    // begin reading
-    //make the picture unclear when displaying before upload
+    // make the picture unclear when displaying before upload
     image.style.opacity = 0.5;
 }
 
 
 function uploadFile(){
   // uploads an image within a form object.  This currently seems
-// to be the easiest way to send a big binary file.
+  // to be the easiest way to send a big binary file.
   var url = "http://138.68.25.50:" + port;
 
   // where we find the file handle
