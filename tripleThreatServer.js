@@ -65,17 +65,12 @@ app.post('/', function (request, response){
     });
     //finished uploading to public
 
-    //upload to db
-    db.run(
-	'INSERT OR REPLACE INTO photoLabels VALUES ("SOS.jpg", "", 0)',
-	errorCallback);
-  console.log("db func");
-  // db.close();
-  db.get(
-	'SELECT favorite FROM photoLabels WHERE fileName = ?',
-	["hula.jpg"],dataCallback);
 
-
+    //DB STUFF
+    //should insert into db the file we just uploaded.
+    console.log("db func");
+    // db.all('SELECT * FROM photoLabels',dataCallback);
+    console.log("FILE IS: ");
 });
 
 // You know what this is, right?
