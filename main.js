@@ -1,5 +1,27 @@
 var port = 8650;
 
+window.onload=function(){
+  console.log('onLoad function');
+  //want to get all things in the db
+    // query looks liek this - 138.68.25.50:1935/query?img=hula.jpg
+  var url = "http://138.68.25.50:" + port + "/query?op=dump";
+
+  /* called when image is clicked */
+          // construct url for query
+
+  	function reqListener () {
+      console.log("dbAll received");
+      console.log(this.response);
+  	}
+
+  	var oReq = new XMLHttpRequest();
+  	oReq.addEventListener("load", reqListener);
+  	oReq.open("GET", url);
+  	oReq.send();
+    console.log("asked for dbAll");
+
+} //window.onload()
+
 
 function toggleUpload() {
   document.getElementById("myDropdown").classList.toggle("show");
@@ -10,7 +32,7 @@ function toggleUpload() {
   favoritesHolder.top = "50px";
   filterHolder.position = "relative";
   filterHolder.top = "50px";
-}
+} //toggleUPload()
 
 // Close the dropdown if the user clicks outside of it
 window.onclick = function(event) {
@@ -48,7 +70,7 @@ function readFile() {
   fr.readAsDataURL(selectedFile);    // begin reading
   // make the picture unclear when displaying before upload
   image.style.opacity = 0.5;
-}
+} //readFile()
 
 
 function uploadFile(){
@@ -71,8 +93,8 @@ function uploadFile(){
   // of blocking until the operation is completed.
   oReq.open("POST", url, true);
   oReq.onload = function() {
-	// the response, in case we want to look at it
-	console.log(oReq.responseText);
+  	// the response, in case we want to look at it
+  	console.log(oReq.responseText);
   }
   oReq.send(formData);
 
