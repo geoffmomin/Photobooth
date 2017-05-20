@@ -9,17 +9,21 @@ var db = new sqlite3.Database(dbFile);  // new object, old DB
 
 //for db ops
 function errorCallback(err) {
-    if (err) {
-	console.log("error: ",err,"\n");
-    }
+  if (err) {
+    console.log("error: ", err, "\n");
+  }
+  else{
+    console.log("db - op success");
+  }
 }
 
 function dataCallback(err, tableData) {
-    if (err) {
-	console.log("error: ",err,"\n");
-    } else {
-	console.log("got: ",tableData,"\n");
-    }
+  if (err) {
+    console.log("error: ", err, "\n");
+  }
+  else {
+    console.log("db - got: ", tableData, "\n");
+  }
 }
 //for db ops
 
@@ -36,42 +40,53 @@ app.use(express.static('public')); // serve static files from public
 // Case 2: queries
 // An example query URL is "138.68.25.50:???/query?img=hula"
 app.get('/query', function (request, response){
-    console.log("query");
-    query = request.url.split("?")[1]; // get query string
-    if (query) {
-	answer(query, response);
-    } else {
-	sendCode(400,response,'query not recognized');
-    }
+  console.log("found a query");
+  query = request.url.split("?")[1]; // get query string
+  if (query) {
+    answer(query, response);
+  }
+  else {
+  sendCode(400,response,'query not recognized');
+}
 });
 
 // Case 3: upload images
 // Responds to any POST request
 app.post('/', function (request, response){
-    var form = new formidable.IncomingForm();
-    form.parse(request); // figures out what files are in form
+  var form = new formidable.IncomingForm();
+  var fName; //filename of the pic we are uploading
+  form.parse(request); // figures out what files are in form
 
-    // callback for when a file begins to be processed
-    form.on('fileBegin', function (name, file){
-	// put it in /public
-	file.path = __dirname + '/public/' + file.name;
-	console.log("uploading ",file.name,name);
-    });
+  // callback for when a file begins to be processed
+  form.on('fileBegin', function (name, file){
+    //get filename to use it later
+    fName = file.name;
 
-    // callback for when file is fully recieved
-    form.on('end', function (){
-	console.log('success');
-	sendCode(201,response,'recieved file');  // respond to browser
-    });
-    //finished uploading to public
+    // put it in /public
+    file.path = __dirname + '/public/' + file.name;
+    console.log("uploading ", file.name, name);
+  }); //form.on('fileBegin')
 
+  // callback for when file is fully received
+  form.on('end', function (){
+    console.log('successfully uploaded ' + fName + ' to ./public');
+    sendCode(201,response,'received file');  // respond to browser
 
-    //DB STUFF
-    //should insert into db the file we just uploaded.
-    console.log("db func");
-    // db.all('SELECT * FROM photoLabels',dataCallback);
-    console.log("FILE IS: ");
-});
+    //DB STUFF START
+    //should insert into db after we upload successfully to public
+    console.log("db stuff");
+    console.log("file is: " + fName);
+
+    //insert into db - filename, no labels, no favorite
+    db.run(
+  	'INSERT OR REPLACE INTO photoLabels VALUES (?, "", 0)',
+  	[fName], errorCallback);
+    //DB STUFF END
+
+  }); //form.on('end')
+  //finished uploading to public
+
+}); //post()
 
 // You know what this is, right?
 var port = 8650;
@@ -80,26 +95,27 @@ console.log ("listening to port: " + port);
 
 // sends off an HTTP response with the given status code and message
 function sendCode(code,response,message) {
-    response.status(code);
-    response.send(message);
+  response.status(code);
+  response.send(message);
 }
 
 // Stuff for dummy query answering
 // We'll replace this with a real database someday!
 function answer(query, response) {
-var labels = {hula:
-"Dance, Performing Arts, Sports, Entertainment, Quinceañera, Event, Hula, Folk Dance",
-	      eagle: "Bird, Beak, Bird Of Prey, Eagle, Vertebrate, Bald Eagle, Fauna, Accipitriformes, Wing",
-	      redwoods: "Habitat, Vegetation, Natural Environment, Woodland, Tree, Forest, Green, Ecosystem, Rainforest, Old Growth Forest"};
+  var labels = {
+    hula: "Dance, Performing Arts, Sports, Entertainment, Quinceañera, Event, Hula, Folk Dance",
+  	eagle: "Bird, Beak, Bird Of Prey, Eagle, Vertebrate, Bald Eagle, Fauna, Accipitriformes, Wing",
+  	redwoods: "Habitat, Vegetation, Natural Environment, Woodland, Tree, Forest, Green, Ecosystem, Rainforest, Old Growth Forest" };
 
-    console.log("answering");
-    kvpair = query.split("=");
-    labelStr = labels[kvpair[1]];
-    if (labelStr) {
-	    response.status(200);
-	    response.type("text/json");
-	    response.send(labelStr);
-    } else {
-	    sendCode(400,response,"requested photo not found");
-    }
-}
+  console.log("answering query");
+  kvpair = query.split("=");
+  labelStr = labels[kvpair[1]];
+  if (labelStr) {
+    response.status(200);
+    response.type("text/json");
+    response.send(labelStr);
+  }
+  else{
+    sendCode(400, response, "requested photo not found");
+  }
+} //answer()
