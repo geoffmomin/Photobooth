@@ -51,7 +51,7 @@ main{
 }
 
 #contents{
-  border: 2px solid red;
+  border: 1px solid #885541;
   display: flex;
   flex-direction: row;
   justify-content: stretch;
@@ -68,20 +68,25 @@ main{
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: flex-start;
-  border: 5px solid blue;
+  border: 1px solid #885541;
   flex: 7;
   margin: 5px;
-  background-color: pink;
+  background-color: white;
+  overflow: scroll;
 }
 
 .pictureContainer {
   border: 3px solid orange;
   display: flex;
   flex-direction: column;
+  margin-left: 20px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  width: 30%;
 }
 
-#loadingImage, #tagImage {
-  border: 1px solid blue;
+#tagImage {
+  border: 1px solid #885541;
 }
 
 #sidebar{
@@ -94,7 +99,11 @@ main{
 
 #uploadHolder, #filterHolder, #favoritesHolder{
   display: flex;
+  height: 50px;
+  display: flex;
   flex-direction: row;
+  width: 100%;
+  align-items: center
 }
 
 #uploadIcon, #filterIcon, #favoritesIcon{
@@ -104,12 +113,14 @@ main{
 
 /*css dropdown menu start*/
 .dropbtn {
-    background-color: #4CAF50;
-    color: white;
-    padding: 16px;
-    /*font-size: 16px;*/
-    border: none;
-    cursor: pointer;
+  background-color: #885541;
+  color: white;
+  width: 100%;
+  text-align: left;
+  font-size: 16px;
+  font-family: serif;
+  border: none;
+  cursor: pointer;
 }
 
 .dropbtn:hover, .dropbtn:focus {

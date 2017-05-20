@@ -3,6 +3,13 @@ var port = 8650;
 
 function toggleUpload() {
       document.getElementById("myDropdown").classList.toggle("show");
+      var favoritesHolder = document.getElementById("favoritesHolder").style;
+      var filterHolder = document.getElementById("filterHolder").style;
+
+      favoritesHolder.position = "relative";
+      favoritesHolder.top = "50px";
+      filterHolder.position = "relative";
+      filterHolder.top = "50px";
 }
 
 // Close the dropdown if the user clicks outside of it
@@ -17,6 +24,14 @@ window.onclick = function(event) {
         openDropdown.classList.remove('show');
       }
     }
+
+    var favoritesHolder = document.getElementById("favoritesHolder").style;
+    var filterHolder = document.getElementById("filterHolder").style;
+
+    favoritesHolder.position = "relative";
+    favoritesHolder.top = "0px";
+    filterHolder.position = "relative";
+    filterHolder.top = "0px";
   }
 }
 
