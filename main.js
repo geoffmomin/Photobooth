@@ -2,14 +2,14 @@ var port = 8650;
 
 
 function toggleUpload() {
-      document.getElementById("myDropdown").classList.toggle("show");
-      var favoritesHolder = document.getElementById("favoritesHolder").style;
-      var filterHolder = document.getElementById("filterHolder").style;
+  document.getElementById("myDropdown").classList.toggle("show");
+  var favoritesHolder = document.getElementById("favoritesHolder").style;
+  var filterHolder = document.getElementById("filterHolder").style;
 
-      favoritesHolder.position = "relative";
-      favoritesHolder.top = "50px";
-      filterHolder.position = "relative";
-      filterHolder.top = "50px";
+  favoritesHolder.position = "relative";
+  favoritesHolder.top = "50px";
+  filterHolder.position = "relative";
+  filterHolder.top = "50px";
 }
 
 // Close the dropdown if the user clicks outside of it
@@ -33,35 +33,21 @@ window.onclick = function(event) {
     filterHolder.position = "relative";
     filterHolder.top = "0px";
   }
-}
-
-
-// function fadeImage() {
-//     var image = document.getElementById('theImage');
-//     var button = document.getElementById('fadeButton');
-//     if (button.textContent == 'Fade') {
-//     	image.style.opacity = 0.5;
-//     	button.textContent = 'UnFade';
-//     }
-//     else {
-//     	image.style.opacity = 1.0;
-//     	button.textContent = 'Fade';
-//     }
-// }
+} //window.onclick
 
 
 function readFile() {
-    var selectedFile = document.getElementById('fileSelector').files[0];
-    var image = document.getElementById('loadingImage');
+  var selectedFile = document.getElementById('fileSelector').files[0];
+  var image = document.getElementById('loadingImage');
 
-    var fr = new FileReader();
-    // anonymous callback uses file as image source
-    fr.onload = function () {
-	     image.src = fr.result;
-    };
-    fr.readAsDataURL(selectedFile);    // begin reading
-    // make the picture unclear when displaying before upload
-    image.style.opacity = 0.5;
+  var fr = new FileReader();
+  // anonymous callback uses file as image source
+  fr.onload = function () {
+     image.src = fr.result;
+  };
+  fr.readAsDataURL(selectedFile);    // begin reading
+  // make the picture unclear when displaying before upload
+  image.style.opacity = 0.5;
 }
 
 
@@ -92,5 +78,4 @@ function uploadFile(){
 
   //make the picture clear after uploading
   document.getElementById('loadingImage').style.opacity = 1.0;
-
 } //uploadfile()
