@@ -21,19 +21,31 @@ window.onload=function(){
     }
 
     //there is 1 or more stuff in db.
-    document.getElementById("pictureContainer0").style.visibiliety = "visible";
-    for (i = 0; i < dbData.length; i++){
-      var target = document.getElementById('pictureContainer0');
-      clone = target.cloneNode(true); // true means clone all childNodes and all event handlers
-      //clone's id will be picContainer + 1...n
-      clone.id = "pictureContainer" + i;
+    else{
+      document.getElementById("pictureContainer0").style.visibiliety = "visible";
 
-      // http://138.68.25.50:8650/cat.jpg
-      clone.getElementsByTagName('img')[0].src = mainUrl + "/" + dbData[i].fileName;
+      for (i = 0; i < dbData.length; i++){
+        //if it's the first div
+        if (i == 0){
+          var target = document.getElementById('pictureContainer0');
+          target.getElementsByTagName('img')[0].src = mainUrl + "/" + dbData[i].fileName;
+        } //if
 
-      //add the container into pictures container
-      document.getElementById("pictures").appendChild(clone);
-    }
+        //else not 1st div
+        else{
+          var target = document.getElementById('pictureContainer0');
+          clone = target.cloneNode(true); // true means clone all childNodes and all event handlers
+          //clone's id will be picContainer + 1...n
+          clone.id = "pictureContainer" + i;
+
+          // http://138.68.25.50:8650/cat.jpg
+          clone.getElementsByTagName('img')[0].src = mainUrl + "/" + dbData[i].fileName;
+
+          //add the container into pictures container
+          document.getElementById("pictures").appendChild(clone);
+        } //else not 1st div
+      } //for db.length
+    } //else there is 1 or more stuff in db
 
   } //reqListener()
 
@@ -83,7 +95,7 @@ window.onclick = function(event) {
 
 function readFile() {
   var selectedFile = document.getElementById('fileSelector').files[0];
-  var image = document.getElementById('loadingImage');
+  var image = document.getElementById('loadingImage0');
 
   var fr = new FileReader();
   // anonymous callback uses file as image source
@@ -120,7 +132,11 @@ function uploadFile(){
   	console.log(oReq.responseText);
   }
   oReq.send(formData);
+  //finished uploading to server
+
+  //make the img src = server url
+  document.getElementById('loadingImage0').src = mainUrl + "/" + selectedFile.name;
 
   //make the picture clear after uploading
-  document.getElementById('loadingImage').style.opacity = 1.0;
+  document.getElementById('loadingImage0').style.opacity = 1.0;
 } //uploadfile()
