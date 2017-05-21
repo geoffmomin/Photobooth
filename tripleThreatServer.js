@@ -139,8 +139,8 @@ function answer(query, response) {
         response.send(tableData);
         console.log("sent dbAll to client");
       }
-    }
-    var dbAll = db.all('SELECT * FROM photoLabels', dbAllRet);
+    } //dbAllRet()
+    db.all('SELECT * FROM photoLabels', dbAllRet);
     //callback will return the json obj
 
   } //if op == dump
