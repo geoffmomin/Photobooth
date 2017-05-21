@@ -19,11 +19,25 @@
         <!-- each upload should insert a pictureContainer -->
         <div id="pictures">
           <div class="pictureContainer" id="pictureContainer0">
-            <img class="loadingImage" id="loadingImage0" src="/Users/richard/Desktop/ghost.png"/>
-            <div id="tagImage0">
+
+            <div class="imgHolder">
+              <img class="loadingImage" id="loadingImage0" src="/Users/richard/Desktop/ghost.png"/>
+            </div>
+
+            <div class="dropdown">
+              <button onclick="togglePicMenu()" class="dropbtn">Menu</button>
+              <div id="picMenuDropDown0" class="dropdown-content">
+                <button id="changeTagButton" onclick="changeTag()">change tags</button>
+                <button id="addToFavoritesButton" onclick="addToFavorites()">add to favorites</button>
+              </div>
+            </div>
+
+            <div class="tagImage" id="tagImage0">
               <!-- there shouldbe 0-10 tags -->
-              <!-- 0 tags when 1st uploading the pic-->
+              <!-- 0 tags when 1st  uploading the pic-->
               <p>tag 1</p>
+              <p>tag 2</p>
+              <p>tag 3</p>
             </div>
           </div>
         </div>
