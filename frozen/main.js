@@ -140,8 +140,3 @@ function uploadFile(){
   //make the picture clear after uploading
   document.getElementById('loadingImage0').style.opacity = 1.0;
 } //uploadfile()
-
-
-function togglePicMenu(){
-  console.log("toggling pic menu kek");
-}

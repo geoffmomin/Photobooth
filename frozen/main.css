@@ -83,19 +83,9 @@ main{
   margin-top: 20px;
   margin-bottom: 20px;
   width: 30%;
-
-  position: relative;
-  /*test to see if we can inlay the menu icon*/
 }
-.inlay{
-  position:absolute;
-  /*top:5px;*/
-  bottom: 15px;
-  right:5px;
-}
-/*test to see if we can inlay the menu icon*/
 
-.tagImage {
+#tagImage {
   border: 1px solid #885541;
 }
 
