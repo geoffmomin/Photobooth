@@ -43,39 +43,56 @@
         </div>
 
         <div id="sidebar">
-          <div class="dropdown">
-            <div id="uploadIcon">
-              <img src="photobooth/uploadIcon-01.svg" />
-              <!-- onclick needs to do same as btn -->
-            </div>
-            <button onclick="toggleUpload()" class="dropbtn">upload</button>
-            <div id="myDropdown" class="dropdown-content">
-              <input type="file" id="fileSelector" onchange="readFile()">
-              <button id="uploadButton" onclick="uploadFile()">upload</button>
+          <div class="UFF">
+            <section class="holder" id="uploadHolder">
+              <div>
+                <img  id="uploadIcon" class="dropdownIcons" src="photobooth/uploadIcon-01.svg" />
+                <!-- onclick needs to do same as btn -->
+              </div>
+              <button onclick="toggleUpload()" class="dropbtn">upload</button>
+            </section>
+
+            <div id="uploadDropdown" class="dropdown-content">
+              <input type="file" class="droppedButton" id="fileSelector" style="display: none;" onchange="readFile()"/>
+              <input type="button" class="droppedButton" id="chooseFileButton" value="choose file..." onclick="document.getElementById('fileSelector').click();" />
+              <p id="fileName">no file chosen</p>
+              <button class="droppedButton" id="uploadButton" onclick="uploadFile()">upload</button>
             </div>
           </div>
 
-          <div id="filterHolder">
-            <div id="filterIcon">
-              <img src="photobooth/filterIcon-01.svg" />
-            </div>
+          <div class="UFF">
+            <section class="holder" id="filterHolder">
+              <div>
+                <img  id="filterIcon" class="dropdownIcons"src="photobooth/filterIcon-01.svg" />
+                <!-- onclick needs to do same as btn -->
+              </div>
+              <button onclick="toggleFilter()" class="dropbtn">filter</button>
+            </section>
 
-            <div id="filter">
-              <p>filter</p>
+            <div id="filterDropdown" class="dropdown-content">
+              <input type="text" id="filterSearch" name="filter" placeholder="filter" onchange=""/>
+
+              <div id="filterDDbuttons">
+                <button class="droppedButton" id="enterFilter" onclick="">enter</button>
+                <button class="droppedButton" id="clearFilter" onclick="">clear filter</button>
+              </div>
             </div>
           </div>
+          <div class="UFF">
+            <section class="holder" id="favoritesHolder">
+              <div>
+                <img  id="favoritesIcon" class="dropdownIcons"src="photobooth/favoritesIcon.svg" />
+              </div>
+              <button onclick="toggleFavorites()" class="dropbtn">favorites</button>
+            </section>
 
-          <div id="favoritesHolder">
-            <div id="favoritesIcon">
-              <img src="photobooth/favoritesIcon.svg" />
+            <div id="favoritesDropdown" class="dropdown-content">
+              <button class="droppedButton" id="clearFavorite" onclick="">clear filter</button>
+              </div>
             </div>
 
-            <div id="favorites">
-              <p>favorites</p>
-            </div>
-          </div>
         </div>
-      </div>
+
 
     </main>
 

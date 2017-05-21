@@ -103,9 +103,16 @@ main{
 #sidebar{
   display: flex;
   flex-direction: column;
-  background-color: #885541;
-  color: white;
   flex: 1;
+  width: 250px;
+  background-color: #885541;
+  border: 2px solid;
+  margin: 5px;
+}
+
+/**EACH UFF(upload, filter, favorite) DOWNS has:*/
+.UFF{
+  width: 250px;
 }
 
 #uploadHolder, #filterHolder, #favoritesHolder{
@@ -117,6 +124,18 @@ main{
   align-items: center
 }
 
+.holder{
+  display: flex;
+  flex-direction: row;
+  height: 50px;
+  width: 250px;
+  align-items: center
+}
+
+.dropdownIcons{
+  margin-right: 10px;
+}
+
 #uploadIcon, #filterIcon, #favoritesIcon{
   padding-top: 20%;
 }
@@ -126,16 +145,16 @@ main{
 .dropbtn {
   background-color: #885541;
   color: white;
-  width: 100%;
+  width: 200px;
   text-align: left;
-  font-size: 16px;
   font-family: serif;
+  font-size: 20px;
   border: none;
   cursor: pointer;
 }
 
 .dropbtn:hover, .dropbtn:focus {
-    background-color: #3e8e41;
+    background-color: #885541;
 }
 
 .dropdown {
@@ -145,13 +164,14 @@ main{
     flex-direction: row;
 }
 
+/*CONTENTS OF DROP DOWNS*/
 .dropdown-content {
     display: none;
+    width: 246px; /*sidebar - 2*sidebar border*/
     position: absolute;
-    background-color: green;
-    min-width: 160px;
-    overflow: auto;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    padding: 20px 10px;
+    background-color: #CFBBB2;
+    overflow: hidden;
     z-index: 1;
 }
 
@@ -164,5 +184,57 @@ main{
 
 .dropdown a:hover {background-color: #f1f1f1}
 
-.show {display:block;}
-/*css dropdown menu end*/
+/*TOGGLE*/
+.show{
+  display: block;
+}
+
+
+/*ALL BUTTON STYLES*/
+.droppedButton{
+  border: 1px solid black;
+  padding: 5px;
+  margin-left: 10px;
+  background-color: #885540;
+  font-family: serif;
+  color: white;
+  font-size: 16px;
+}
+
+/**UPLOAD STYLES*/
+#chooseFileButton{
+  margin-bottom: 10px;
+}
+
+#fileName{
+  margin-bottom: 5px;
+  margin-left: 10px;
+}
+
+/*FILTER STYLES*/
+
+#filterSearch{
+  padding: 4px;
+  margin: 0 0 10px 10px;
+  border: 1px solid #885540;
+  font-size: 16px;
+  font-family: serif;
+}
+    /*placeholder font color*/
+    ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+      color: #885540;
+    }
+    ::-moz-placeholder { /* Firefox 19+ */
+      color: #885540;
+    }
+    :-ms-input-placeholder { /* IE 10+ */
+      color: #885540;
+    }
+    :-moz-placeholder { /* Firefox 18- */
+      color: #885540;
+    }
+
+#filterDDbuttons{
+  display: flex;
+  flex-direction: row;
+}

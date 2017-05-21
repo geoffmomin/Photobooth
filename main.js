@@ -2,6 +2,88 @@ var port = 8650;
 var mainUrl = "http://138.68.25.50:" + port;
 //https://138.68.25.50:xxxx
 
+var favoritesHolder = document.getElementById("favoritesHolder").style;
+var filterHolder = document.getElementById("filterHolder").style;
+var uploadHolder = document.getElementById("uploadHolder").style;
+
+var favoritesClass = document.getElementById("favoritesDropdown").classList;
+var filterClass = document.getElementById("filterDropdown").classList;
+var uploadClass = document.getElementById("uploadDropdown").classList;
+
+function toggleUpload(){
+      uploadClass.toggle("show");
+      if(filterClass.contains('show')){
+        filterClass.toggle("show");
+        filterHolder.position = "relative";
+        filterHolder.top = "0px";
+      }
+
+      if(favoritesClass.contains('show')){
+        favoritesClass.toggle("show");
+        favoritesHolder.position = "relative";
+        favoritesHolder.top = "0px";
+      }
+
+      if(uploadClass.contains('show')){
+       favoritesHolder.position = "relative";
+       favoritesHolder.top = "130px";
+       filterHolder.position = "relative";
+       filterHolder.top = "130px";
+     }
+
+     else{
+      favoritesHolder.position = "relative";
+      favoritesHolder.top = "0px";
+      filterHolder.position = "relative";
+      filterHolder.top = "0px";
+     }
+}
+
+function toggleFilter() {
+      filterClass.toggle("show");
+      if(uploadClass.contains('show')){
+        uploadClass.toggle("show");
+        filterHolder.position = "relative";
+        filterHolder.top = "0px";
+      }
+
+      if(favoritesClass.contains('show')){
+        favoritesClass.toggle("show");
+        favoritesHolder.position = "relative";
+        favoritesHolder.top = "0px";
+      }
+
+    if(filterClass.contains('show')){
+       favoritesHolder.position = "relative";
+       favoritesHolder.top = "130px";
+     }
+
+     else{
+      favoritesHolder.position = "relative";
+      favoritesHolder.top = "0px";
+     }
+}
+
+function toggleFavorites() {
+      favoritesClass.toggle("show");
+      if(uploadClass.contains('show')){
+        uploadClass.toggle("show");
+        filterHolder.position = "relative";
+        filterHolder.top = "0px";
+        favoritesHolder.position = "relative";
+        favoritesHolder.top = "0px";
+      }
+
+      if(filterClass.contains('show')){
+        filterClass.toggle("show");
+        filterHolder.position = "relative";
+        filterHolder.top = "0px";
+        favoritesHolder.position = "relative";
+        favoritesHolder.top = "0px";
+      }
+
+}
+
 window.onload=function(){
   console.log('onLoad function');
   //want to get all things in the db
@@ -57,39 +139,25 @@ window.onload=function(){
 
 } //window.onload()
 
-
-function toggleUpload() {
-  document.getElementById("myDropdown").classList.toggle("show");
+// Close the dropdown if the user clicks outside of it
+window.onclick = function(event) {
+  var dropdowns = document.getElementsByClassName("dropdown-content");
   var favoritesHolder = document.getElementById("favoritesHolder").style;
   var filterHolder = document.getElementById("filterHolder").style;
 
-  favoritesHolder.position = "relative";
-  favoritesHolder.top = "50px";
-  filterHolder.position = "relative";
-  filterHolder.top = "50px";
-} //toggleUPload()
 
-
-// Close the dropdown if the user clicks outside of it
-window.onclick = function(event) {
-  if (!event.target.matches('.dropbtn')) {
-
-    var dropdowns = document.getElementsByClassName("dropdown-content");
-    var i;
-    for (i = 0; i < dropdowns.length; i++) {
-      var openDropdown = dropdowns[i];
-      if (openDropdown.classList.contains('show')) {
-        openDropdown.classList.remove('show');
+    if(!event.target.matches('.dropbtn')){
+      var i;
+      for (i = 0; i < dropdowns.length; i++) {
+        var openDropdown = dropdowns[i];
+        if (openDropdown.classList.contains('show')) {
+          openDropdown.classList.remove('show');
+        }
       }
-    }
-
-    var favoritesHolder = document.getElementById("favoritesHolder").style;
-    var filterHolder = document.getElementById("filterHolder").style;
-
-    favoritesHolder.position = "relative";
-    favoritesHolder.top = "0px";
-    filterHolder.position = "relative";
-    filterHolder.top = "0px";
+      favoritesHolder.position = "relative";
+      favoritesHolder.top = "0px";
+      filterHolder.position = "relative";
+      filterHolder.top = "0px";
   }
 } //window.onclick
 
