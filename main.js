@@ -140,21 +140,9 @@ window.onload=function(){
 } //window.onload()
 
 
-function togglePicMenu() {
-  document.getElementById("picMenuDropDown0").classList.toggle("show");
-  // var favoritesHolder = document.getElementById("favoritesHolder").style;
-  // var filterHolder = document.getElementById("filterHolder").style;
-  //
-  // favoritesHolder.position = "relative";
-  // favoritesHolder.top = "50px";
-  // filterHolder.position = "relative";
-  // filterHolder.top = "50px";
-} //toggleUPload()
 
 
 
-function toggleUpload() {
-  document.getElementById("myDropdown").classList.toggle("show");
 // Close the dropdown if the user clicks outside of it
 window.onclick = function(event) {
   var dropdowns = document.getElementsByClassName("dropdown-content");
@@ -227,10 +215,20 @@ function uploadFile(){
 } //uploadfile()
 
 
+function togglePicMenu(){
+  console.log("togglePicMenu func");
+  //get the dropdown in the parent of this button?
+  document.getElementById("picMenuDropDown0").classList.toggle("show");
+}
+
 function changeTag(){
   console.log("changeTag function");
 }
 
 function addToFavorites(){
   console.log("addToFavorites function");
+}
+
+function addTag(){
+  console.log("addTag function");
 }
