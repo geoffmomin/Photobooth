@@ -139,6 +139,10 @@ window.onload=function(){
 
 } //window.onload()
 
+
+
+
+
 // Close the dropdown if the user clicks outside of it
 window.onclick = function(event) {
   var dropdowns = document.getElementsByClassName("dropdown-content");
@@ -209,3 +213,22 @@ function uploadFile(){
   //make the picture clear after uploading
   document.getElementById('loadingImage0').style.opacity = 1.0;
 } //uploadfile()
+
+
+function togglePicMenu(){
+  console.log("togglePicMenu func");
+  //get the dropdown in the parent of this button?
+  document.getElementById("picMenuDropDown0").classList.toggle("show");
+}
+
+function changeTag(){
+  console.log("changeTag function");
+}
+
+function addToFavorites(){
+  console.log("addToFavorites function");
+}
+
+function addTag(){
+  console.log("addTag function");
+}

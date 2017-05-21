@@ -58,6 +58,19 @@ window.onload=function(){
 } //window.onload()
 
 
+function togglePicMenu() {
+  document.getElementById("picMenuDropDown0").classList.toggle("show");
+  // var favoritesHolder = document.getElementById("favoritesHolder").style;
+  // var filterHolder = document.getElementById("filterHolder").style;
+  //
+  // favoritesHolder.position = "relative";
+  // favoritesHolder.top = "50px";
+  // filterHolder.position = "relative";
+  // filterHolder.top = "50px";
+} //toggleUPload()
+
+
+
 function toggleUpload() {
   document.getElementById("myDropdown").classList.toggle("show");
   var favoritesHolder = document.getElementById("favoritesHolder").style;
@@ -68,6 +81,7 @@ function toggleUpload() {
   filterHolder.position = "relative";
   filterHolder.top = "50px";
 } //toggleUPload()
+
 
 // Close the dropdown if the user clicks outside of it
 window.onclick = function(event) {
@@ -140,3 +154,12 @@ function uploadFile(){
   //make the picture clear after uploading
   document.getElementById('loadingImage0').style.opacity = 1.0;
 } //uploadfile()
+
+
+function changeTag(){
+  console.log("changeTag function");
+}
+
+function addToFavorites(){
+  console.log("addToFavorites function");
+}
