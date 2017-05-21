@@ -7,6 +7,9 @@ var sqlite3 = require("sqlite3").verbose();  // use sqlite
 var dbFile = "photos.db";
 var db = new sqlite3.Database(dbFile);  // new object, old DB
 
+var querystring = require('querystring'); // handy for parsing query strings
+
+
 //for db ops
 function errorCallback(err) {
   if (err) {
@@ -46,9 +49,10 @@ app.get('/query', function (request, response){
     answer(query, response);
   }
   else {
-  sendCode(400,response,'query not recognized');
-}
-});
+    sendCode(400,response,'query not recognized');
+  }
+}); //app.get()
+
 
 // Case 3: upload images
 // Responds to any POST request
@@ -102,20 +106,42 @@ function sendCode(code,response,message) {
 // Stuff for dummy query answering
 // We'll replace this with a real database someday!
 function answer(query, response) {
-  var labels = {
-    hula: "Dance, Performing Arts, Sports, Entertainment, Quinceañera, Event, Hula, Folk Dance",
-  	eagle: "Bird, Beak, Bird Of Prey, Eagle, Vertebrate, Bald Eagle, Fauna, Accipitriformes, Wing",
-  	redwoods: "Habitat, Vegetation, Natural Environment, Woodland, Tree, Forest, Green, Ecosystem, Rainforest, Old Growth Forest" };
-
   console.log("answering query");
-  kvpair = query.split("=");
-  labelStr = labels[kvpair[1]];
-  if (labelStr) {
-    response.status(200);
-    response.type("text/json");
-    response.send(labelStr);
-  }
-  else{
-    sendCode(400, response, "requested photo not found");
-  }
+  //
+  // var labels = {
+  //   hula: "Dance, Performing Arts, Sports, Entertainment, Quinceañera, Event, Hula, Folk Dance",
+  // 	eagle: "Bird, Beak, Bird Of Prey, Eagle, Vertebrate, Bald Eagle, Fauna, Accipitriformes, Wing",
+  // 	redwoods: "Habitat, Vegetation, Natural Environment, Woodland, Tree, Forest, Green, Ecosystem, Rainforest, Old Growth Forest" };
+  //
+  // kvpair = query.split("=");
+  // labelStr = labels[kvpair[1]];
+  // if (labelStr) {
+  //   response.status(200);
+  //   response.type("text/json");
+  //   response.send(labelStr);
+  // }
+  // else{
+  //   sendCode(400, response, "requested photo not found");
+  // }
+  queryObj = querystring.parse(query);
+  if (queryObj.op == "dump"){
+    // Dump whole database
+    console.log("dump op detected - must be starting the page");
+
+    function dbAllRet(err, tableData){
+      if (err) {
+        console.log("error: ", err, "\n");
+      }
+      else {
+        response.status(200);
+        response.type("application/json");
+        JSON.stringify(tableData);
+        response.send(tableData);
+        console.log("sent dbAll to client");
+      }
+    } //dbAllRet()
+    db.all('SELECT * FROM photoLabels', dbAllRet);
+    //callback will return the json obj
+
+  } //if op == dump
 } //answer()

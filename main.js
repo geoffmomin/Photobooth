@@ -1,4 +1,49 @@
 var port = 8650;
+var mainUrl = "http://138.68.25.50:" + port;
+//https://138.68.25.50:xxxx
+
+window.onload=function(){
+  console.log('onLoad function');
+  //want to get all things in the db
+    // query looks liek this - 138.68.25.50:1935/query?img=hula.jpg
+  var url = mainUrl + "/query?op=dump";
+
+  function reqListener () {
+    //this.response contains json/ARRAY?? of all files in db
+    console.log("dbAll received");
+    console.log(this.response);
+    var dbData = JSON.parse(this.response)
+
+    //should display these items.
+    //if there is nothing in db, display nothing
+    if (dbData.length == 0){
+      document.getElementById("pictureContainer0").style.visibiliety = "hidden";
+    }
+
+    //there is 1 or more stuff in db.
+    document.getElementById("pictureContainer0").style.visibiliety = "visible";
+    for (i = 0; i < dbData.length; i++){
+      var target = document.getElementById('pictureContainer0');
+      clone = target.cloneNode(true); // true means clone all childNodes and all event handlers
+      //clone's id will be picContainer + 1...n
+      clone.id = "pictureContainer" + i;
+
+      // http://138.68.25.50:8650/cat.jpg
+      clone.getElementsByTagName('img')[0].src = mainUrl + "/" + dbData[i].fileName;
+
+      //add the container into pictures container
+      document.getElementById("pictures").appendChild(clone);
+    }
+
+  } //reqListener()
+
+  var oReq = new XMLHttpRequest();
+  oReq.addEventListener("load", reqListener);
+  oReq.open("GET", url);
+  oReq.send();
+  console.log("asked for dbAll");
+
+} //window.onload()
 
 
 function toggleUpload() {
@@ -10,7 +55,7 @@ function toggleUpload() {
   favoritesHolder.top = "50px";
   filterHolder.position = "relative";
   filterHolder.top = "50px";
-}
+} //toggleUPload()
 
 // Close the dropdown if the user clicks outside of it
 window.onclick = function(event) {
@@ -48,7 +93,7 @@ function readFile() {
   fr.readAsDataURL(selectedFile);    // begin reading
   // make the picture unclear when displaying before upload
   image.style.opacity = 0.5;
-}
+} //readFile()
 
 
 function uploadFile(){
@@ -71,8 +116,8 @@ function uploadFile(){
   // of blocking until the operation is completed.
   oReq.open("POST", url, true);
   oReq.onload = function() {
-	// the response, in case we want to look at it
-	console.log(oReq.responseText);
+  	// the response, in case we want to look at it
+  	console.log(oReq.responseText);
   }
   oReq.send(formData);
 
