@@ -107,11 +107,23 @@ function sendCode(code,response,message) {
 // We'll replace this with a real database someday!
 function answer(query, response) {
   console.log("answering query");
-
+  //
+  // var labels = {
+  //   hula: "Dance, Performing Arts, Sports, Entertainment, Quinceañera, Event, Hula, Folk Dance",
+  // 	eagle: "Bird, Beak, Bird Of Prey, Eagle, Vertebrate, Bald Eagle, Fauna, Accipitriformes, Wing",
+  // 	redwoods: "Habitat, Vegetation, Natural Environment, Woodland, Tree, Forest, Green, Ecosystem, Rainforest, Old Growth Forest" };
+  //
+  // kvpair = query.split("=");
+  // labelStr = labels[kvpair[1]];
+  // if (labelStr) {
+  //   response.status(200);
+  //   response.type("text/json");
+  //   response.send(labelStr);
+  // }
+  // else{
+  //   sendCode(400, response, "requested photo not found");
+  // }
   queryObj = querystring.parse(query);
-  console.log(queryObj);
-
-  //if we just started the page - get all files in db
   if (queryObj.op == "dump"){
     // Dump whole database
     console.log("dump op detected - must be starting the page");
@@ -129,29 +141,7 @@ function answer(query, response) {
       }
     } //dbAllRet()
     db.all('SELECT * FROM photoLabels', dbAllRet);
-    //callback will return the json string
+    //callback will return the json obj
+
   } //if op == dump
-
-  //else if we are getting the gets for a picture in db
-  else if (queryObj.op == "getTags"){
-    var fileName = queryObj.fileName;
-    console.log("query is getTags - file is " + fileName);
-
-
-    function dbTagsRet(err, tableData){
-      if (err) {
-        console.log("error: ", err, "\n");
-      }
-      else {
-        response.status(200);
-        response.type("application/json");
-        JSON.stringify(tableData);
-        response.send(tableData);
-        console.log("sent db tags to client");
-      }
-    } //dbTagsRet()
-    db.get('SELECT labels FROM photoLabels WHERE fileName = ?', [fileName], dbTagsRet);
-    //callback will return the json string
-
-  } //else if op ==
 } //answer()

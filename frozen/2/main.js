@@ -231,47 +231,4 @@ function addToFavorites(){
 
 function addTag(){
   console.log("addTag function");
-  var picCont = addTag.caller.arguments[0].target.parentElement.parentElement.parentElement;
-  var picImgTag = picCont.getElementsByTagName("img")[0].src;
-  //--"http://138.68.25.50:8650/dynn1.PNG"
-  var picImgTagArray = picImgTag.split('/');
-  var picName = picImgTagArray[3];
-  //got the picName of the container we clicked
-  var newTag = picCont.getElementsByTagName("input")[0].value;
-  //got the new tag to add
-  //assuming the new tag is in the input box when user clicks ADD button
-  var tagParagraph = picCont.getElementsByClassName("tagImage")[0].getElementsByTagName("p")[0];
-  //gets the 1st paragraph element in the div class tagImage
-
-
-  //get existing tag for this picture from db
-    //callback
-  function tagTransferCallback(){
-    //got stuff back
-    console.log("db tags received");
-    console.log(this.response);
-    var dbData = JSON.parse(this.response);
-    var prevLabels = dbData.labels;
-
-    //append the tag
-    var finalLabels = "";
-    //if there was no labels in the db
-    if (prevLabels == ""){
-      finalLabels = newTag;
-    }
-    //else there was some label(s) in the db
-    else{
-      finalLabels = prevLabels + "," + newTag;
-    }
-    tagParagraph.innerHTML = finalLabels;
-    //insert the tag
-
-  } //callback()
-  var url = mainUrl + "/query?op=getTags&fileName=" + picName;
-  var oReq = new XMLHttpRequest();
-  oReq.addEventListener("load", tagTransferCallback);
-  oReq.open("GET", url);
-  oReq.send();
-  console.log("sent GET to server [for tags of 1 pic]")
-  //on callback, addend the tag into prev tags and insert to db
-} //addTag()
+}
