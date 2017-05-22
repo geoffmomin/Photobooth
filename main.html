@@ -25,16 +25,14 @@
             </div>
 
             <div class="dropdown">
-              <button onclick="togglePicMenu()" class="dropbtn">Menu</button>
+              <button onclick="togglePicMenu()" id="picMenu"><img class="dropbtn" id="triangle" src="photobooth/optionsTriangle.png" /></button>
+
               <div id="picMenuDropDown0" class="dropdown-content">
                 <button id="changeTagButton" onclick="changeTag()">change tags</button>
                 <button id="addToFavoritesButton" onclick="addToFavorites()">add to favorites</button>
 
-                <!-- this btn sld display when click change tag-->
-                <button id="addTagButton" onclick="addTag()">Add</button>
-
                 <!-- dummy btn - supposed to be remove. should be there for each of the 10 tags? -->
-                <button id="removeTagButton">Remove Tag (dummy)</button>
+                <!-- <button id="removeTagButton">Remove Tag (dummy)</button> -->
               </div>
             </div>
 
@@ -42,11 +40,15 @@
               <!-- there shouldbe 0-10 tags -->
               <!-- 0 tags when 1st  uploading the pic-->
               <p id="testTag1">tag 1</p>
-            </div>
 
-            <div class="tagInputBoxDiv" id="tagInputBoxDiv0">
-              <input type="text" class='tagInputBox' id='tagInputBox0'>
-            </div>
+              <div class="tagInputBoxDiv" id="tagInputBoxDiv0">
+                <input type="text" class='tagInputBox' id='tagInputBox0'>
+              </div>
+            </div> 
+
+            <!-- this btn sld display when click change tag-->
+            <button class="droppedButton" id="addTagButton" onclick="addTag()">Add to list</button>
+
           </div>
         </div>
 

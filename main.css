@@ -87,6 +87,22 @@ main{
   position: relative;
   /*test to see if we can inlay the menu icon*/
 }
+
+.imgHolder {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  border: 1px solid black;
+}
+
+.loadingImage {
+  border: 1px solid black;
+}
+
+#picMenu {
+  background-color: #885541;
+}
+
 .inlay{
   position:absolute;
   top:5px;
@@ -159,9 +175,10 @@ main{
 
 .dropdown {
     position: relative;
-    /*display: inline-block;*/
     display: flex;
     flex-direction: row;
+    justify-content: flex-end;
+    background-color: #885541;
 }
 
 /*CONTENTS OF DROP DOWNS*/
@@ -183,6 +200,12 @@ main{
 }
 
 .dropdown a:hover {background-color: #f1f1f1}
+
+#triangle {
+  border: 1px solid black;
+  width: 50px;
+  height: 50px;
+}
 
 /*TOGGLE*/
 .show{
