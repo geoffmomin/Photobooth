@@ -111,6 +111,11 @@ window.onload=function(){
         if (i == 0){
           var target = document.getElementById('pictureContainer0');
           target.getElementsByTagName('img')[0].src = mainUrl + "/" + dbData[i].fileName;
+
+          var targetTag = target.getElementsByClassName("tagImage")[0].getElementsByTagName("p")[0];
+
+          // targetTag.innerHTML = dbData[i].labels;
+          targetTag.innerHTML = i;
         } //if
 
         //else not 1st div
@@ -122,6 +127,11 @@ window.onload=function(){
 
           // http://138.68.25.50:8650/cat.jpg
           clone.getElementsByTagName('img')[0].src = mainUrl + "/" + dbData[i].fileName;
+
+          var targetTag = target.getElementsByClassName("tagImage")[0].getElementsByTagName("p")[0];
+
+          // targetTag.innerHTML = dbData[i].labels;
+          targetTag.innerHTML = i;
 
           //add the container into pictures container
           document.getElementById("pictures").appendChild(clone);
@@ -236,6 +246,14 @@ function addTag(){
   //got the picName of the container we clicked
   var newTag = picCont.getElementsByTagName("input")[0].value;
   //got the new tag to add
+
+  //if tag is empty, stop this function
+  if (!newTag){
+    console.log("nice try adding empty tag");
+    return;
+  }
+
+
   //assuming the new tag is in the input box when user clicks ADD button
   var tagParagraph = picCont.getElementsByClassName("tagImage")[0].getElementsByTagName("p")[0];
   //gets the 1st paragraph element in the div class tagImage
@@ -258,12 +276,26 @@ function addTag(){
     }
     //else there was some label(s) in the db
     else{
-      finalLabels = prevLabels + "," + newTag;
+      finalLabels = prevLabels + ", " + newTag;
     }
     tagParagraph.innerHTML = finalLabels;
-    //insert the tag
+    //insert the tag in html
+
+
+    //callback for updating the db with new label
+    function addTagCallback(){
+      console.log("addTagCallback()");
+    }
+    //update the database about the new final labels.
+    var url = mainUrl + "/query?op=addTag&newTags=" + finalLabels;
+    oReq = new XMLHttpRequest();
+    oReq.addEventListener("load", addTagCallback);
+    oReq.open("GET", url);
+    oReq.send();
+    console.log("sent addNewTag query");
 
   } //callback()
+
   var url = mainUrl + "/query?op=getTags&fileName=" + picName;
   var oReq = new XMLHttpRequest();
   oReq.addEventListener("load", tagTransferCallback);
