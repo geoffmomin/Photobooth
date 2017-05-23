@@ -22,29 +22,34 @@
 
             <div class="imgHolder">
               <img class="loadingImage" id="loadingImage0" src="/Users/richard/Desktop/ghost.png"/>
-            </div>
+              <div class="dropdown">
+                <button onclick="togglePicMenu()" id="picMenu"><img class="dropbtn" id="triangle" src="photobooth/optionsTriangle.png" /></button>
 
-            <div class="dropdown">
-              <button onclick="togglePicMenu()" id="picMenu"><img class="dropbtn" id="triangle" src="photobooth/optionsTriangle.png" /></button>
+                <div id="picMenuDropDown0" class="dropdown-content">
+                  <button id="changeTagButton" onclick="changeTag()">change tags</button>
+                  <button id="addToFavoritesButton" onclick="addToFavorites()">add to favorites</button>
 
-              <div id="picMenuDropDown0" class="dropdown-content">
-                <button id="changeTagButton" onclick="changeTag()">change tags</button>
-                <button id="addToFavoritesButton" onclick="addToFavorites()">add to favorites</button>
-
-                <!-- dummy btn - supposed to be remove. should be there for each of the 10 tags? -->
-                <!-- <button id="removeTagButton">Remove Tag (dummy)</button> -->
+                  <!-- dummy btn - supposed to be remove. should be there for each of the 10 tags? -->
+                  <!-- <button id="removeTagButton">Remove Tag (dummy)</button> -->
+                </div>
               </div>
             </div>
 
             <div class="tagImage" id="tagImage0">
               <!-- there shouldbe 0-10 tags -->
               <!-- 0 tags when 1st  uploading the pic-->
-              <p id="testTag1">tag 1</p>
+              <div class="tagIDs">
+                <div class="testTag">smile</div>
+                <div class="testTag">coffee</div>
+                <div class="testTag">friends</div>
+                <div class="testTag">summer</div>
+                <div class="testTag">city</div>
+              </div>
 
               <div class="tagInputBoxDiv" id="tagInputBoxDiv0">
                 <input type="text" class='tagInputBox' id='tagInputBox0'>
               </div>
-            </div> 
+            </div>
 
             <!-- this btn sld display when click change tag-->
             <button class="droppedButton" id="addTagButton" onclick="addTag()">Add to list</button>
@@ -65,7 +70,7 @@
             <div id="uploadDropdown" class="dropdown-content">
               <input type="file" class="droppedButton" id="fileSelector" style="display: none;" onchange="readFile()"/>
               <input type="button" class="droppedButton" id="chooseFileButton" value="choose file..." onclick="document.getElementById('fileSelector').click();" />
-              <p id="fileName">no file chosen</p>
+              <p id="fileName">no file chosen</p> <!-- fix this; dynamic -->
               <button class="droppedButton" id="uploadButton" onclick="uploadFile()">upload</button>
             </div>
           </div>

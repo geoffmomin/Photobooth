@@ -1,7 +1,7 @@
 /* This server, unlike our previous ones, uses the express framework */
 var express = require('express');
 var formidable = require('formidable');  // we upload images in forms
-// this is good for parsing forms and reading in the images
+// this is good for parsing forms a nd reading in the images
 
 var sqlite3 = require("sqlite3").verbose();  // use sqlite
 var dbFile = "photos.db";

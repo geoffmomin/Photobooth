@@ -50,8 +50,20 @@ main{
   flex-direction: column;
 }
 
+#top {
+  padding: 20px;
+  padding-left: 70px;
+  padding-bottom: 10px;
+}
+
+#top img {
+  width: 300px;
+}
+
 #contents{
-  border: 1px solid #885541;
+  border-top: 2px solid #885541;
+  margin-left: 30px;
+  margin-right: 30px;
   display: flex;
   flex-direction: row;
   justify-content: stretch;
@@ -68,7 +80,6 @@ main{
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: flex-start;
-  border: 1px solid #885541;
   flex: 7;
   margin: 5px;
   background-color: white;
@@ -76,31 +87,33 @@ main{
 }
 
 .pictureContainer {
-  border: 3px solid orange;
   display: flex;
   flex-direction: column;
   margin-left: 20px;
   margin-top: 20px;
   margin-bottom: 20px;
   width: 30%;
-
   position: relative;
-  /*test to see if we can inlay the menu icon*/
 }
 
 .imgHolder {
+  position: relative;
   display: flex;
   flex-direction: row;
   justify-content: center;
-  border: 1px solid black;
 }
 
 .loadingImage {
-  border: 1px solid black;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  width: 350px;
+  height: 400px;
 }
 
 #picMenu {
   background-color: #885541;
+  border: none;
+  padding: 0;
 }
 
 .inlay{
@@ -156,6 +169,36 @@ main{
   padding-top: 20%;
 }
 
+/* TAGS */
+
+.tagIDs {
+  display: flex;
+  flex-wrap: wrap;
+  border: 1px solid #885541;
+  padding: 10px;
+}
+
+.tagInputBox {
+  width: 98%; /* not 100% for some reason */
+  height: 25px;
+}
+
+.testTag {
+  display: flex;
+  justify-content: space-around;
+  font-size:25px;
+  font-weight: 600;
+  border: 1px solid black;
+  width: 30%;
+  margin: 3px;
+}
+
+#addTagButton {
+  margin-top: 10px;
+  margin-right: 250px;
+  margin-left: 0px;
+}
+/* End of TAGS */
 
 /*css dropdown menu start*/
 .dropbtn {
@@ -174,10 +217,10 @@ main{
 }
 
 .dropdown {
-    position: relative;
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-end;
+    position: absolute;
+    top: calc(100% - 63px);
+    left: calc(100% - 50px);
+    margin: auto;
     background-color: #885541;
 }
 
@@ -186,7 +229,7 @@ main{
     display: none;
     width: 246px; /*sidebar - 2*sidebar border*/
     position: absolute;
-    padding: 20px 10px;
+    padding: 20px 2px;
     background-color: #CFBBB2;
     overflow: hidden;
     z-index: 1;
@@ -202,7 +245,6 @@ main{
 .dropdown a:hover {background-color: #f1f1f1}
 
 #triangle {
-  border: 1px solid black;
   width: 50px;
   height: 50px;
 }
