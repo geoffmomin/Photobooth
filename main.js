@@ -183,7 +183,6 @@ function readFile() {
 
   var selectedFile = document.getElementById('fileSelector').files[0];
   var image = document.getElementById('loadingImage0');
-
   var fr = new FileReader();
   // anonymous callback uses file as image source
   fr.onload = function () {
@@ -192,6 +191,8 @@ function readFile() {
   fr.readAsDataURL(selectedFile);    // begin reading
   // make the picture unclear when displaying before upload
   image.style.opacity = 0.5;
+  // dynamic file name
+  document.getElementById("fileName").innerHTML = selectedFile.name;
 } //readFile()
 
 
