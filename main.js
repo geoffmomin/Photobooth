@@ -47,10 +47,13 @@ window.onload=function(){
       var emptyCount = 10 - dbTags.length;
       var offset = 10 - emptyCount;
 
+      //update html 0-nth tag and make it visible
       for (j = 0; j < dbTags.length; j++){
         tagArray[j].innerHTML = dbTags[j];
+        tagArray[j].style.visibility = "visible";
       }
 
+      //make the rest invisible
       for (j = offset; j < 10; j++){
         tagArray[j].style.visibility = "hidden";
       }
@@ -229,12 +232,6 @@ function uploadFile(){
 } //uploadfile()
 
 
-function togglePicMenu(){
-  console.log("togglePicMenu func");
-
-  document.getElementById("picMenuDropDown").classList.toggle("show");
-}
-
 // Close the togglePicMenu() if the user clicks outside of it
 window.onclick = function(event) {
   if (!event.target.matches('.dropbtn')) {
@@ -286,9 +283,11 @@ function addTag(){
     var dbData = JSON.parse(this.response);
     var prevLabels = dbData.labels;
 
-    //SAVE
-    //CHECK IF THERE IS 10 TAGS ALREADY?????
-
+    //check if there's 10 tags already
+    if (prevLabels.split(",").length >= 10){
+      console.log("you can't add more than 10 tags. returning tagTransferCallback");
+      return;
+    }
 
     //append the tag
     var finalLabels = "";
@@ -306,18 +305,29 @@ function addTag(){
     var emptyCount = 10 - finalTagsArray.length;
     var offset = 10 - emptyCount;
 
-    //update 0-last available tag
+    //update 0-last available tag and make it visible
     for (i = 0; i < finalTagsArray.length; i++){
       htmlTags[i].innerText = finalTagsArray[i];
       htmlTags[i].style.visibility = "visible";
     }
 
+    //make the rest hidden
     for (i = offset; i < 10; i++){
       htmlTags[i].style.visibility = "hidden";
     }
 
     //update the db that we added a tag
+    function updateTagsCallback(){
+      console.log("callback for updateTags");
+    }
+    //callback()
 
+    var url2 = mainUrl + "/query?op=updateTags&fileName=" + picName + "&newTags=" + finalLabels;
+    var oReqq = new XMLHttpRequest();
+    oReqq.addEventListener("load", updateTagsCallback);
+    oReqq.open("GET", url2);
+    oReqq.send();
+    console.log("sent GET to server [for update tags] of - " + picName);
   } //callback()
 
   //make new url with query to get tags for the image name
@@ -326,7 +336,7 @@ function addTag(){
   oReq.addEventListener("load", tagTransferCallback);
   oReq.open("GET", url);
   oReq.send();
-  console.log("sent GET to server [for tags of 1 pic]")
-  //on callback, addend the tag into prev tags and insert to db
+  console.log("sent GET to server [for getTags] of - " + picName);
+  //on callback, addend the tag into prev tags and insert to db??
 
 } //addTag()

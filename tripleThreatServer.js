@@ -154,7 +154,6 @@ function answer(query, response) {
   } //else if op == getTags
 
   else if (queryObj.op == "addTag"){
-    console.log(queryObj);
     var newTags = queryObj.newTags;
     console.log("query is addTag - newTags are " + newTags);
     console.log("fileName is - " + queryObj.fileName);
@@ -174,5 +173,14 @@ function answer(query, response) {
 
     db.get('UPDATE photoLabels SET labels = ?', [newTags], dbAddTagRet);
   } //else if op == addTag
+
+  else if (queryObj.op == "updateTags"){
+    console.log("query is updateTags and filename is - " + queryObj.fileName);
+    var filename = queryObj.fileName;
+    var newTags = queryObj.newTags;
+
+    db.run('UPDATE photoLabels SET labels = ? WHERE fileName = ?', [newTags, filename], errorCallback);
+
+  } //else if op == updateTags
 
 } //answer()
