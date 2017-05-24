@@ -167,10 +167,6 @@ window.onclick = function(event) {
   }
 } //window.onclick
 
-function myFunction() {
-    document.getElementById("picMenuDropDown").classList.toggle("show");
-}
-
 
 function readFile() {
   document.getElementById("pictureContainer0").style.display = "block";
@@ -228,8 +224,23 @@ function uploadFile(){
 
 function togglePicMenu(){
   console.log("togglePicMenu func");
-  //get the dropdown in the parent of this button?
+
   document.getElementById("picMenuDropDown").classList.toggle("show");
+}
+
+// Close the togglePicMenu() if the user clicks outside of it
+window.onclick = function(event) {
+  if (!event.target.matches('.dropbtn')) {
+
+    var dropdowns = document.getElementsByClassName("picDropdown-content");
+    var i;
+    for (i = 0; i < dropdowns.length; i++) {
+      var openDropdown = dropdowns[i];
+      if (openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
+      }
+    }
+  }
 }
 
 function changeTag(){
