@@ -137,7 +137,6 @@ function answer(query, response) {
     var fileName = queryObj.fileName;
     console.log("query is getTags - file is " + fileName);
 
-
     function dbTagsRet(err, tableData){
       if (err) {
         console.log("error: ", err, "\n");
@@ -152,6 +151,27 @@ function answer(query, response) {
     } //dbTagsRet()
     db.get('SELECT labels FROM photoLabels WHERE fileName = ?', [fileName], dbTagsRet);
     //callback will return the json string
+  } //else if op == getTags
 
-  } //else if op ==
+  else if (queryObj.op == "addTag"){
+    console.log(queryObj);
+    var newTags = queryObj.newTags;
+    console.log("query is addTag - newTags are " + newTags);
+    console.log("fileName is - " + queryObj.fileName);
+
+    function dbAddTagRet(err, tableData){
+      if (err){
+        console.log("error: ", err, "\n");
+      }
+      else{
+        sendCode(400,response,'dbAddTagRet done');
+        console.log('dbaddTagRet done');
+      }
+    }
+    // db.run('UPDATE photoLabels SET labels = "Dance, Performing Arts, Sports, Entertainment, Quinceañera, Event, Hula, Folk Dance" WHERE fileName = "hula.jpg" ',
+    // errorCallback);
+
+    db.get('UPDATE photoLabels SET labels = ?', [newTags], dbAddTagRet);
+  } //else if op == addTag
+
 } //answer()

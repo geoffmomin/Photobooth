@@ -94,98 +94,40 @@ window.onload=function(){
     //this.response contains json/ARRAY?? of all files in db
     console.log("dbAll received");
     console.log(this.response);
-    var dbData = JSON.parse(this.response);
+    var dbData = JSON.parse(this.response)
 
     //should display these items.
-      //TESTTTT START
-
-      //fun for each item in db
-    for (i = 0; i < dbData.length; i++){
-      var template = document.getElementById('pictureContainer0');
-      clone = template.cloneNode(true); // true means clone all childNodes and all event handlers
-      //clone's id will be picContainer + 1...n
-      clone.id = "pictureContainer" + i + 1;
-
-      // http://138.68.25.50:8650/cat.jpg
-      clone.getElementsByTagName('img')[0].src = mainUrl + "/" + dbData[i].fileName;
-
-
-      var tagArray = clone.getElementsByClassName("testTag");
-      //10 tags in html
-
-      var dbTags = dbData[i].labels.split(",")
-      //tags from db
-
-      for (j = 0; j < dbTags.length; j++){
-        tagArray[j].innerText = dbTags[j];
-      }
-
-      //add the container into pictures container
-      document.getElementById("pictures").appendChild(clone);
+    //if there is nothing in db, display nothing
+    if (dbData.length == 0){
+      document.getElementById("pictureContainer0").style.visibiliety = "hidden";
     }
 
-    //remove the template
-    document.getElementById('pictureContainer0').style.visibility = "hidden";
+    //there is 1 or more stuff in db.
+    else{
+      document.getElementById("pictureContainer0").style.visibiliety = "visible";
 
-      //TESTTTT END
+      for (i = 0; i < dbData.length; i++){
+        //if it's the first div
+        if (i == 0){
+          var target = document.getElementById('pictureContainer0');
+          target.getElementsByTagName('img')[0].src = mainUrl + "/" + dbData[i].fileName;
+        } //if
 
+        //else not 1st div
+        else{
+          var target = document.getElementById('pictureContainer0');
+          clone = target.cloneNode(true); // true means clone all childNodes and all event handlers
+          //clone's id will be picContainer + 1...n
+          clone.id = "pictureContainer" + i;
 
+          // http://138.68.25.50:8650/cat.jpg
+          clone.getElementsByTagName('img')[0].src = mainUrl + "/" + dbData[i].fileName;
 
-
-      //TEST COMMENT START
-    // //if there is nothing in db, display nothing
-    // if (dbData.length == 0){
-    //   document.getElementById("pictureContainer0").style.visibiliety = "hidden";
-    // }
-    //
-    // //there is 1 or more stuff in db.
-    // else{
-    //   document.getElementById("pictureContainer0").style.visibiliety = "visible";
-    //
-    //   for (i = 0; i < dbData.length; i++){
-    //     //if it's the first div
-    //     if (i == 0){
-    //       var target = document.getElementById('pictureContainer0');
-    //       target.getElementsByTagName('img')[0].src = mainUrl + "/" + dbData[i].fileName;
-    //
-    //       var tagArray = target.getElementsByClassName("testTag");
-    //       //10 tags in html
-    //
-    //       var dbTags = dbData[i].labels.split(",")
-    //       //tags from db
-    //
-    //       for (j = 0; j < dbTags.length; j++){
-    //         tagArray[j].innerText = dbTags[j];
-    //       }
-    //     } //if
-    //
-    //     //else not 1st div
-    //     else{
-    //       var target = document.getElementById('pictureContainer0');
-    //       clone = target.cloneNode(true); // true means clone all childNodes and all event handlers
-    //       //clone's id will be picContainer + 1...n
-    //       clone.id = "pictureContainer" + i;
-    //
-    //       // http://138.68.25.50:8650/cat.jpg
-    //       clone.getElementsByTagName('img')[0].src = mainUrl + "/" + dbData[i].fileName;
-    //
-    //       var tagArray = target.getElementsByClassName("testTag");
-    //       //10 tags in html
-    //
-    //       var dbTags = dbData[i].labels.split(",")
-    //       //tags from db
-    //
-    //       for (j = 0; j < dbTags.length; j++){
-    //         tagArray[j].innerText = dbTags[j];
-    //       }
-    //
-    //       //add the container into pictures container
-    //       document.getElementById("pictures").appendChild(clone);
-    //     } //else not 1st div
-    //   } //for db.length
-    // } //else there is 1 or more stuff in db
-
-      //TEST COMMENT END
+          //add the container into pictures container
+          document.getElementById("pictures").appendChild(clone);
+        } //else not 1st div
+      } //for db.length
+    } //else there is 1 or more stuff in db
 
   } //reqListener()
 
@@ -219,6 +161,7 @@ window.onclick = function(event) {
       filterHolder.top = "0px";
   }
 } //window.onclick
+
 
 function readFile() {
   var selectedFile = document.getElementById('fileSelector').files[0];
@@ -271,22 +214,8 @@ function uploadFile(){
 
 function togglePicMenu(){
   console.log("togglePicMenu func");
-  document.getElementById("picMenuDropDown").classList.toggle("show");
-}
-
-// Close the togglePicMenu() if the user clicks outside of it
-window.onclick = function(event) {
-  if (!event.target.matches('.dropbtn')) {
-
-    var dropdowns = document.getElementsByClassName("picDropdown-content");
-    var i;
-    for (i = 0; i < dropdowns.length; i++) {
-      var openDropdown = dropdowns[i];
-      if (openDropdown.classList.contains('show')) {
-        openDropdown.classList.remove('show');
-      }
-    }
-  }
+  //get the dropdown in the parent of this button?
+  document.getElementById("picMenuDropDown0").classList.toggle("show");
 }
 
 function changeTag(){
@@ -299,10 +228,7 @@ function addToFavorites(){
 
 function addTag(){
   console.log("addTag function");
-  var picCont = addTag.caller.arguments[0].target.parentElement
-
-  //SAVE
-
+  var picCont = addTag.caller.arguments[0].target.parentElement.parentElement.parentElement;
   var picImgTag = picCont.getElementsByTagName("img")[0].src;
   //--"http://138.68.25.50:8650/dynn1.PNG"
   var picImgTagArray = picImgTag.split('/');
