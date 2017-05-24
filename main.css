@@ -126,6 +126,7 @@ main{
 /*test to see if we can inlay the menu icon*/
 
 .tagImage {
+  margin-top: 10px;
   border: 1px solid #885541;
 }
 
@@ -207,15 +208,30 @@ main{
   margin-top: 10px;
   margin-right: 250px;
   margin-left: 0px;
+  cursor: pointer;
 }
 
 #picMenuDropDown {
   border: 1px solid black;
 }
 
-.dropdown-picMenu {
-  background-color: red;
+.picDropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  overflow: auto;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
 }
+
+.picDropdown-content button {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
 /* End of TAGS */
 
 /*css dropdown menu start*/
@@ -231,15 +247,13 @@ main{
   margin-top: 10px;
 }
 
-.dropbtn:hover, .dropbtn:focus {
-    background-color: #885541;
-}
-
 .dropdown {
     position: absolute;
+    display: inline-block;
     top: calc(100% - 63px);
     left: calc(100% - 50px);
     margin: auto;
+    cursor: pointer;
 }
 
 /*CONTENTS OF DROP DOWNS*/
@@ -265,7 +279,6 @@ main{
 #triangle {
   width: 50px;
   height: 50px;
-  border: 1px solid black;
 }
 
 /*TOGGLE*/

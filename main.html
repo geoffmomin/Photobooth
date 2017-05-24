@@ -24,13 +24,10 @@
               <img class="loadingImage" id="loadingImage0" src="/Users/richard/Desktop/ghost.png"/>
 
               <div class="dropdown">
-                <button onclick="togglePicMenu()" id="picMenu"><img class="dropbtn" id="triangle" src="photobooth/optionsTriangle.png" /></button>
-
-                <div id="picMenuDropDown" >
-                  <div class="dropdown-picMenu">
+                <button onclick="togglePicMenu()" id="picMenu" class="picdropbtn"><img class="dropbtn" id="triangle" src="photobooth/optionsTriangle.png" /></button>
+                <div class="picDropdown-content" id="picMenuDropDown">
                     <button id="changeTagButton" onclick="changeTag()">change tags</button>
                     <button id="addToFavoritesButton" onclick="addToFavorites()">add to favorites</button>
-                  </div>
                 </div>
               </div>
             </div>
@@ -58,6 +55,7 @@
 
         </div>
 
+        <!-- Side Bar Stuff -->
         <div id="sidebar">
           <div class="UFF">
             <section class="holder" id="uploadHolder">
@@ -71,7 +69,7 @@
             <div id="uploadDropdown" class="dropdown-content">
               <input type="file" class="droppedButton" id="fileSelector" style="display: none;" onchange="readFile()"/>
               <input type="button" class="droppedButton" id="chooseFileButton" value="choose file..." onclick="document.getElementById('fileSelector').click();" />
-              <p id="fileName">no file chosen</p> <!-- fix this; dynamic -->
+              <p id="fileName">no file chosen</p> <!-- fix this; make it dynamic -->
               <button class="droppedButton" id="uploadButton" onclick="uploadFile()">upload</button>
             </div>
           </div>
