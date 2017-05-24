@@ -112,26 +112,24 @@ window.onload=function(){
       // http://138.68.25.50:8650/cat.jpg
       clone.getElementsByTagName('img')[0].src = mainUrl + "/" + dbData[i].fileName;
 
-      // var tagArray = clone.getElementsByClassName("testTag");
-      // //10 tags in html
-      //
-      // var dbTags = dbData[i].labels.split(",");
-      // //tags from db
-      //
-      // // //if there is some tags returned from db
-      // if (dbTags.length > 0){
-      //   var emptyCount = 10 - dbTags.length;
-      //   var offset = 10 - emptyCount;
-      // }
-      //
-      // //update 0-last available tag
-      // for (j = 0; j < dbTags.length; j++){
-      //   tagArray[j].innerText = dbTags[j];
-      // }
-      //
-      // for (i = offset; i < 10; i++){
-      //   tagArray[i].style.visibility = "hidden";
-      // }
+      var tagArray = clone.getElementsByClassName("testTag");
+      //10 tags in html
+
+      var dbTags = dbData[i].labels.split(",");
+      //tags from db
+
+      //SAVE
+
+      var emptyCount = 10 - dbTags.length;
+      var offset = 10 - emptyCount;
+
+      for (j = 0; j < dbTags.length; j++){
+        tagArray[j].innerHTML = dbTags[j];
+      }
+
+      for (j = offset; j < 10; j++){
+        tagArray[j].style.visibility = "hidden";
+      }
 
     } //for
 
