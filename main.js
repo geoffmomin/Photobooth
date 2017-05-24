@@ -41,6 +41,12 @@ window.onload=function(){
       var tagArray = clone.getElementsByClassName("testTag");
       //10 tags in html
 
+      //TEST
+      // tagArray[0].getElementsByTagName("div")
+      // tagArray[0].getElementsByTagName("div")[0] is removeIcon
+      // tagArray[0].getElementsByTagName("div")[1] is the tagValue
+      //TEST
+
       var dbTags = dbData[i].labels.split(",");
       //tags from db
 
@@ -59,7 +65,7 @@ window.onload=function(){
 
         //update html 0-nth tag and make it visible
         for (j = 0; j < dbTags.length; j++){
-          tagArray[j].innerHTML = dbTags[j];
+          tagArray[j].getElementsByTagName("div")[1].innerHTML = dbTags[j];
           tagArray[j].style.visibility = "visible";
         }
 
@@ -257,6 +263,9 @@ window.onclick = function(event) {
 
 function removeTag(){
   console.log("removeTag function");
+  //SAVE
+  var picCont = removeTag.caller.arguments[0].target.parentElement;
+
 }
 
 function addToFavorites(){
@@ -315,7 +324,7 @@ function addTag(){
 
     //update 0-last available tag and make it visible
     for (i = 0; i < finalTagsArray.length; i++){
-      htmlTags[i].innerText = finalTagsArray[i];
+      htmlTags[i].getElementsByTagName("div")[1].innerText = finalTagsArray[i];
       htmlTags[i].style.visibility = "visible";
     }
 
