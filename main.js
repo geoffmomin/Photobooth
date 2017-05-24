@@ -95,97 +95,45 @@ window.onload=function(){
     console.log("dbAll received");
     console.log(this.response);
     var dbData = JSON.parse(this.response);
-
     //should display these items.
-      //TESTTTT START
 
-      //fun for each item in db
+    var template = document.getElementById('pictureContainer0');
     for (i = 0; i < dbData.length; i++){
-      var template = document.getElementById('pictureContainer0');
-      clone = template.cloneNode(true); // true means clone all childNodes and all event handlers
+      //clone the template. true means all child and eventhandlers
+      clone = template.cloneNode(true);
+
+      //append early for debug
+      document.getElementById("pictures").appendChild(clone);
+
+
       //clone's id will be picContainer + 1...n
-      clone.id = "pictureContainer" + i + 1;
+      clone.id = "pictureContainer" + (i + 1);
 
       // http://138.68.25.50:8650/cat.jpg
       clone.getElementsByTagName('img')[0].src = mainUrl + "/" + dbData[i].fileName;
 
+      // var tagArray = clone.getElementsByClassName("testTag");
+      // //10 tags in html
+      //
+      // var dbTags = dbData[i].labels.split(",");
+      // //tags from db
+      //
+      // // //if there is some tags returned from db
+      // if (dbTags.length > 0){
+      //   var emptyCount = 10 - dbTags.length;
+      //   var offset = 10 - emptyCount;
+      // }
+      //
+      // //update 0-last available tag
+      // for (j = 0; j < dbTags.length; j++){
+      //   tagArray[j].innerText = dbTags[j];
+      // }
+      //
+      // for (i = offset; i < 10; i++){
+      //   tagArray[i].style.visibility = "hidden";
+      // }
 
-      var tagArray = clone.getElementsByClassName("testTag");
-      //10 tags in html
-
-      var dbTags = dbData[i].labels.split(",")
-      //tags from db
-
-      for (j = 0; j < dbTags.length; j++){
-        tagArray[j].innerText = dbTags[j];
-      }
-
-      //add the container into pictures container
-      document.getElementById("pictures").appendChild(clone);
-    }
-
-    //remove the template
-    document.getElementById('pictureContainer0').style.visibility = "hidden";
-
-      //TESTTTT END
-
-
-
-
-      //TEST COMMENT START
-    // //if there is nothing in db, display nothing
-    // if (dbData.length == 0){
-    //   document.getElementById("pictureContainer0").style.visibiliety = "hidden";
-    // }
-    //
-    // //there is 1 or more stuff in db.
-    // else{
-    //   document.getElementById("pictureContainer0").style.visibiliety = "visible";
-    //
-    //   for (i = 0; i < dbData.length; i++){
-    //     //if it's the first div
-    //     if (i == 0){
-    //       var target = document.getElementById('pictureContainer0');
-    //       target.getElementsByTagName('img')[0].src = mainUrl + "/" + dbData[i].fileName;
-    //
-    //       var tagArray = target.getElementsByClassName("testTag");
-    //       //10 tags in html
-    //
-    //       var dbTags = dbData[i].labels.split(",")
-    //       //tags from db
-    //
-    //       for (j = 0; j < dbTags.length; j++){
-    //         tagArray[j].innerText = dbTags[j];
-    //       }
-    //     } //if
-    //
-    //     //else not 1st div
-    //     else{
-    //       var target = document.getElementById('pictureContainer0');
-    //       clone = target.cloneNode(true); // true means clone all childNodes and all event handlers
-    //       //clone's id will be picContainer + 1...n
-    //       clone.id = "pictureContainer" + i;
-    //
-    //       // http://138.68.25.50:8650/cat.jpg
-    //       clone.getElementsByTagName('img')[0].src = mainUrl + "/" + dbData[i].fileName;
-    //
-    //       var tagArray = target.getElementsByClassName("testTag");
-    //       //10 tags in html
-    //
-    //       var dbTags = dbData[i].labels.split(",")
-    //       //tags from db
-    //
-    //       for (j = 0; j < dbTags.length; j++){
-    //         tagArray[j].innerText = dbTags[j];
-    //       }
-    //
-    //       //add the container into pictures container
-    //       document.getElementById("pictures").appendChild(clone);
-    //     } //else not 1st div
-    //   } //for db.length
-    // } //else there is 1 or more stuff in db
-
-      //TEST COMMENT END
+    } //for
 
   } //reqListener()
 
@@ -326,8 +274,6 @@ function addTag(){
     else{
       finalLabels = prevLabels + "," + newTag;
     }
-
-    //SAVE
 
     //update the html
     finalTagsArray = finalLabels.split(",");
