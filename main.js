@@ -10,6 +10,7 @@ var favoritesClass = document.getElementById("favoritesDropdown").classList;
 var filterClass = document.getElementById("filterDropdown").classList;
 var uploadClass = document.getElementById("uploadDropdown").classList;
 
+var template = document.getElementById('pictureContainer0');
 
 window.onload=function(){
   console.log('onLoad function');
@@ -24,10 +25,9 @@ window.onload=function(){
     var dbData = JSON.parse(this.response);
     //should display these items.
 
-    var template = document.getElementById('pictureContainer0');
     for (i = 0; i < dbData.length; i++){
       //clone the template. true means all child and eventhandlers
-      clone = template.cloneNode(true);
+      var clone = template.cloneNode(true);
 
       //append early for debug
       document.getElementById("pictures").appendChild(clone);
@@ -292,7 +292,7 @@ function addTag(){
 
     //check if there's 10 tags already
     if (prevLabels.split(",").length >= 10){
-      console.log("you can't add more than 10 tags. returning tagTransferCallback");
+      console.log("there's 10 tags already in db. returning tagTransferCallback");
       return;
     }
 
@@ -356,9 +356,35 @@ function addToFavorites(){
 
 function removeTag(){
   console.log("removeTag function");
-  //SAVE
+
+  //get the container that has icon+tag
   var tagCont = removeTag.caller.arguments[0].target.parentElement.parentElement;
-  // tagCont.children[0] is removeIcon
-  // tagCont.children[1] is the tag
-  tagCont.style.visibility = "hidden";
-}
+
+  var allTagsCont = tagCont.parentElement;
+  var tagToRemove = tagCont.children[1];
+  var picName = tagCont.parentElement.parentElement.parentElement.children[0].children[0].src.split("/")[3];
+  //remove from DOM
+  tagCont.parentNode.removeChild(tagCont);
+
+  var finalLabels = '';
+  for (i = 0; i < allTagsCont.childElementCount; i++){
+    var curTag = allTagsCont.children[i].children[1].innerText;
+    curTag = "," + curTag;
+    finalLabels += curTag;
+  }
+  finalLabels = finalLabels.substring(1);
+
+  //update the new tags to db
+  var url = mainUrl + "/query?op=updateTags&fileName=" + picName + "&newTags=" + finalLabels;
+
+  //update the db that we added a tag
+  function updateTagsCallback(){
+    console.log("callback for updateTags");
+  }
+  //callback()
+  // var oReq = new XMLHttpRequest();
+  // oReq.addEventListener("load", updateTagsCallback);
+  // oReq.open("GET", url);
+  // oReq.send();
+  // console.log("sent GET to server [for update tags] of - " + picName);
+} //removeTag()
