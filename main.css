@@ -177,6 +177,8 @@ main{
 }
 
 .tagInputBox {
+  font-size: 20px;
+  font-weight: 600;
   width: 99%;
   height: 25px;
   border: 1px solid black;
@@ -184,12 +186,26 @@ main{
 
 .testTag {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   font-size:25px;
   font-weight: 600;
-  border: 1px solid black;
-  width: 30%;
   margin: 3px;
+}
+
+.removeButton {
+  display: flex;
+  align-self: center;
+}
+
+.tagName {
+  display: flex;
+  flex: 1;
+  align-self: center;
+}
+
+.removeButton img {
+  width: 16px;
+  height: 16px;
 }
 
 #picMenu .dropbtn {
