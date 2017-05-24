@@ -290,27 +290,29 @@ function addToFavorites(){
 
 function addTag(){
   console.log("addTag function");
-  var picCont = addTag.caller.arguments[0].target.parentElement
+  var picCont = addTag.caller.arguments[0].target.parentElement;
+  //got the picContainer
 
-  //SAVE
+  //get the image name
+  var picName = picCont.getElementsByTagName("img")[0].src.split('/')[3];
 
-  var picImgTag = picCont.getElementsByTagName("img")[0].src;
-  //--"http://138.68.25.50:8650/dynn1.PNG"
-  var picImgTagArray = picImgTag.split('/');
-  var picName = picImgTagArray[3];
-  //got the picName of the container we clicked
+  //get the new Tag
   var newTag = picCont.getElementsByTagName("input")[0].value;
-  //got the new tag to add
-  //assuming the new tag is in the input box when user clicks ADD button
-  var tagParagraph = picCont.getElementsByClassName("tagImage")[0].getElementsByTagName("p")[0];
-  //gets the 1st paragraph element in the div class tagImage
 
+  var htmlTags = picCont.getElementsByClassName("testTag");
+  //array of 10 tags in html
 
-  //get existing tag for this picture from db
-    //callback
+  //check if empty tag. return if tag is empty.
+  if (!newTag){
+    console.log("nice try tryign to put in an empty tag");
+    return;
+  }
+
+  //callback
+
   function tagTransferCallback(){
-    //got stuff back
-    console.log("db tags received");
+      //got stuff back
+    console.log("db tags received for -" + picName);
     console.log(this.response);
     var dbData = JSON.parse(this.response);
     var prevLabels = dbData.labels;
@@ -325,10 +327,22 @@ function addTag(){
     else{
       finalLabels = prevLabels + "," + newTag;
     }
-    tagParagraph.innerHTML = finalLabels;
-    //insert the tag
+
+    //update the html
+    finalTagsArray = finalLabels.split(",");
+    for (i = 0; i < finalTagsArray.length; i++){
+      htmlTags[i].innerText = finalTagsArray[i];
+    }
+
+
+
 
   } //callback()
+
+    //use the db label to append
+    //update the html
+
+  //make new url with query to get tags for the image name
   var url = mainUrl + "/query?op=getTags&fileName=" + picName;
   var oReq = new XMLHttpRequest();
   oReq.addEventListener("load", tagTransferCallback);
@@ -336,4 +350,5 @@ function addTag(){
   oReq.send();
   console.log("sent GET to server [for tags of 1 pic]")
   //on callback, addend the tag into prev tags and insert to db
+
 } //addTag()

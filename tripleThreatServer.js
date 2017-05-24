@@ -170,6 +170,7 @@ function answer(query, response) {
     }
     // db.run('UPDATE photoLabels SET labels = "Dance, Performing Arts, Sports, Entertainment, Quinceañera, Event, Hula, Folk Dance" WHERE fileName = "hula.jpg" ',
     // errorCallback);
+    //UPDATE photoLabels SET labels = "";
 
     db.get('UPDATE photoLabels SET labels = ?', [newTags], dbAddTagRet);
   } //else if op == addTag
