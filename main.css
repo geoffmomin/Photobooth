@@ -213,6 +213,7 @@ main{
 
 #picMenuDropDown {
   border: 1px solid black;
+
   bottom: 88%;
   left: -220%;
 }
@@ -286,6 +287,7 @@ main{
 #triangle {
   width: 50px;
   height: 50px;
+  border: 1px solid black;
 }
 
 /*TOGGLE*/

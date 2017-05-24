@@ -95,98 +95,45 @@ window.onload=function(){
     console.log("dbAll received");
     console.log(this.response);
     var dbData = JSON.parse(this.response);
-
     //should display these items.
-      //TESTTTT START
 
-      //fun for each item in db
+    var template = document.getElementById('pictureContainer0');
     for (i = 0; i < dbData.length; i++){
-      var template = document.getElementById('pictureContainer0');
-      clone = template.cloneNode(true); // true means clone all childNodes and all event handlers
+      //clone the template. true means all child and eventhandlers
+      clone = template.cloneNode(true);
+
+      //append early for debug
+      document.getElementById("pictures").appendChild(clone);
+
       //clone's id will be picContainer + 1...n
-      clone.id = "pictureContainer" + i + 1;
+      clone.id = "pictureContainer" + (i + 1);
 
       // http://138.68.25.50:8650/cat.jpg
       clone.getElementsByTagName('img')[0].src = mainUrl + "/" + dbData[i].fileName;
 
-
       var tagArray = clone.getElementsByClassName("testTag");
       //10 tags in html
 
-      var dbTags = dbData[i].labels.split(",")
+      var dbTags = dbData[i].labels.split(",");
       //tags from db
 
+      var emptyCount = 10 - dbTags.length;
+      var offset = 10 - emptyCount;
+
       for (j = 0; j < dbTags.length; j++){
-        tagArray[j].innerText = dbTags[j];
+        tagArray[j].innerHTML = dbTags[j];
       }
 
-      //add the container into pictures container
-      document.getElementById("pictures").appendChild(clone);
-    }
+      for (j = offset; j < 10; j++){
+        tagArray[j].style.visibility = "hidden";
+      }
 
-    //remove the template
-    document.getElementById('pictureContainer0').style.visibility = "hidden";
+    } //for
 
-      //TESTTTT END
-
-
-
-
-      //TEST COMMENT START
-    // //if there is nothing in db, display nothing
-    // if (dbData.length == 0){
-    //   document.getElementById("pictureContainer0").style.visibiliety = "hidden";
-    // }
-    //
-    // //there is 1 or more stuff in db.
-    // else{
-    //   document.getElementById("pictureContainer0").style.visibiliety = "visible";
-    //
-    //   for (i = 0; i < dbData.length; i++){
-    //     //if it's the first div
-    //     if (i == 0){
-    //       var target = document.getElementById('pictureContainer0');
-    //       target.getElementsByTagName('img')[0].src = mainUrl + "/" + dbData[i].fileName;
-    //
-    //       var tagArray = target.getElementsByClassName("testTag");
-    //       //10 tags in html
-    //
-    //       var dbTags = dbData[i].labels.split(",")
-    //       //tags from db
-    //
-    //       for (j = 0; j < dbTags.length; j++){
-    //         tagArray[j].innerText = dbTags[j];
-    //       }
-    //     } //if
-    //
-    //     //else not 1st div
-    //     else{
-    //       var target = document.getElementById('pictureContainer0');
-    //       clone = target.cloneNode(true); // true means clone all childNodes and all event handlers
-    //       //clone's id will be picContainer + 1...n
-    //       clone.id = "pictureContainer" + i;
-    //
-    //       // http://138.68.25.50:8650/cat.jpg
-    //       clone.getElementsByTagName('img')[0].src = mainUrl + "/" + dbData[i].fileName;
-    //
-    //       var tagArray = target.getElementsByClassName("testTag");
-    //       //10 tags in html
-    //
-    //       var dbTags = dbData[i].labels.split(",")
-    //       //tags from db
-    //
-    //       for (j = 0; j < dbTags.length; j++){
-    //         tagArray[j].innerText = dbTags[j];
-    //       }
-    //
-    //       //add the container into pictures container
-    //       document.getElementById("pictures").appendChild(clone);
-    //     } //else not 1st div
-    //   } //for db.length
-    // } //else there is 1 or more stuff in db
-
-      //TEST COMMENT END
-
+    //hide the template
+  // document.getElementById("pictureContainer0").style.visibility = "hidden";
+    document.getElementById("pictureContainer0").style.display = "none";
+    // document.getElementById("pictureContainer0").style.display = "block";
   } //reqListener()
 
   var oReq = new XMLHttpRequest();
@@ -220,7 +167,10 @@ window.onclick = function(event) {
   }
 } //window.onclick
 
+
 function readFile() {
+  document.getElementById("pictureContainer0").style.display = "block";
+
   var selectedFile = document.getElementById('fileSelector').files[0];
   var image = document.getElementById('loadingImage0');
 
@@ -266,11 +216,15 @@ function uploadFile(){
 
   //make the picture clear after uploading
   document.getElementById('loadingImage0').style.opacity = 1.0;
+
+  document.getElementById("pictureContainer0").style.display = "none";
+  location.reload();
 } //uploadfile()
 
 
 function togglePicMenu(){
   console.log("togglePicMenu func");
+
   document.getElementById("picMenuDropDown").classList.toggle("show");
 }
 
@@ -299,27 +253,28 @@ function addToFavorites(){
 
 function addTag(){
   console.log("addTag function");
-  var picCont = addTag.caller.arguments[0].target.parentElement
+  var picCont = addTag.caller.arguments[0].target.parentElement;
+  //got the picContainer
 
-  //SAVE
+  //get the image name
+  var picName = picCont.getElementsByTagName("img")[0].src.split('/')[3];
 
-  var picImgTag = picCont.getElementsByTagName("img")[0].src;
-  //--"http://138.68.25.50:8650/dynn1.PNG"
-  var picImgTagArray = picImgTag.split('/');
-  var picName = picImgTagArray[3];
-  //got the picName of the container we clicked
+  //get the new Tag
   var newTag = picCont.getElementsByTagName("input")[0].value;
-  //got the new tag to add
-  //assuming the new tag is in the input box when user clicks ADD button
-  var tagParagraph = picCont.getElementsByClassName("tagImage")[0].getElementsByTagName("p")[0];
-  //gets the 1st paragraph element in the div class tagImage
 
+  var htmlTags = picCont.getElementsByClassName("testTag");
+  //array of 10 tags in html
 
-  //get existing tag for this picture from db
-    //callback
+  //check if empty tag. return if tag is empty.
+  if (!newTag){
+    console.log("nice try tryign to put in an empty tag");
+    return;
+  }
+
+  //callback
   function tagTransferCallback(){
-    //got stuff back
-    console.log("db tags received");
+      //got stuff back
+    console.log("db tags received for -" + picName);
     console.log(this.response);
     var dbData = JSON.parse(this.response);
     var prevLabels = dbData.labels;
@@ -334,10 +289,24 @@ function addTag(){
     else{
       finalLabels = prevLabels + "," + newTag;
     }
-    tagParagraph.innerHTML = finalLabels;
-    //insert the tag
+
+    //update the html
+    finalTagsArray = finalLabels.split(",");
+    var emptyCount = 10 - finalTagsArray.length;
+    var offset = 10 - emptyCount;
+
+    //update 0-last available tag
+    for (i = 0; i < finalTagsArray.length; i++){
+      htmlTags[i].innerText = finalTagsArray[i];
+    }
+
+    for (i = offset; i < 10; i++){
+      htmlTags[i].style.visibility = "hidden";
+    }
 
   } //callback()
+
+  //make new url with query to get tags for the image name
   var url = mainUrl + "/query?op=getTags&fileName=" + picName;
   var oReq = new XMLHttpRequest();
   oReq.addEventListener("load", tagTransferCallback);
@@ -345,4 +314,5 @@ function addTag(){
   oReq.send();
   console.log("sent GET to server [for tags of 1 pic]")
   //on callback, addend the tag into prev tags and insert to db
+
 } //addTag()
