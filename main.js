@@ -44,26 +44,34 @@ window.onload=function(){
       var dbTags = dbData[i].labels.split(",");
       //tags from db
 
-      var emptyCount = 10 - dbTags.length;
-      var offset = 10 - emptyCount;
-
-      //update html 0-nth tag and make it visible
-      for (j = 0; j < dbTags.length; j++){
-        tagArray[j].innerHTML = dbTags[j];
-        tagArray[j].style.visibility = "visible";
+      //if dbTags returns "" - like initil db upload
+      if (dbTags.length == 1 && dbTags == ""){
+        for (j = 0; j < 10; j++){
+          tagArray[j].style.visibility = "hidden";
+        }
+        document.getElementById("pictureContainer0").style.display = "none";
       }
 
-      //make the rest invisible
-      for (j = offset; j < 10; j++){
-        tagArray[j].style.visibility = "hidden";
-      }
+      //else there is valid tags returned from db
+      else{
+        var emptyCount = 10 - dbTags.length;
+        var offset = 10 - emptyCount;
 
+        //update html 0-nth tag and make it visible
+        for (j = 0; j < dbTags.length; j++){
+          tagArray[j].innerHTML = dbTags[j];
+          tagArray[j].style.visibility = "visible";
+        }
+
+        //make the rest invisible
+        for (j = offset; j < 10; j++){
+          tagArray[j].style.visibility = "hidden";
+        }
+      }
     } //for
 
     //hide the template
-  // document.getElementById("pictureContainer0").style.visibility = "hidden";
     document.getElementById("pictureContainer0").style.display = "none";
-    // document.getElementById("pictureContainer0").style.display = "block";
   } //reqListener()
 
   var oReq = new XMLHttpRequest();
