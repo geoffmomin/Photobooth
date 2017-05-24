@@ -309,7 +309,6 @@ function addTag(){
   }
 
   //callback
-
   function tagTransferCallback(){
       //got stuff back
     console.log("db tags received for -" + picName);
@@ -328,19 +327,23 @@ function addTag(){
       finalLabels = prevLabels + "," + newTag;
     }
 
+    //SAVE
+
     //update the html
     finalTagsArray = finalLabels.split(",");
+    var emptyCount = 10 - finalTagsArray.length;
+    var offset = 10 - emptyCount;
+
+    //update 0-last available tag
     for (i = 0; i < finalTagsArray.length; i++){
       htmlTags[i].innerText = finalTagsArray[i];
     }
 
-
-
+    for (i = offset; i < 10; i++){
+      htmlTags[i].style.visibility = "hidden";
+    }
 
   } //callback()
-
-    //use the db label to append
-    //update the html
 
   //make new url with query to get tags for the image name
   var url = mainUrl + "/query?op=getTags&fileName=" + picName;
