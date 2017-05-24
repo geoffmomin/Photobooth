@@ -146,19 +146,13 @@ main{
 }
 
 #uploadHolder, #filterHolder, #favoritesHolder{
-  display: flex;
-  height: 50px;
-  display: flex;
-  flex-direction: row;
+  height: 60px;
   width: 100%;
-  align-items: center
 }
 
 .holder{
   display: flex;
   flex-direction: row;
-  height: 50px;
-  width: 250px;
   align-items: center;
 }
 
@@ -183,14 +177,14 @@ main{
 }
 
 .tagInputBox {
-  width: 99%; /* not 100% for some reason */
+  width: 99%;
   height: 25px;
   border: 1px solid black;
 }
 
 .testTag {
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
   font-size:25px;
   font-weight: 600;
   border: 1px solid black;
@@ -213,7 +207,6 @@ main{
 
 #picMenuDropDown {
   border: 1px solid black;
-
   bottom: 88%;
   left: -220%;
 }
@@ -253,6 +246,7 @@ main{
   border: none;
   cursor: pointer;
   margin-top: 10px;
+  border: 1px solid black;
 }
 
 .dropdown {
@@ -273,6 +267,13 @@ main{
     background-color: #CFBBB2;
     overflow: hidden;
     z-index: 1;
+    margin-top: 10px;
+    border: 1px solid black;
+
+}
+
+#uploadDropdown {
+  margin-bottom: 100px;
 }
 
 .dropdown-content a {
@@ -282,8 +283,6 @@ main{
     display: block;
 }
 
-.dropdown a:hover {background-color: #f1f1f1}
-
 #triangle {
   width: 50px;
   height: 50px;
@@ -292,6 +291,7 @@ main{
 
 /*TOGGLE*/
 .show{
+  border: 1px solid black;
   display: block;
 }
 
@@ -313,6 +313,11 @@ main{
 }
 
 #fileName{
+  font-weight: bold;
+  color: #885540;
+  padding-top:8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
   margin-bottom: 5px;
   margin-left: 10px;
 }
