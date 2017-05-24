@@ -105,7 +105,6 @@ window.onload=function(){
       //append early for debug
       document.getElementById("pictures").appendChild(clone);
 
-
       //clone's id will be picContainer + 1...n
       clone.id = "pictureContainer" + (i + 1);
 
@@ -117,8 +116,6 @@ window.onload=function(){
 
       var dbTags = dbData[i].labels.split(",");
       //tags from db
-
-      //SAVE
 
       var emptyCount = 10 - dbTags.length;
       var offset = 10 - emptyCount;
@@ -133,6 +130,10 @@ window.onload=function(){
 
     } //for
 
+    //hide the template
+  // document.getElementById("pictureContainer0").style.visibility = "hidden";
+    document.getElementById("pictureContainer0").style.display = "none";
+    // document.getElementById("pictureContainer0").style.display = "block";
   } //reqListener()
 
   var oReq = new XMLHttpRequest();
@@ -172,6 +173,8 @@ function myFunction() {
 
 
 function readFile() {
+  document.getElementById("pictureContainer0").style.display = "block";
+
   var selectedFile = document.getElementById('fileSelector').files[0];
   var image = document.getElementById('loadingImage0');
 
@@ -217,6 +220,9 @@ function uploadFile(){
 
   //make the picture clear after uploading
   document.getElementById('loadingImage0').style.opacity = 1.0;
+
+  document.getElementById("pictureContainer0").style.display = "none";
+  location.reload();
 } //uploadfile()
 
 
