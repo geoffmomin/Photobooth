@@ -162,6 +162,10 @@ window.onclick = function(event) {
   }
 } //window.onclick
 
+function myFunction() {
+    document.getElementById("picMenuDropDown").classList.toggle("show");
+}
+
 
 function readFile() {
   var selectedFile = document.getElementById('fileSelector').files[0];
@@ -215,7 +219,7 @@ function uploadFile(){
 function togglePicMenu(){
   console.log("togglePicMenu func");
   //get the dropdown in the parent of this button?
-  document.getElementById("picMenuDropDown0").classList.toggle("show");
+  document.getElementById("picMenuDropDown").classList.toggle("show");
 }
 
 function changeTag(){

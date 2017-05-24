@@ -22,15 +22,15 @@
 
             <div class="imgHolder">
               <img class="loadingImage" id="loadingImage0" src="/Users/richard/Desktop/ghost.png"/>
+
               <div class="dropdown">
                 <button onclick="togglePicMenu()" id="picMenu"><img class="dropbtn" id="triangle" src="photobooth/optionsTriangle.png" /></button>
 
-                <div id="picMenuDropDown0" class="dropdown-content">
-                  <button id="changeTagButton" onclick="changeTag()">change tags</button>
-                  <button id="addToFavoritesButton" onclick="addToFavorites()">add to favorites</button>
-
-                  <!-- dummy btn - supposed to be remove. should be there for each of the 10 tags? -->
-                  <!-- <button id="removeTagButton">Remove Tag (dummy)</button> -->
+                <div id="picMenuDropDown" >
+                  <div class="dropdown-picMenu">
+                    <button id="changeTagButton" onclick="changeTag()">change tags</button>
+                    <button id="addToFavoritesButton" onclick="addToFavorites()">add to favorites</button>
+                  </div>
                 </div>
               </div>
             </div>
@@ -55,13 +55,14 @@
             <button class="droppedButton" id="addTagButton" onclick="addTag()">Add to list</button>
 
           </div>
+
         </div>
 
         <div id="sidebar">
           <div class="UFF">
             <section class="holder" id="uploadHolder">
               <div>
-                <img  id="uploadIcon" class="dropdownIcons" src="photobooth/uploadIcon-01.svg" />
+                <img id="uploadIcon" class="dropdownIcons" src="photobooth/uploadIcon-01.svg" />
                 <!-- onclick needs to do same as btn -->
               </div>
               <button onclick="toggleUpload()" class="dropbtn">upload</button>
