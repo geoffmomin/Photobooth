@@ -247,8 +247,8 @@ window.onclick = function(event) {
   }
 }
 
-function changeTag(){
-  console.log("changeTag function");
+function removeTag(){
+  console.log("removeTag function");
 }
 
 function addToFavorites(){
