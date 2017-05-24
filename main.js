@@ -261,16 +261,6 @@ window.onclick = function(event) {
   }
 }
 
-function removeTag(){
-  console.log("removeTag function");
-  //SAVE
-  var picCont = removeTag.caller.arguments[0].target.parentElement;
-
-}
-
-function addToFavorites(){
-  console.log("addToFavorites function");
-}
 
 function addTag(){
   console.log("addTag function");
@@ -357,3 +347,18 @@ function addTag(){
   //on callback, addend the tag into prev tags and insert to db??
 
 } //addTag()
+
+
+function addToFavorites(){
+  console.log("addToFavorites function");
+}
+
+
+function removeTag(){
+  console.log("removeTag function");
+  //SAVE
+  var tagCont = removeTag.caller.arguments[0].target.parentElement.parentElement;
+  // tagCont.children[0] is removeIcon
+  // tagCont.children[1] is the tag
+  tagCont.style.visibility = "hidden";
+}
