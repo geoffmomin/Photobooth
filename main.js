@@ -10,6 +10,68 @@ var favoritesClass = document.getElementById("favoritesDropdown").classList;
 var filterClass = document.getElementById("filterDropdown").classList;
 var uploadClass = document.getElementById("uploadDropdown").classList;
 
+
+window.onload=function(){
+  console.log('onLoad function');
+  //want to get all things in the db
+    // query looks liek this - 138.68.25.50:1935/query?img=hula.jpg
+  var url = mainUrl + "/query?op=dump";
+
+  function reqListener () {
+    //this.response contains json/ARRAY?? of all files in db
+    console.log("dbAll received");
+    console.log(this.response);
+    var dbData = JSON.parse(this.response);
+    //should display these items.
+
+    var template = document.getElementById('pictureContainer0');
+    for (i = 0; i < dbData.length; i++){
+      //clone the template. true means all child and eventhandlers
+      clone = template.cloneNode(true);
+
+      //append early for debug
+      document.getElementById("pictures").appendChild(clone);
+
+      //clone's id will be picContainer + 1...n
+      clone.id = "pictureContainer" + (i + 1);
+
+      // http://138.68.25.50:8650/cat.jpg
+      clone.getElementsByTagName('img')[0].src = mainUrl + "/" + dbData[i].fileName;
+
+      var tagArray = clone.getElementsByClassName("testTag");
+      //10 tags in html
+
+      var dbTags = dbData[i].labels.split(",");
+      //tags from db
+
+      var emptyCount = 10 - dbTags.length;
+      var offset = 10 - emptyCount;
+
+      for (j = 0; j < dbTags.length; j++){
+        tagArray[j].innerHTML = dbTags[j];
+      }
+
+      for (j = offset; j < 10; j++){
+        tagArray[j].style.visibility = "hidden";
+      }
+
+    } //for
+
+    //hide the template
+  // document.getElementById("pictureContainer0").style.visibility = "hidden";
+    document.getElementById("pictureContainer0").style.display = "none";
+    // document.getElementById("pictureContainer0").style.display = "block";
+  } //reqListener()
+
+  var oReq = new XMLHttpRequest();
+  oReq.addEventListener("load", reqListener);
+  oReq.open("GET", url);
+  oReq.send();
+  console.log("asked for dbAll");
+
+} //window.onload()
+
+
 function toggleUpload(){
       uploadClass.toggle("show");
       if(filterClass.contains('show')){
@@ -84,66 +146,11 @@ function toggleFavorites() {
 
 }
 
-window.onload=function(){
-  console.log('onLoad function');
-  //want to get all things in the db
-    // query looks liek this - 138.68.25.50:1935/query?img=hula.jpg
-  var url = mainUrl + "/query?op=dump";
-
-  function reqListener () {
-    //this.response contains json/ARRAY?? of all files in db
-    console.log("dbAll received");
-    console.log(this.response);
-    var dbData = JSON.parse(this.response);
-    //should display these items.
-
-    var template = document.getElementById('pictureContainer0');
-    for (i = 0; i < dbData.length; i++){
-      //clone the template. true means all child and eventhandlers
-      clone = template.cloneNode(true);
-
-      //append early for debug
-      document.getElementById("pictures").appendChild(clone);
-
-      //clone's id will be picContainer + 1...n
-      clone.id = "pictureContainer" + (i + 1);
-
-      // http://138.68.25.50:8650/cat.jpg
-      clone.getElementsByTagName('img')[0].src = mainUrl + "/" + dbData[i].fileName;
-
-      var tagArray = clone.getElementsByClassName("testTag");
-      //10 tags in html
-
-      var dbTags = dbData[i].labels.split(",");
-      //tags from db
-
-      var emptyCount = 10 - dbTags.length;
-      var offset = 10 - emptyCount;
-
-      for (j = 0; j < dbTags.length; j++){
-        tagArray[j].innerHTML = dbTags[j];
-      }
-
-      for (j = offset; j < 10; j++){
-        tagArray[j].style.visibility = "hidden";
-      }
-
-    } //for
-
-    //hide the template
-  // document.getElementById("pictureContainer0").style.visibility = "hidden";
-    document.getElementById("pictureContainer0").style.display = "none";
-    // document.getElementById("pictureContainer0").style.display = "block";
-  } //reqListener()
-
-  var oReq = new XMLHttpRequest();
-  oReq.addEventListener("load", reqListener);
-  oReq.open("GET", url);
-  oReq.send();
-  console.log("asked for dbAll");
-
-} //window.onload()
-
+function togglePicMenu(){
+  console.log("togglePicMenu func");
+  //get the dropdown in the parent of this button?
+  document.getElementById("picMenuDropDown").classList.toggle("show");
+}
 
 // Close the dropdown if the user clicks outside of it
 window.onclick = function(event) {
@@ -279,6 +286,10 @@ function addTag(){
     var dbData = JSON.parse(this.response);
     var prevLabels = dbData.labels;
 
+    //SAVE
+    //CHECK IF THERE IS 10 TAGS ALREADY?????
+
+
     //append the tag
     var finalLabels = "";
     //if there was no labels in the db
@@ -298,11 +309,14 @@ function addTag(){
     //update 0-last available tag
     for (i = 0; i < finalTagsArray.length; i++){
       htmlTags[i].innerText = finalTagsArray[i];
+      htmlTags[i].style.visibility = "visible";
     }
 
     for (i = offset; i < 10; i++){
       htmlTags[i].style.visibility = "hidden";
     }
+
+    //update the db that we added a tag
 
   } //callback()
 
