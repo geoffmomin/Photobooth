@@ -91,9 +91,9 @@ function toggleUpload(){
 
       if(uploadClass.contains('show')){
        favoritesHolder.position = "relative";
-       favoritesHolder.top = "130px";
+       favoritesHolder.top = "160px";
        filterHolder.position = "relative";
-       filterHolder.top = "130px";
+       filterHolder.top = "160px";
      }
 
      else{
@@ -147,12 +147,6 @@ function toggleFavorites() {
         favoritesHolder.top = "0px";
       }
 
-}
-
-function togglePicMenu(){
-  console.log("togglePicMenu func");
-  //get the dropdown in the parent of this button?
-  document.getElementById("picMenuDropDown").classList.toggle("show");
 }
 
 // Close the dropdown if the user clicks outside of it
@@ -232,6 +226,11 @@ function uploadFile(){
   location.reload();
 } //uploadfile()
 
+function togglePicMenu(){
+  console.log("togglePicMenu func");
+  //get the dropdown in the parent of this button?
+  document.getElementById("picMenuDropDown").classList.toggle("show");
+}
 
 // Close the togglePicMenu() if the user clicks outside of it
 window.onclick = function(event) {
@@ -272,7 +271,7 @@ function addTag(){
 
   //check if empty tag. return if tag is empty.
   if (!newTag){
-    console.log("nice try tryign to put in an empty tag");
+    console.log("nice try trying to put in an empty tag");
     return;
   }
 

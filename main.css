@@ -179,9 +179,9 @@ main{
 }
 
 .tagInputBox {
-  font-family: Goudy, serif;
+  font-family: serif;
   font-size: 20px;
-  font-weight: bolder;
+  font-weight: bold;
   width: 99%;
   height: 25px;
   border: 1px solid black;
@@ -201,7 +201,8 @@ main{
 }
 
 .tagName {
-  font-family: Goudy, serif;
+  font-family: serif;
+  font-weight: 500;
   display: flex;
   flex: 1;
   align-self: center;
@@ -218,23 +219,24 @@ main{
 }
 
 #addTagButton {
-  font-family: Goudy, serif;
-  font-weight: bolder;
+  font-family: serif;
+  font-size: 1vw;
   background-color: #885541;
-  margin-top: 10px;
-  margin-right: 250px;
-  margin-left: 0px;
+  margin-top: .5vw;
+  margin-right: 15vw;
+  margin-left: 0vw;
   cursor: pointer;
 }
 
 #picMenuDropDown {
+  position: absolute;
   border: 1px solid black;
   bottom: 88%;
   left: -220%;
 }
 
 .picDropdown-content {
-  display: none;
+  /*display: none;*/
   position: absolute;
   background-color: #885541;
   min-width: 160px;
@@ -259,6 +261,7 @@ main{
   font-family: Goudy, serif;
   font-weight: bolder;
   font-size: 20px;
+  cursor: pointer;
 }
 /* End of TAGS */
 
@@ -338,7 +341,7 @@ main{
 }
 
 #fileName{
-  font-family: Goudy, serif;
+  font-family: serif;
   font-weight: bolder;
   color: #885540;
   padding-top:8px;

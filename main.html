@@ -89,6 +89,78 @@
 
           </div>
 
+          <div class="pictureContainer" id="pictureContainer0">
+
+            <div class="imgHolder">
+              <img class="loadingImage" id="loadingImage0" src="/Users/richard/Desktop/ghost.png"/>
+
+              <div class="dropdown">
+
+                <button onclick="togglePicMenu()" id="picMenu" class="picdropbtn"><img class="dropbtn" id="triangle" src="photobooth/optionsTriangle.png" /></button>
+                <div class="picDropdown-content" id="picMenuDropDown">
+                    <button id="changeTagButton" onclick="changeTag()">change tags</button>
+                    <button id="addToFavoritesButton" onclick="addToFavorites()">add to favorites</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="tagImage" id="tagImage0">
+              <!-- there shouldbe 0-10 tags -->
+              <!-- 0 tags when 1st  uploading the pic-->
+              <div class="tagIDs">
+                <div class="testTag">
+                  <div class="removeButton"><img onclick="removeTag()" src="photobooth/removeTagButton.png" /></div>
+                  <div class="tagName">1234</div>
+                </div>
+                <div class="testTag">
+                  <div class="removeButton"><img onclick="removeTag()" src="photobooth/removeTagButton.png" /></div>
+                  <div class="tagName">1234567</div>
+                </div>
+                <div class="testTag">
+                  <div class="removeButton"><img onclick="removeTag()" src="photobooth/removeTagButton.png" /></div>
+                  <div class="tagName">richard</div>
+                </div>
+                <div class="testTag">
+                  <div class="removeButton"><img onclick="removeTag()" src="photobooth/removeTagButton.png" /></div>
+                  <div class="tagName">verylongword</div>
+                </div>
+                <div class="testTag">
+                  <div class="removeButton"><img onclick="removeTag()" src="photobooth/removeTagButton.png" /></div>
+                  <div class="tagName">t5</div>
+                </div>
+                <div class="testTag">
+                  <div class="removeButton"><img onclick="removeTag()" src="photobooth/removeTagButton.png" /></div>
+                  <div class="tagName">happy</div>
+                </div>
+                <div class="testTag">
+                  <div class="removeButton"><img onclick="removeTag()" src="photobooth/removeTagButton.png" /></div>
+                  <div class="tagName">tacos</div>
+                </div>
+                <div class="testTag">
+                  <div class="removeButton"><img onclick="removeTag()" src="photobooth/removeTagButton.png" /></div>
+                  <div class="tagName">what</div>
+                </div>
+                <div class="testTag">
+                  <div class="removeButton"><img onclick="removeTag()" src="photobooth/removeTagButton.png" /></div>
+                  <div class="tagName">ecs189</div>
+                </div>
+                <div class="testTag">
+                  <div class="removeButton"><img onclick="removeTag()" src="photobooth/removeTagButton.png" /></div>
+                  <div class="tagName">asdalsdaskdjlkasndasd</div>
+                </div>
+              </div>
+
+              <div class="tagInputBoxDiv" id="tagInputBoxDiv0">
+                <input type="text" class='tagInputBox' id='tagInputBox0'>
+              </div>
+            </div>
+
+            <!-- this btn sld display when click change tag-->
+            <button class="droppedButton" id="addTagButton" onclick="addTag()">Add to list</button>
+
+          </div>
+
+
         </div>
 
         <!-- Side Bar Stuff -->
@@ -137,7 +209,7 @@
             </section>
 
             <div id="favoritesDropdown" class="dropdown-content">
-              <button class="droppedButton" id="clearFavorite" onclick="">clear filter</button>
+              <button class="droppedButton" id="clearFavorite" onclick="">favorites</button>
             </div>
           </div>
 
