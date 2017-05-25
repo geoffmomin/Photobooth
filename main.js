@@ -270,6 +270,9 @@ function addTag(){
   //got the picContainer
   var picCont = addTag.caller.arguments[0].target.parentElement;
 
+  //tag container
+  var tagCont = picCont.getElementsByClassName("tagIDs")[0];
+
   //get the image name
   var picName = picCont.getElementsByTagName("img")[0].src.split('/')[3];
 
@@ -286,7 +289,7 @@ function addTag(){
 
 
   //callback
-  function tagTransferCallback(picCont){
+  function tagTransferCallback(){
       //got stuff back
     console.log("db tags received for -" + picName);
     console.log(this.response);
@@ -298,8 +301,18 @@ function addTag(){
       console.log("there's 10 tags already in db. returning tagTransferCallback");
       return;
     }
-
     //there is space to add tag and tag is valid
+    var imgAndTag = template.children[1].children[0].children[0].cloneNode(true);
+    //template.children[1].children[0].children[0].children[1] is tagName
+
+    //put new tag in html
+    imgAndTag.children[1].innerText = newTag;
+
+    //HOW THE FUCK TO INSERT imgAndTag to tagContainer if we can't pass local variable that is tagCont omfg
+    //SAVE
+    // document.tagCont.appendChild(imgAndTag);
+    //SAVE
+
 
     //append the tag
     var finalLabels = "";
@@ -312,28 +325,12 @@ function addTag(){
       finalLabels = prevLabels + "," + newTag;
     }
 
-    //update the html
-    finalTagsArray = finalLabels.split(",");
-    var emptyCount = 10 - finalTagsArray.length;
-    var offset = 10 - emptyCount;
 
-    //update 0-last available tag and make it visible
-    for (i = 0; i < finalTagsArray.length; i++){
-      htmlTags[i].getElementsByTagName("div")[1].innerText = finalTagsArray[i];
-      htmlTags[i].style.visibility = "visible";
-    }
-
-    //make the rest hidden
-    for (i = offset; i < 10; i++){
-      htmlTags[i].style.visibility = "hidden";
-    }
-
-    //update the db that we added a tag
+    //update the db
     function updateTagsCallback(){
       console.log("callback for updateTags");
     }
     //callback()
-
     var url2 = mainUrl + "/query?op=updateTags&fileName=" + picName + "&newTags=" + finalLabels;
     var oReqq = new XMLHttpRequest();
     oReqq.addEventListener("load", updateTagsCallback);
