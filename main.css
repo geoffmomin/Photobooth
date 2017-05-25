@@ -44,6 +44,10 @@ table {
 }
 /*** END OF RESET ***/
 
+@font-face {
+	font-family: Goudy;
+	src: url('photobooth/fontGoudy/GoudyStd.otf');
+}
 
 main{
   display: flex;
@@ -119,11 +123,9 @@ main{
 .inlay{
   position:absolute;
   top:5px;
-  /*bottom: 15px;*/
   right:5px;
   width: 15%;
 }
-/*test to see if we can inlay the menu icon*/
 
 .tagImage {
   margin-top: 10px;
@@ -177,6 +179,9 @@ main{
 }
 
 .tagInputBox {
+  font-family: Goudy, serif;
+  font-size: 20px;
+  font-weight: bolder;
   width: 99%;
   height: 25px;
   border: 1px solid black;
@@ -184,12 +189,27 @@ main{
 
 .testTag {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   font-size:25px;
   font-weight: 600;
-  border: 1px solid black;
-  width: 30%;
   margin: 3px;
+}
+
+.removeButton {
+  display: flex;
+  align-self: center;
+}
+
+.tagName {
+  font-family: Goudy, serif;
+  display: flex;
+  flex: 1;
+  align-self: center;
+}
+
+.removeButton img {
+  width: 16px;
+  height: 16px;
 }
 
 #picMenu .dropbtn {
@@ -198,6 +218,8 @@ main{
 }
 
 #addTagButton {
+  font-family: Goudy, serif;
+  font-weight: bolder;
   background-color: #885541;
   margin-top: 10px;
   margin-right: 250px;
@@ -233,6 +255,11 @@ main{
   width: 100%;
 }
 
+#changeTagButton, #addToFavoritesButton {
+  font-family: Goudy, serif;
+  font-weight: bolder;
+  font-size: 20px;
+}
 /* End of TAGS */
 
 /*css dropdown menu start*/
@@ -246,7 +273,6 @@ main{
   border: none;
   cursor: pointer;
   margin-top: 10px;
-  border: 1px solid black;
 }
 
 .dropdown {
@@ -269,7 +295,6 @@ main{
     z-index: 1;
     margin-top: 10px;
     border: 1px solid black;
-
 }
 
 #uploadDropdown {
@@ -313,7 +338,8 @@ main{
 }
 
 #fileName{
-  font-weight: bold;
+  font-family: Goudy, serif;
+  font-weight: bolder;
   color: #885540;
   padding-top:8px;
   padding-bottom: 8px;
