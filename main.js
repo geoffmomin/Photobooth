@@ -55,8 +55,7 @@ window.onload=function(){
         for (j = 0; j < 10; j++){
           tagArray[j].style.visibility = "hidden";
         }
-        document.getElementById("pictureContainer0").style.display = "none";
-      }
+      } //if db tag is empty
 
       //else there is valid tags returned from db
       else{
@@ -71,9 +70,11 @@ window.onload=function(){
 
         //make the rest invisible
         for (j = offset; j < 10; j++){
-          tagArray[j].style.visibility = "hidden";
+          // tagArray[j].style.visibility = "hidden";
+
+          tagArray[offset].parentElement.removeChild(tagArray[offset]);
         }
-      }
+      } //else  there is tags in db
     } //for
 
     //hide the template
@@ -264,26 +265,27 @@ window.onclick = function(event) {
 
 function addTag(){
   console.log("addTag function");
-  var picCont = addTag.caller.arguments[0].target.parentElement;
+
   //got the picContainer
+  var picCont = addTag.caller.arguments[0].target.parentElement;
 
   //get the image name
   var picName = picCont.getElementsByTagName("img")[0].src.split('/')[3];
 
   //get the new Tag
   var newTag = picCont.getElementsByTagName("input")[0].value;
-
-  var htmlTags = picCont.getElementsByClassName("testTag");
-  //array of 10 tags in html
-
   //check if empty tag. return if tag is empty.
   if (!newTag){
     console.log("nice try tryign to put in an empty tag");
     return;
   }
 
+  var htmlTags = picCont.getElementsByClassName("testTag");
+  //array of 10 tags in html
+
+
   //callback
-  function tagTransferCallback(){
+  function tagTransferCallback(picCont){
       //got stuff back
     console.log("db tags received for -" + picName);
     console.log(this.response);
@@ -295,6 +297,8 @@ function addTag(){
       console.log("there's 10 tags already in db. returning tagTransferCallback");
       return;
     }
+
+    //there is space to add tag and tag is valid
 
     //append the tag
     var finalLabels = "";
@@ -369,8 +373,9 @@ function removeTag(){
   var finalLabels = '';
   for (i = 0; i < allTagsCont.childElementCount; i++){
     var curTag = allTagsCont.children[i].children[1].innerText;
-    curTag = "," + curTag;
-    finalLabels += curTag;
+    if (curTag != ""){
+      finalLabels += ("," + curTag);
+    }
   }
   finalLabels = finalLabels.substring(1);
 
@@ -382,9 +387,9 @@ function removeTag(){
     console.log("callback for updateTags");
   }
   //callback()
-  // var oReq = new XMLHttpRequest();
-  // oReq.addEventListener("load", updateTagsCallback);
-  // oReq.open("GET", url);
-  // oReq.send();
-  // console.log("sent GET to server [for update tags] of - " + picName);
+  var oReq = new XMLHttpRequest();
+  oReq.addEventListener("load", updateTagsCallback);
+  oReq.open("GET", url);
+  oReq.send();
+  console.log("sent GET to server [for update tags] of - " + picName);
 } //removeTag()
