@@ -10,6 +10,7 @@ var favoritesClass = document.getElementById("favoritesDropdown").classList;
 var filterClass = document.getElementById("filterDropdown").classList;
 var uploadClass = document.getElementById("uploadDropdown").classList;
 
+var template = document.getElementById('pictureContainer0');
 
 window.onload=function(){
   console.log('onLoad function');
@@ -24,10 +25,9 @@ window.onload=function(){
     var dbData = JSON.parse(this.response);
     //should display these items.
 
-    var template = document.getElementById('pictureContainer0');
     for (i = 0; i < dbData.length; i++){
       //clone the template. true means all child and eventhandlers
-      clone = template.cloneNode(true);
+      var clone = template.cloneNode(true);
 
       //append early for debug
       document.getElementById("pictures").appendChild(clone);
@@ -41,29 +41,44 @@ window.onload=function(){
       var tagArray = clone.getElementsByClassName("testTag");
       //10 tags in html
 
+      //TEST
+      // tagArray[0].getElementsByTagName("div")
+      // tagArray[0].getElementsByTagName("div")[0] is removeIcon
+      // tagArray[0].getElementsByTagName("div")[1] is the tagValue
+      //TEST
+
       var dbTags = dbData[i].labels.split(",");
       //tags from db
 
-      var emptyCount = 10 - dbTags.length;
-      var offset = 10 - emptyCount;
+      //if dbTags returns "" - like initil db upload
+      if (dbTags.length == 1 && dbTags == ""){
+        for (j = 0; j < 10; j++){
+          tagArray[j].style.visibility = "hidden";
+        }
+      } //if db tag is empty
 
-      //update html 0-nth tag and make it visible
-      for (j = 0; j < dbTags.length; j++){
-        tagArray[j].innerHTML = dbTags[j];
-        tagArray[j].style.visibility = "visible";
-      }
+      //else there is valid tags returned from db
+      else{
+        var emptyCount = 10 - dbTags.length;
+        var offset = 10 - emptyCount;
 
-      //make the rest invisible
-      for (j = offset; j < 10; j++){
-        tagArray[j].style.visibility = "hidden";
-      }
+        //update html 0-nth tag and make it visible
+        for (j = 0; j < dbTags.length; j++){
+          tagArray[j].getElementsByTagName("div")[1].innerHTML = dbTags[j];
+          tagArray[j].style.visibility = "visible";
+        }
 
+        //make the rest invisible
+        for (j = offset; j < 10; j++){
+          // tagArray[j].style.visibility = "hidden";
+
+          tagArray[offset].parentElement.removeChild(tagArray[offset]);
+        }
+      } //else  there is tags in db
     } //for
 
     //hide the template
-  // document.getElementById("pictureContainer0").style.visibility = "hidden";
     document.getElementById("pictureContainer0").style.display = "none";
-    // document.getElementById("pictureContainer0").style.display = "block";
   } //reqListener()
 
   var oReq = new XMLHttpRequest();
@@ -247,33 +262,30 @@ window.onclick = function(event) {
   }
 }
 
-function removeTag(){
-  console.log("removeTag function");
-}
-
-function addToFavorites(){
-  console.log("addToFavorites function");
-}
 
 function addTag(){
   console.log("addTag function");
-  var picCont = addTag.caller.arguments[0].target.parentElement;
+
   //got the picContainer
+  var picCont = addTag.caller.arguments[0].target.parentElement;
+
+  //tag container
+  var tagCont = picCont.getElementsByClassName("tagIDs")[0];
 
   //get the image name
   var picName = picCont.getElementsByTagName("img")[0].src.split('/')[3];
 
   //get the new Tag
   var newTag = picCont.getElementsByTagName("input")[0].value;
-
-  var htmlTags = picCont.getElementsByClassName("testTag");
-  //array of 10 tags in html
-
   //check if empty tag. return if tag is empty.
   if (!newTag){
     console.log("nice try trying to put in an empty tag");
     return;
   }
+
+  var htmlTags = picCont.getElementsByClassName("testTag");
+  //array of 10 tags in html
+
 
   //callback
   function tagTransferCallback(){
@@ -285,9 +297,21 @@ function addTag(){
 
     //check if there's 10 tags already
     if (prevLabels.split(",").length >= 10){
-      console.log("you can't add more than 10 tags. returning tagTransferCallback");
+      console.log("there's 10 tags already in db. returning tagTransferCallback");
       return;
     }
+    //there is space to add tag and tag is valid
+    var imgAndTag = template.children[1].children[0].children[0].cloneNode(true);
+    //template.children[1].children[0].children[0].children[1] is tagName
+
+    //put new tag in html
+    imgAndTag.children[1].innerText = newTag;
+
+    //HOW THE FUCK TO INSERT imgAndTag to tagContainer if we can't pass local variable that is tagCont omfg
+    //SAVE
+    // document.tagCont.appendChild(imgAndTag);
+    //SAVE
+
 
     //append the tag
     var finalLabels = "";
@@ -300,28 +324,12 @@ function addTag(){
       finalLabels = prevLabels + "," + newTag;
     }
 
-    //update the html
-    finalTagsArray = finalLabels.split(",");
-    var emptyCount = 10 - finalTagsArray.length;
-    var offset = 10 - emptyCount;
 
-    //update 0-last available tag and make it visible
-    for (i = 0; i < finalTagsArray.length; i++){
-      htmlTags[i].innerText = finalTagsArray[i];
-      htmlTags[i].style.visibility = "visible";
-    }
-
-    //make the rest hidden
-    for (i = offset; i < 10; i++){
-      htmlTags[i].style.visibility = "hidden";
-    }
-
-    //update the db that we added a tag
+    //update the db
     function updateTagsCallback(){
       console.log("callback for updateTags");
     }
     //callback()
-
     var url2 = mainUrl + "/query?op=updateTags&fileName=" + picName + "&newTags=" + finalLabels;
     var oReqq = new XMLHttpRequest();
     oReqq.addEventListener("load", updateTagsCallback);
@@ -340,3 +348,45 @@ function addTag(){
   //on callback, addend the tag into prev tags and insert to db??
 
 } //addTag()
+
+
+function addToFavorites(){
+  console.log("addToFavorites function");
+}
+
+
+function removeTag(){
+  console.log("removeTag function");
+
+  //get the container that has icon+tag
+  var tagCont = removeTag.caller.arguments[0].target.parentElement.parentElement;
+
+  var allTagsCont = tagCont.parentElement;
+  var tagToRemove = tagCont.children[1];
+  var picName = tagCont.parentElement.parentElement.parentElement.children[0].children[0].src.split("/")[3];
+  //remove from DOM
+  tagCont.parentNode.removeChild(tagCont);
+
+  var finalLabels = '';
+  for (i = 0; i < allTagsCont.childElementCount; i++){
+    var curTag = allTagsCont.children[i].children[1].innerText;
+    if (curTag != ""){
+      finalLabels += ("," + curTag);
+    }
+  }
+  finalLabels = finalLabels.substring(1);
+
+  //update the new tags to db
+  var url = mainUrl + "/query?op=updateTags&fileName=" + picName + "&newTags=" + finalLabels;
+
+  //update the db that we added a tag
+  function updateTagsCallback(){
+    console.log("callback for updateTags");
+  }
+  //callback()
+  var oReq = new XMLHttpRequest();
+  oReq.addEventListener("load", updateTagsCallback);
+  oReq.open("GET", url);
+  oReq.send();
+  console.log("sent GET to server [for update tags] of - " + picName);
+} //removeTag()
