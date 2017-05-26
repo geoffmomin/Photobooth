@@ -171,21 +171,47 @@ window.onclick = function(event) {
   var favoritesHolder = document.getElementById("favoritesHolder").style;
   var filterHolder = document.getElementById("filterHolder").style;
 
-
-    if(!event.target.matches('.dropbtn')){
-      var i;
-      for (i = 0; i < dropdowns.length; i++) {
-        var openDropdown = dropdowns[i];
-        if (openDropdown.classList.contains('show')) {
-          openDropdown.classList.remove('show');
-        }
+  if(!event.target.matches('.dropbtn')){
+    var i;
+    for (i = 0; i < dropdowns.length; i++) {
+      var openDropdown = dropdowns[i];
+      if (openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
       }
-      favoritesHolder.position = "relative";
-      favoritesHolder.top = "0px";
-      filterHolder.position = "relative";
-      filterHolder.top = "0px";
+    }
+    favoritesHolder.position = "relative";
+    favoritesHolder.top = "0px";
+    filterHolder.position = "relative";
+    filterHolder.top = "0px";
   }
 } //window.onclick
+
+
+// Close the togglePicMenu() if the user clicks outside of it
+window.onclick = function(event) {
+  if (!event.target.matches('.dropbtn')) {
+
+    var dropdowns = document.getElementsByClassName("picDropdown-content");
+    var i;
+
+    for (i = 0; i < dropdowns.length; i++) {
+      var openDropdown = dropdowns[i];
+      openDropdown.style.display = "none";
+
+      if (openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
+      }
+    }
+  }
+}
+
+
+document.body.onclick = function(e){
+  console.log("kek");
+  var pictures = document.getElementById("pictures");
+
+
+}
 
 
 function readFile() {
@@ -243,23 +269,6 @@ function uploadFile(){
 } //uploadfile()
 
 
-// Close the togglePicMenu() if the user clicks outside of it
-window.onclick = function(event) {
-  if (!event.target.matches('.dropbtn')) {
-
-    var dropdowns = document.getElementsByClassName("picDropdown-content");
-    var i;
-
-    for (i = 0; i < dropdowns.length; i++) {
-      var openDropdown = dropdowns[i];
-      openDropdown.style.display = "none";
-
-      if (openDropdown.classList.contains('show')) {
-        openDropdown.classList.remove('show');
-      }
-    }
-  }
-}
 
 
 function addTag(){
