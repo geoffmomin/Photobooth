@@ -271,6 +271,12 @@ function addTag(){
   //tag container
   var tagCont = picCont.getElementsByClassName("tagIDs")[0];
 
+  //if there is 10 tags already
+  if (tagCont.childElementCount >= 10){
+    console.log("nice try trying to add more than 10 tags");
+    return;
+  }
+
   //get the image name
   var picName = picCont.getElementsByTagName("img")[0].src.split('/')[3];
 
@@ -282,10 +288,21 @@ function addTag(){
     return;
   }
 
-  var htmlTags = picCont.getElementsByClassName("testTag");
-  //array of 10 tags in html
+  //update html with new tag
 
+  // var htmlTags = picCont.getElementsByClassName("testTag");
+  // //array of 10 tags in html
 
+  //there is space to add tag and tag is valid
+  var imgAndTag = template.children[1].children[0].children[0].cloneNode(true);
+  //template.children[1].children[0].children[0].children[1] is tagName
+
+  //put new tag in html
+  imgAndTag.children[1].innerText = newTag;
+
+  tagCont.appendChild(imgAndTag);
+
+  //update database with new tag for this pic
   //callback
   function tagTransferCallback(){
       //got stuff back
@@ -299,18 +316,6 @@ function addTag(){
       console.log("there's 10 tags already in db. returning tagTransferCallback");
       return;
     }
-    //there is space to add tag and tag is valid
-    var imgAndTag = template.children[1].children[0].children[0].cloneNode(true);
-    //template.children[1].children[0].children[0].children[1] is tagName
-
-    //put new tag in html
-    imgAndTag.children[1].innerText = newTag;
-
-    //HOW THE FUCK TO INSERT imgAndTag to tagContainer if we can't pass local variable that is tagCont omfg
-    //SAVE
-    // document.tagCont.appendChild(imgAndTag);
-    //SAVE
-
 
     //append the tag
     var finalLabels = "";
@@ -322,7 +327,6 @@ function addTag(){
     else{
       finalLabels = prevLabels + "," + newTag;
     }
-
 
     //update the db
     function updateTagsCallback(){
