@@ -231,6 +231,7 @@ main{
 .removeButton {
   display: flex;
   align-self: center;
+  margin-right: 1px;
 }
 
 .tagName {
@@ -312,8 +313,8 @@ main{
 .dropdown {
     position: absolute;
     display: inline-block;
-    top: calc(100% - 70px);
-    left: calc(100% - 50px);
+    top: calc(100% - 72px);
+    left: calc(100% - 51px);
     margin: auto;
     cursor: pointer;
 }
@@ -433,13 +434,33 @@ main{
   }
 
   .imgHolder {
+    object-fit: fill;
     width: 100%;
     height: 60%;
   }
 
   .loadingImage {
-    width: 100%;
+    min-width: 100%;
+    min-height: 90%;
+  }
+
+  .tagImage {
+    margin-bottom: 10px;
+  }
+
+  #addTagButton {
+    width: 30%;
+    font-size: 10px;
+  }
+
+  .removeButton {
+    width: 90%;
     height: 90%;
+  }
+
+  .tagName {
+    font-weight: bold;
+    font-size: 4vw;
   }
 
   #mobileMenu{
