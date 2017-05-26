@@ -204,6 +204,8 @@ window.onclick = function(event) {
     }
   }
 
+
+  var changeTagButtons = document.getElementsBy
   // if (event.target.matches("")){
   //
   // }
