@@ -43,19 +43,14 @@ window.onload=function(){
       var tagArray = clone.getElementsByClassName("testTag");
       //10 tags in html
 
-      //TEST
-      // tagArray[0].getElementsByTagName("div")
-      // tagArray[0].getElementsByTagName("div")[0] is removeIcon
-      // tagArray[0].getElementsByTagName("div")[1] is the tagValue
-      //TEST
-
-      var dbTags = dbData[i].labels.split(",");
       //tags from db
+      var dbTags = dbData[i].labels.split(",");
 
       //if dbTags returns "" - like initil db upload
       if (dbTags.length == 1 && dbTags == ""){
         for (j = 0; j < 10; j++){
-          tagArray[j].style.visibility = "hidden";
+          // tagArray[j].style.visibility = "hidden";
+          tagArray[i].parentElement.removeChild(tagArray[i]);
         }
       } //if db tag is empty
 
@@ -67,15 +62,19 @@ window.onload=function(){
         //update html 0-nth tag and make it visible
         for (j = 0; j < dbTags.length; j++){
           tagArray[j].getElementsByTagName("div")[1].innerHTML = dbTags[j];
-          tagArray[j].style.visibility = "visible";
+          tagArray[j].children[0].style.display = "none";
         }
 
         //make the rest invisible
         for (j = offset; j < 10; j++){
-          // tagArray[j].style.visibility = "hidden";
-
           tagArray[offset].parentElement.removeChild(tagArray[offset]);
         }
+
+        //clone has x buttons of tags hidden
+        //hide clone's add button
+        clone.children[2].style.display = "none";
+        //hide clone's input box
+        clone.children[1].children[1].style.display = "none";
       } //else  there is tags in db
     } //for
 
@@ -155,6 +154,17 @@ function toggleFavorites() {
   favoritesClass.toggle("show");
 }
 
+function togglePicMenu(){
+  console.log("togglePicMenu func");
+
+  //get the dropdown in the parent of this button
+  var picMenu = togglePicMenu.caller.arguments[0].target.parentElement;
+  var dropDown = picMenu.parentElement;
+  var picCont = dropDown.children[1];
+
+  picCont.style.display = "block";
+}
+
 // Close the dropdown if the user clicks outside of it
 window.onclick = function(event) {
   var dropdowns = document.getElementsByClassName("dropdown-content");
@@ -232,16 +242,6 @@ function uploadFile(){
   location.reload();
 } //uploadfile()
 
-function togglePicMenu(){
-  console.log("togglePicMenu func");
-
-  //get the dropdown in the parent of this button
-  var picMenu = togglePicMenu.caller.arguments[0].target.parentElement;
-  var dropDown = picMenu.parentElement;
-  var picCont = dropDown.children[1];
-
-  picCont.style.display = "block";
-}
 
 // Close the togglePicMenu() if the user clicks outside of it
 window.onclick = function(event) {
@@ -289,10 +289,6 @@ function addTag(){
   }
 
   //update html with new tag
-
-  // var htmlTags = picCont.getElementsByClassName("testTag");
-  // //array of 10 tags in html
-
   //there is space to add tag and tag is valid
   var imgAndTag = template.children[1].children[0].children[0].cloneNode(true);
   //template.children[1].children[0].children[0].children[1] is tagName
@@ -350,12 +346,9 @@ function addTag(){
   console.log("sent GET to server [for getTags] of - " + picName);
   //on callback, addend the tag into prev tags and insert to db??
 
+  //clear the input box after we put in a tag
+  picCont.getElementsByTagName("input")[0].value = '';
 } //addTag()
-
-
-function addToFavorites(){
-  console.log("addToFavorites function");
-}
 
 
 function removeTag(){
@@ -393,3 +386,26 @@ function removeTag(){
   oReq.send();
   console.log("sent GET to server [for update tags] of - " + picName);
 } //removeTag()
+
+
+function changeTag(){
+  // -display x buttons for tags
+  // -display input box
+  // -display add button
+  console.log("changetag func");
+  var picCont = changeTag.caller.arguments[0].target.parentElement.parentElement.parentElement.parentElement;
+
+  var tagIDs = picCont.children[1].children[0];
+  var inputBox = picCont.children[1].children[1];
+  var addButton = picCont.children[2];
+
+  for (i = 0; i < tagIDs.childElementCount; i++){
+    tagIDs.children[i].children[0].style.display = "block";
+  }
+  inputBox.style.display = "block";
+  addButton.style.display = "block";
+}
+
+function addToFavorites(){
+  console.log("addToFavorites function");
+}
