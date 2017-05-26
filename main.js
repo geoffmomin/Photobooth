@@ -241,14 +241,15 @@ function uploadFile(){
   location.reload();
 } //uploadfile()
 
-function togglePicMenu(ele){
+function togglePicMenu(){
   console.log("togglePicMenu func");
-  //var id = ele.id;
 
-  //get the dropdown in the parent of this button?
+  //get the dropdown in the parent of this button
   var picMenu = togglePicMenu.caller.arguments[0].target.parentElement;
-  picMenu.style.visibility = 'show';
-  //document.getElementById("picMenuDropDown").classList.toggle("hidden");
+  var dropDown = picMenu.parentElement;
+  var picCont = dropDown.children[1];
+
+  picCont.style.display = "block";
 }
 
 // Close the togglePicMenu() if the user clicks outside of it

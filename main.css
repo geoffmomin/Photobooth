@@ -110,8 +110,9 @@ main{
 .loadingImage {
   margin-top: 20px;
   margin-bottom: 10px;
-  width: 350px;
+  width: 330px;
   height: 350px;
+  border: 1px solid black;
 }
 
 #picMenu {
@@ -229,7 +230,6 @@ main{
 }
 
 #picMenuDropDown {
-  position: absolute;
   bottom: 88%;
   left: -220%;
 }
