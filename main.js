@@ -258,8 +258,11 @@ window.onclick = function(event) {
 
     var dropdowns = document.getElementsByClassName("picDropdown-content");
     var i;
+
     for (i = 0; i < dropdowns.length; i++) {
       var openDropdown = dropdowns[i];
+      openDropdown.style.display = "none";
+      
       if (openDropdown.classList.contains('show')) {
         openDropdown.classList.remove('show');
       }
