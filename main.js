@@ -10,8 +10,11 @@ var favoritesClass = document.getElementById("favoritesDropdown").classList;
 var filterClass = document.getElementById("filterDropdown").classList;
 var uploadClass = document.getElementById("uploadDropdown").classList;
 
-var template = document.getElementById('pictureContainer0');
+var uploadMClass = document.getElementById('mobileUploadToggle').style;
+var filterMClass = document.getElementById('mobileFilterToggle').style;
+var favMClass = document.getElementById('mobileFavoriteToggle').style;
 
+var template = document.getElementById('pictureContainer0');
 
 
 window.onload=function(){
@@ -50,7 +53,10 @@ window.onload=function(){
       if (dbTags.length == 1 && dbTags == ""){
         for (j = 0; j < 10; j++){
           // tagArray[j].style.visibility = "hidden";
-          tagArray[i].parentElement.removeChild(tagArray[i]);
+          // tagArray[i].parentElement.removeChild(tagArray[0]);
+
+
+          clone.children[1].children[0].removeChild(clone.children[1].children[0].children[0])
         }
       } //if db tag is empty
 
@@ -90,11 +96,6 @@ window.onload=function(){
 
 } //window.onload()
 
-/**new 05/24/17*/
-
-var uploadMClass = document.getElementById('mobileUploadToggle').style;
-var filterMClass = document.getElementById('mobileFilterToggle').style;
-var favMClass = document.getElementById('mobileFavoriteToggle').style;
 function toggleMUpload(){
     if(filterMClass.display == "block" || favMClass.display == "block"){
       filterMClass.display = "none";
@@ -139,8 +140,6 @@ function toggleMFavorites(){
     }
 
 }
-/**end of new*/
-
 
 function toggleUpload(){
   uploadClass.toggle("show");
@@ -186,7 +185,6 @@ window.onclick = function(event) {
   }
 } //window.onclick
 
-
 // Close the togglePicMenu() if the user clicks outside of it
 window.onclick = function(event) {
   if (!event.target.matches('.dropbtn')) {
@@ -203,15 +201,22 @@ window.onclick = function(event) {
       }
     }
   }
-
-
-  var changeTagButtons = document.getElementsBy
-  // if (event.target.matches("")){
-  //
-  // }
-  console.log("kek");
 }
 
+function undoChangeTag(){
+  console.log("no");
+  var picCont = undoChangeTag.caller.arguments[0].target.parentElement.parentElement;
+
+  picCont.children[2].style.display = "none";
+  picCont.children[1].children[1].style.display = "none";
+
+  var tagCont = picCont.children[1].children[0];
+
+
+  for (i = 0; i < tagCont.childElementCount; i++){
+    tagCont.children[i].children[0].style.display = "none";
+  }
+}
 
 function readFile() {
   document.getElementById("pictureContainer0").style.display = "block";
@@ -229,7 +234,6 @@ function readFile() {
   // dynamic file name
   document.getElementById("fileName").innerHTML = selectedFile.name;
 } //readFile()
-
 
 function uploadFile(){
   // uploads an image within a form object.  This currently seems
@@ -266,9 +270,6 @@ function uploadFile(){
   document.getElementById("pictureContainer0").style.display = "none";
   location.reload();
 } //uploadfile()
-
-
-
 
 function addTag(){
   console.log("addTag function");
@@ -358,7 +359,6 @@ function addTag(){
   picCont.getElementsByTagName("input")[0].value = '';
 } //addTag()
 
-
 function removeTag(){
   console.log("removeTag function");
 
@@ -394,7 +394,6 @@ function removeTag(){
   oReq.send();
   console.log("sent GET to server [for update tags] of - " + picName);
 } //removeTag()
-
 
 function changeTag(){
   // -display x buttons for tags
