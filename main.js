@@ -192,27 +192,10 @@ window.onclick = function(event) {
   if (!event.target.matches('.dropbtn')) {
 
     var dropdowns = document.getElementsByClassName("picDropdown-content");
-    var addTagButtonDrop = document.getElementById("addTagButton");
-    var removeButtonDrop = document.getElementsByClassName("removeButton");
-
-    addTagButtonDrop.style.display = "none";
-
-    var j;
-    for (j = 0; j < removeButtonDrop.length; j++) {
-      var removeButtonDrop2 = removeButtonDrop[i];
-
-      removeButtonDrop2.style.display = "none";
-
-      if (removeButtonDrop2.classList.contains('show')) {
-        removeButtonDrop2.classList.remove('show');
-      }
-    }
-    
     var i;
 
     for (i = 0; i < dropdowns.length; i++) {
       var openDropdown = dropdowns[i];
-
       openDropdown.style.display = "none";
 
       if (openDropdown.classList.contains('show')) {
@@ -226,7 +209,7 @@ window.onclick = function(event) {
 window.onclick = function(){
   console.log("kek");
   if (!event.target.matches('.dropbtn')) {
-    // later
+    
   }
 
 }
