@@ -230,13 +230,12 @@ main{
 
 #picMenuDropDown {
   position: absolute;
-  border: 1px solid black;
   bottom: 88%;
   left: -220%;
 }
 
 .picDropdown-content {
-  /*display: none;*/
+  display: none;
   position: absolute;
   background-color: #885541;
   min-width: 160px;
@@ -281,7 +280,7 @@ main{
 .dropdown {
     position: absolute;
     display: inline-block;
-    top: calc(100% - 63px);
+    top: calc(100% - 70px);
     left: calc(100% - 50px);
     margin: auto;
     cursor: pointer;

@@ -241,10 +241,14 @@ function uploadFile(){
   location.reload();
 } //uploadfile()
 
-function togglePicMenu(){
+function togglePicMenu(ele){
   console.log("togglePicMenu func");
+  //var id = ele.id;
+
   //get the dropdown in the parent of this button?
-  document.getElementById("picMenuDropDown").classList.toggle("show");
+  var picMenu = togglePicMenu.caller.arguments[0].target.parentElement;
+  picMenu.style.visibility = 'show';
+  //document.getElementById("picMenuDropDown").classList.toggle("hidden");
 }
 
 // Close the togglePicMenu() if the user clicks outside of it
