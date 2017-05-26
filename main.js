@@ -12,6 +12,8 @@ var uploadClass = document.getElementById("uploadDropdown").classList;
 
 var template = document.getElementById('pictureContainer0');
 
+
+
 window.onload=function(){
   console.log('onLoad function');
   //want to get all things in the db
@@ -89,79 +91,68 @@ window.onload=function(){
 
 } //window.onload()
 
+/**new 05/24/17*/
+
+var uploadMClass = document.getElementById('mobileUploadToggle').style;
+var filterMClass = document.getElementById('mobileFilterToggle').style;
+var favMClass = document.getElementById('mobileFavoriteToggle').style;
+function toggleMUpload(){
+    if(filterMClass.display == "block" || favMClass.display == "block"){
+      filterMClass.display = "none";
+      favMClass.display = "none";
+    }
+
+    if(uploadMClass.display == "none"){
+      uploadMClass.display = "block";
+    }
+    else{
+      uploadMClass.display = "none";
+    }
+
+}
+
+function toggleMFilter(){
+    if(uploadMClass.display == "block" || favMClass.display == "block"){
+      uploadMClass.display = "none";
+      favMClass.display = "none";
+    }
+
+    if(filterMClass.display == "none"){
+      filterMClass.display = "block";
+    }
+    else{
+      filterMClass.display = "none";
+    }
+
+}
+
+function toggleMFavorites(){
+    if(filterMClass.display == "block" || uploadMClass.display == "block"){
+      filterMClass.display = "none";
+      uploadMClass.display = "none";
+    }
+
+    if(favMClass.display == "none"){
+      favMClass.display = "block";
+    }
+    else{
+      favMClass.display = "none";
+    }
+
+}
+/**end of new*/
+
 
 function toggleUpload(){
-      uploadClass.toggle("show");
-      if(filterClass.contains('show')){
-        filterClass.toggle("show");
-        filterHolder.position = "relative";
-        filterHolder.top = "0px";
-      }
-
-      if(favoritesClass.contains('show')){
-        favoritesClass.toggle("show");
-        favoritesHolder.position = "relative";
-        favoritesHolder.top = "0px";
-      }
-
-      if(uploadClass.contains('show')){
-       favoritesHolder.position = "relative";
-       favoritesHolder.top = "160px";
-       filterHolder.position = "relative";
-       filterHolder.top = "160px";
-     }
-
-     else{
-      favoritesHolder.position = "relative";
-      favoritesHolder.top = "0px";
-      filterHolder.position = "relative";
-      filterHolder.top = "0px";
-     }
+  uploadClass.toggle("show");
 }
 
 function toggleFilter() {
-      filterClass.toggle("show");
-      if(uploadClass.contains('show')){
-        uploadClass.toggle("show");
-        filterHolder.position = "relative";
-        filterHolder.top = "0px";
-      }
-
-      if(favoritesClass.contains('show')){
-        favoritesClass.toggle("show");
-        favoritesHolder.position = "relative";
-        favoritesHolder.top = "0px";
-      }
-
-    if(filterClass.contains('show')){
-       favoritesHolder.position = "relative";
-       favoritesHolder.top = "130px";
-     }
-
-     else{
-      favoritesHolder.position = "relative";
-      favoritesHolder.top = "0px";
-     }
+  filterClass.toggle("show");
 }
 
 function toggleFavorites() {
-      favoritesClass.toggle("show");
-      if(uploadClass.contains('show')){
-        uploadClass.toggle("show");
-        filterHolder.position = "relative";
-        filterHolder.top = "0px";
-        favoritesHolder.position = "relative";
-        favoritesHolder.top = "0px";
-      }
-
-      if(filterClass.contains('show')){
-        filterClass.toggle("show");
-        filterHolder.position = "relative";
-        filterHolder.top = "0px";
-        favoritesHolder.position = "relative";
-        favoritesHolder.top = "0px";
-      }
-
+  favoritesClass.toggle("show");
 }
 
 // Close the dropdown if the user clicks outside of it
@@ -262,7 +253,7 @@ window.onclick = function(event) {
     for (i = 0; i < dropdowns.length; i++) {
       var openDropdown = dropdowns[i];
       openDropdown.style.display = "none";
-      
+
       if (openDropdown.classList.contains('show')) {
         openDropdown.classList.remove('show');
       }

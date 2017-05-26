@@ -44,6 +44,39 @@ table {
 }
 /*** END OF RESET ***/
 
+/**new 05/24/17*/
+#line{
+  width: 95%;
+  height: 2px;
+  margin: auto;
+  background-color: #885541;
+  margin-bottom: 5px;
+}
+
+#mobileMenu{
+  display: none;
+}
+
+#mobilePictures{
+  display: none;
+}
+
+#filterMSearch{
+  padding: 4px;
+  margin: 0 0 10px 10px;
+  border: 1px solid #885540;
+  font-size: 16px;
+  font-family: serif;
+}
+
+#filterMDDbuttons{
+  display: flex;
+  flex-direction: row;
+}
+
+/**end of new*/
+
+
 @font-face {
 	font-family: Goudy;
 	src: url('photobooth/fontGoudy/GoudyStd.otf');
@@ -65,7 +98,6 @@ main{
 }
 
 #contents{
-  border-top: 2px solid #885541;
   margin-left: 30px;
   margin-right: 30px;
   display: flex;
@@ -290,7 +322,7 @@ main{
 .dropdown-content {
     display: none;
     width: 246px; /*sidebar - 2*sidebar border*/
-    position: absolute;
+    position: relative;
     padding: 20px 2px;
     background-color: #CFBBB2;
     overflow: hidden;
@@ -376,4 +408,72 @@ main{
 #filterDDbuttons{
   display: flex;
   flex-direction: row;
+}
+
+
+@media (max-width: 480px){
+
+  #top{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+  }
+
+  #triangle{
+    position: relative;
+    bottom: 7px;
+    right: 10px;
+  }
+
+  .pictureContainer{
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+  }
+
+  #mobileMenu{
+    display: block;
+  }
+
+  #mobileMenu .mobileDropIcon button{
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+  }
+
+  .mobileDropIcon{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+  }
+
+  #mobileMenu .mobileDropdown button{
+    border: 1px solid black;
+    padding: 4px;
+    background-color: #885540;
+    font-family: serif;
+    color: white;
+    font-size: 15px;
+    z-index: 1;
+  }
+
+  .mobileDropdown{
+    width: 100%;
+    padding: 20px 10px;
+    background-color: #CFBBB2;
+    overflow: hidden;
+    z-index: 1;
+  }
+
+  #mobileUploadToggle, #mobileFilterToggle, #mobileFavoriteToggle{
+    display: none;
+  }
+
+  .pictureContainer{
+    width: 100%;
+  }
+
+  #sidebar{
+    display: none;
+  }
 }

@@ -14,6 +14,36 @@
         <img src="photobooth/photoboothLogo.svg" />
       </div>
 
+      <!--new border 05/24/2017 -->
+      <div id="line"></div>
+
+      <!--new Mobile Menus jaime 05/24/17-->
+      <div id="mobileMenu">
+          <section class="mobileDropIcon">
+            <button onclick="toggleMUpload()"><img  class="dropdownIcons" src="photobooth/uploadIcon-01.svg" / width="50px" height="50px"></button>
+            <button onclick="toggleMFilter()"><img  class="dropdownIcons" src="photobooth/filterIcon-01.svg" / width="50px" height="50px"></button>
+            <button onclick="toggleMFavorites()"><img  class="dropdownIcons" src="photobooth/favoritesIcon.svg" / width="50px" height="50px"></button>
+          </section>
+
+          <div class="mobileDropdown" id="mobileUploadToggle">
+            <input type="file" class="droppedButton" onchange="readFile()"/>
+            <button id="mobileUploadButton" onclick="uploadFile()">upload</button>
+          </div>
+
+          <div class="mobileDropdown" id="mobileFilterToggle">
+            <input type="text" id="filterMSearch" name="filter" placeholder="filter" onchange=""/>
+
+            <div id="filterMDDbuttons">
+              <button class="droppedButton" onclick="">enter</button>
+              <button class="droppedButton" onclick="">clear filter</button>
+            </div>
+          </div>
+
+          <div class="mobileDropdown" id="mobileFavoriteToggle">
+              <button class="droppedButton" onclick="">clear filter</button>
+          </div>
+      </div>
+
       <!-- Display Content Box-->
       <div id="contents">
         <!-- each upload should insert a pictureContainer -->
