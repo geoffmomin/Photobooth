@@ -203,17 +203,11 @@ window.onclick = function(event) {
       }
     }
   }
-}
 
-
-document.body.onclick = function(e){
-  console.log("kek");
-  var pictures = document.getElementById("pictures");
-
-  // for (i = 0; i < pictures.childElementCount; i++){
-  //   pictures.children[i].
+  // if (event.target.matches("")){
+  //
   // }
-
+  console.log("kek");
 }
 
 
