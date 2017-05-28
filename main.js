@@ -39,6 +39,10 @@ window.onload=function(){
       //append early for debug
       document.getElementById("pictures").appendChild(clone);
 
+      //hide the loadingbar
+      // clone.children[3].style.display = "none";
+      clone.children[3].parentElement.removeChild(clone.children[3]);
+
       //clone's id will be picContainer + 1...n
       clone.id = "pictureContainer" + (i + 1);
 
@@ -251,6 +255,12 @@ function uploadFile(){
 
   // where we find the file handle
   var selectedFile = document.getElementById('fileSelector').files[0];
+  //check if file is selected
+  if (!selectedFile){
+    console.log("nice try trying to upload nothing");
+    return;
+  }
+
   var formData = new FormData();
   // stick the file into the form
   formData.append("userfile", selectedFile);
@@ -277,10 +287,33 @@ function uploadFile(){
   //make the picture clear after uploading
   document.getElementById('loadingImage0').style.opacity = 1.0;
 
-  document.getElementById("pictureContainer0").style.display = "none";
+  // document.getElementById("pictureContainer0").style.display = "none";
 
   console.log("waiting before refresh");
   // location.reload();
+
+  //save
+  // var s = document.getElementById("pictureContainer0");
+  // var si = s.getElementsByClassName("loadingBar");
+  // move(si);
+
+  //for loading bar
+  function move() {
+    var elem = document.getElementById("myBar");
+    var width = 0;
+    var id = setInterval(frame, 15);
+    function frame() {
+      if (width >= 100) {
+        clearInterval(id);
+      } else {
+        width++; 
+        elem.style.width = width + '%'; 
+        elem.innerHTML = width * 1  + '%';
+      }
+    }
+  } //move()
+  move();
+
   setTimeout(function(){ location.reload() }, 2500);
 } //uploadfile()
 
