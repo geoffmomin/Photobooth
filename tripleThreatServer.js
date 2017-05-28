@@ -277,3 +277,9 @@ function answer(query, response) {
   }
 
 } //answer()
+
+// get all labels that contain the string "cat"
+// SELECT * from photolabels  WHERE labels LIKE '%cat%';
+
+// get all labels that have favorite = 1
+// SELECT * from photolabels  WHERE favorite = 1;
