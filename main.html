@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width">
     <title>Photobooth</title>
     <link rel="stylesheet" type="text/css" href="main.css">
-
   </head>
+
   <body>
     <main>
       <!-- Display Logo -->
@@ -117,10 +117,9 @@
             <!-- this btn sld display when click change tag-->
             <button class="droppedButton" id="addTagButton" onclick="addTag()">Add to list</button>
 
+            <div id="myProgress"><div class="loadingBar" id="myBar">0%</div></div>
           </div>
-
-
-
+        
         </div>
 
         <!-- Side Bar Stuff -->
@@ -155,8 +154,8 @@
               <input type="text" id="filterSearch" name="filter" placeholder="filter" onchange=""/>
 
               <div id="filterDDbuttons">
-                <button class="droppedButton" id="enterFilter" onclick="">enter</button>
-                <button class="droppedButton" id="clearFilter" onclick="">clear filter</button>
+                <button class="droppedButton" id="enterFilter" onclick="showFilteredPics()">enter</button>
+                <button class="droppedButton" id="clearFilter" onclick="clearFilter()">clear filter</button>
               </div>
             </div>
           </div>
@@ -169,7 +168,7 @@
             </section>
 
             <div id="favoritesDropdown" class="dropdown-content">
-              <button class="droppedButton" id="clearFavorite" onclick="">favorites</button>
+              <button class="droppedButton" id="clearFavorite" onclick="showFavoritePics()">favorites</button>
             </div>
           </div>
 
