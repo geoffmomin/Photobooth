@@ -204,7 +204,6 @@ window.onclick = function(event) {
 }
 
 function undoChangeTag(){
-  console.log("no");
   var picCont = undoChangeTag.caller.arguments[0].target.parentElement.parentElement;
 
   picCont.children[2].style.display = "none";
@@ -220,6 +219,17 @@ function undoChangeTag(){
 
 function readFile() {
   document.getElementById("pictureContainer0").style.display = "block";
+
+  //hide tags
+  var tagIDs = document.getElementById("pictureContainer0").children[1].children[0];
+  for (i = 0; i < tagIDs.childElementCount; i++){
+    tagIDs.children[i].style.display = "none";
+  }
+
+  //hide input
+  tagIDs.parentElement.children[1].style.display = "none";
+  //hide add button
+  tagIDs.parentElement.parentElement.children[2].style.display = "none";
 
   var selectedFile = document.getElementById('fileSelector').files[0];
   var image = document.getElementById('loadingImage0');
@@ -257,6 +267,7 @@ function uploadFile(){
   oReq.onload = function() {
   	// the response, in case we want to look at it
   	console.log(oReq.responseText);
+    // location.reload();
   }
   oReq.send(formData);
   //finished uploading to server
@@ -268,7 +279,10 @@ function uploadFile(){
   document.getElementById('loadingImage0').style.opacity = 1.0;
 
   document.getElementById("pictureContainer0").style.display = "none";
-  location.reload();
+
+  console.log("waiting before refresh");
+  // location.reload();
+  setTimeout(function(){ location.reload() }, 2000);
 } //uploadfile()
 
 function addTag(){
