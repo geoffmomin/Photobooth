@@ -213,6 +213,7 @@ function undoChangeTag(){
   var tagCont = picCont.children[1].children[0];
 
 
+
   for (i = 0; i < tagCont.childElementCount; i++){
     tagCont.children[i].children[0].style.display = "none";
   }
