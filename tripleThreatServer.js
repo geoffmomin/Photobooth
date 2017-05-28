@@ -272,8 +272,26 @@ function answer(query, response) {
     var filename = queryObj.fileName;
 
     db.run('UPDATE photoLabels SET favorite = 1 WHERE fileName = ?', [filename], errorCallback);
-     // update photolabels set favorite = 1 where filename = "pupper.jpg";
+    // update photolabels set favorite = 1 where filename = "pupper.jpg";
 
+  } //else if op == favorite
+
+  else if (queryObj.op == "getFavorites"){
+    console.log("query is getFavorites");
+
+    function dbGetFavsRet(err, tableData){
+      if (err) {
+        console.log("error: ", err, "\n");
+      }
+      else {
+        response.status(200);
+        response.type("application/json");
+        JSON.stringify(tableData);
+        response.send(tableData);
+        console.log("sent dbAll to client");
+      }
+    }//callback()
+    db.all("SELECT * from photolabels WHERE favorite = 1", dbGetFavsRet);
   }
 
 } //answer()
