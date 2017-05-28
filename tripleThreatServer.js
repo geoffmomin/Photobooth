@@ -271,7 +271,7 @@ function answer(query, response) {
     console.log("query is favorite and filename is - " + queryObj.fileName);
     var filename = queryObj.fileName;
 
-    db.run('UPDATE photoLabels SET favorite = 1 WHERE fileName = "?"', [fileName], errorCallback);
+    db.run('UPDATE photoLabels SET favorite = 1 WHERE fileName = ?', [filename], errorCallback);
      // update photolabels set favorite = 1 where filename = "pupper.jpg";
 
   }
