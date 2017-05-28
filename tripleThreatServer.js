@@ -265,7 +265,15 @@ function answer(query, response) {
     var newTags = queryObj.newTags;
 
     db.run('UPDATE photoLabels SET labels = ? WHERE fileName = ?', [newTags, filename], errorCallback);
-
   } //else if op == updateTags
+
+  else if (queryObj.op == "favorite"){
+    console.log("query is favorite and filename is - " + queryObj.fileName);
+    var filename = queryObj.fileName;
+
+    db.run('UPDATE photoLabels SET favorite = 1 WHERE fileName = "?"', [fileName], errorCallback);
+     // update photolabels set favorite = 1 where filename = "pupper.jpg";
+
+  }
 
 } //answer()

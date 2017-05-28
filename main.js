@@ -430,4 +430,22 @@ function changeTag(){
 
 function addToFavorites(){
   console.log("addToFavorites function");
-}
+
+  //get name of pic
+  var picName = addToFavorites.caller.arguments[0].target.parentElement.parentElement.parentElement.children[0].src.split("/")[3];
+
+  //make url query
+  var url = mainUrl + "/query?op=favorite&fileName=" + picName;
+
+  //make callabck
+  function addToFavoritesCallback(){
+    console.log("callabck for addToFavorites");
+  }
+  
+  //new xmlrequest
+  var oReqqq = new XMLHttpRequest();
+  oReqqq.addEventListener("load", addToFavoritesCallback);
+  oReqqq.open("GET", url);
+  oReqqq.send();
+  console.log("sent GET to server [for addToFavorites] of - " + picName);
+} //addToFavorites()
