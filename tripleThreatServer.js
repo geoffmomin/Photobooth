@@ -292,7 +292,30 @@ function answer(query, response) {
       }
     }//callback()
     db.all("SELECT * from photolabels WHERE favorite = 1", dbGetFavsRet);
-  }
+  } //else if op == getFavorites
+
+  else if (queryObj.op == "getFilter"){
+    console.log('query is getFilter and filter is - ' + queryObj.filter);
+    var filter = queryObj.filter;
+
+    function dbGetFilterRet(err, tableData){
+      if (err) {
+        console.log("error: ", err, "\n");
+      }
+      else {
+        response.status(200);
+        response.type("application/json");
+        JSON.stringify(tableData);
+        response.send(tableData);
+        console.log("sent dbAll to client");
+      }
+    }//callback()
+
+    const sql = 'SELECT * from photolabels WHERE labels LIKE $filter';
+    const params = {$filter: '%' + filter + '%'};
+    db.all(sql, params, dbGetFilterRet);
+    // db.all("SELECT * from photolabels where labels LIKE '%?%'", [filter], dbGetFilterRet);
+  } //else if op == getFilter
 
 } //answer()
 

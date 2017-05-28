@@ -292,16 +292,11 @@ function uploadFile(){
   console.log("waiting before refresh");
   // location.reload();
 
-  //save
-  // var s = document.getElementById("pictureContainer0");
-  // var si = s.getElementsByClassName("loadingBar");
-  // move(si);
-
   //for loading bar
   function move() {
     var elem = document.getElementById("myBar");
     var width = 0;
-    var id = setInterval(frame, 15);
+    var id = setInterval(frame, 20);
     function frame() {
       if (width >= 100) {
         clearInterval(id);
@@ -314,7 +309,7 @@ function uploadFile(){
   } //move()
   move();
 
-  setTimeout(function(){ location.reload() }, 2500);
+  setTimeout(function(){ location.reload() }, 3000);
 } //uploadfile()
 
 function addTag(){
@@ -483,8 +478,6 @@ function addToFavorites(){
 } //addToFavorites()
 
 
-
-//SAVE
 function clearFilter(){
   console.log("clearFilter");
   document.getElementById("filterSearch").value = "";
@@ -495,6 +488,19 @@ function showFilteredPics(){
   console.log("showFilteredPics");
   var filter = document.getElementById("filterSearch").value;
 
+  //save
+  //get dbData that has labels like filter
+
+  function filterCallback(){
+    console.log(this.response);
+  }
+
+  var url = mainUrl + "/query?op=getFilter&filter=" + filter;
+  var oReq = new XMLHttpRequest();
+  oReq.addEventListener("load", filterCallback);
+  oReq.open("GET", url);
+  oReq.send();
+  console.log("sent GET to server [for getFilter]");
   //do something
 }
 
