@@ -9,13 +9,6 @@ var db = new sqlite3.Database(dbFile);  // new object, old DB
 
 var querystring = require('querystring'); // handy for parsing query strings
 
-var LIVE = true;
-var request2 = require('request');
-var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
-
-// URL containing the API key 
-var apiKeyURL = 'https://vision.googleapis.com/v1/images:annotate?key=AIzaSyCed8rPNBMEB3hvgGLfgWpVgTPlT0ZX67M';
-
 
 //for db ops
 function errorCallback(err) {
@@ -88,110 +81,11 @@ app.post('/', function (request, response){
     console.log("db stuff");
     console.log("file is: " + fName);
 
-
-    //TEST BEGIN
-    var requestObject = {  
-       "requests":[  
-          {  
-             "image":{  
-                "source":{  
-                   "imageUri":"http://138.68.25.50:60401/hula.jpg"
-                }
-             },
-             "features":[  
-                {  
-                   "type":"LABEL_DETECTION"
-                }
-             ]
-          }
-       ]
-    }
-    // s.requests[0].image.source.imageUri
-    var imgUrl = "http://138.68.25.50:8650/" + fName;
-    requestObject.requests[0].image.source.imageUri = imgUrl;
-
-    function annotateImage(){
-    if (LIVE){
-      console.log("live");
-      // Uses the Node request module, which packs up and sends off
-      // The code that makes a request to the API
-      // an XMLHttpRequest. 
-
-      request2(
-      { // HTTP header stuff
-        url: 'https://vision.googleapis.com/v1/images:annotate?key=AIzaSyCed8rPNBMEB3hvgGLfgWpVgTPlT0ZX67M',
-        method: "POST",
-        headers: {"content-type": "application/json"},
-        // stringifies object and puts into HTTP request body as JSON 
-        json: requestObject,
-      },
-      // callback function for API request
-      APIcallback
-      );
-    } 
-    else {  // not live! return fake response
-      // call fake callback in 2 seconds
-      console.log("not live");
-      setTimeout(fakeAPIcallback, 2000);
-      } 
-    }
-
-    // live callback function
-    function APIcallback(err, APIresponse, body) {
-      if ((err) || (APIresponse.statusCode != 200)) {
-       console.log("Got API error"); 
-      } //if
-      else{
-        APIresponseJSON = body.responses[0];
-        console.log("response from google api for - " + fName);
-        console.log(APIresponseJSON);
-
-        var labels = "";
-        for (i = 0; i < APIresponseJSON.labelAnnotations.length; i++){
-          labels += (APIresponseJSON.labelAnnotations[i].description + ",");
-        } //for
-        labels = labels.slice(0, -1);
-        //remove last char cuz it is a comma
-        console.log("final labels from google is: " + labels);
-
-        //update the db with new labels
-        console.log("updating db with new labels");
-
-        //insert into db - filename, labels, no favorite
-        db.run('INSERT OR REPLACE INTO photoLabels VALUES (?, ?, 0)',
-          [fName, labels], errorCallback);
-
-      } //else
-    } //apicallback()
-
-    // fake callback function
-    function fakeAPIcallback() {
-      console.log("fake");
-        
-      console.log( ` { labelAnnotations:    [ { mid: '/m/026bk', description: 'fakeLabel1', score: 0.89219457 },
-         { mid: '/m/05qjc',
-           description: 'fakeLabel2',
-           score: 0.87477195 },
-         { mid: '/m/06ntj', description: 'fakeLabel3', score: 0.7928342 },
-         { mid: '/m/02jjt',
-           description: 'fakeLabel4',
-           score: 0.7739482 },
-         { mid: '/m/02_5v2',
-           description: 'fakeLabel5',
-           score: 0.70231736 } ] }` );
-    }
-
-
-    annotateImage();
-    //TEST END
-
-
-
-   //  //insert into db - filename, no labels, no favorite
-   //  db.run(
-  	// 'INSERT OR REPLACE INTO photoLabels VALUES (?, "", 0)',
-  	// [fName], errorCallback);
-   //  //DB STUFF END
+    //insert into db - filename, no labels, no favorite
+    db.run(
+  	'INSERT OR REPLACE INTO photoLabels VALUES (?, "", 0)',
+  	[fName], errorCallback);
+    //DB STUFF END
 
   }); //form.on('end')
   //finished uploading to public
@@ -265,62 +159,7 @@ function answer(query, response) {
     var newTags = queryObj.newTags;
 
     db.run('UPDATE photoLabels SET labels = ? WHERE fileName = ?', [newTags, filename], errorCallback);
+
   } //else if op == updateTags
 
-  else if (queryObj.op == "favorite"){
-    console.log("query is favorite and filename is - " + queryObj.fileName);
-    var filename = queryObj.fileName;
-
-    db.run('UPDATE photoLabels SET favorite = 1 WHERE fileName = ?', [filename], errorCallback);
-    // update photolabels set favorite = 1 where filename = "pupper.jpg";
-
-  } //else if op == favorite
-
-  else if (queryObj.op == "getFavorites"){
-    console.log("query is getFavorites");
-
-    function dbGetFavsRet(err, tableData){
-      if (err) {
-        console.log("error: ", err, "\n");
-      }
-      else {
-        response.status(200);
-        response.type("application/json");
-        JSON.stringify(tableData);
-        response.send(tableData);
-        console.log("sent dbAll to client");
-      }
-    }//callback()
-    db.all("SELECT * from photolabels WHERE favorite = 1", dbGetFavsRet);
-  } //else if op == getFavorites
-
-  else if (queryObj.op == "getFilter"){
-    console.log('query is getFilter and filter is - ' + queryObj.filter);
-    var filter = queryObj.filter;
-
-    function dbGetFilterRet(err, tableData){
-      if (err) {
-        console.log("error: ", err, "\n");
-      }
-      else {
-        response.status(200);
-        response.type("application/json");
-        JSON.stringify(tableData);
-        response.send(tableData);
-        console.log("sent dbAll to client");
-      }
-    }//callback()
-
-    const sql = 'SELECT * from photolabels WHERE labels LIKE $filter';
-    const params = {$filter: '%' + filter + '%'};
-    db.all(sql, params, dbGetFilterRet);
-    // db.all("SELECT * from photolabels where labels LIKE '%?%'", [filter], dbGetFilterRet);
-  } //else if op == getFilter
-
 } //answer()
-
-// get all labels that contain the string "cat"
-// SELECT * from photolabels  WHERE labels LIKE '%cat%';
-
-// get all labels that have favorite = 1
-// SELECT * from photolabels  WHERE favorite = 1;

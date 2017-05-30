@@ -408,24 +408,6 @@ main{
 }
 
 
-
-/*loading bar*/
-#myProgress {
-  width: 100%;
-  background-color: #ddd;
-}
-
-#myBar {
-  width: 10%;
-  height: 30px;
-  background-color: #4CAF50;
-  text-align: center;
-  line-height: 30px;
-  color: white;
-}/*loading bar*/
-
-
-
 @media (max-width: 480px){
 
   #line {
@@ -522,4 +504,45 @@ main{
   #sidebar{
     display: none;
   }
+}
+
+/* SPLASH PAGE */
+html, body {
+  height: 100%;
+}
+
+#welcome{
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 30vh;
+}
+
+#wHeader p{
+  font-size: 60px;
+}
+
+#info p{
+  font-size: 30px;
+}
+
+#wHeader p, #info p{
+  color: #885541;
+  line-height: 1em;
+  text-align: center;
+}
+
+#welcomeEnter{
+  padding: 10px 40px;
+  font-size: 20px;
+  background-color: #885541;
+  border: 1px solid black;
+  color: white;
+  margin: 30px 0;
+}
+
+#welcomeEnter a{
+  text-decoration: none;
+  color: white;
 }
