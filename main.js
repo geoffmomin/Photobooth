@@ -501,6 +501,10 @@ function showFilteredPics(){
 
     //if there is no favorites, show all. we are already showing all.
     if (dbData.length == 0){
+      var pics = document.getElementById("pictures");
+      while (pics.childElementCount > 1){
+        pics.removeChild(pics.children[1]);
+      }
       return;
     }
 
@@ -593,6 +597,10 @@ function showFavoritePics(){
 
       //if there is no favorites, show all. we are already showing all.
       if (dbData.length == 0){
+        var pics = document.getElementById("pictures");
+        while (pics.childElementCount > 1){
+          pics.removeChild(pics.children[1]);
+        }
         return;
       }
 
