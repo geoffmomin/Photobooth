@@ -21,5 +21,10 @@ You can filter by a label using the sidebar. If there is not any photos that hav
 You can show all favorites by clicking the favorites on the sidebar and clicking favorites. If there is not any photos that have been favorited, you will not see any pictures.
 	Clicking it again will show all photos as normal.
 You can change the tags for a photo by clicking the triangle menu -> change tags.
-	You can exit change tags menu by clicking on the picture.
+
+You can exit change tags menu by clicing on the picture.
+
+EXTRA CREDIT: 
+Filtering by favorites DONE
+Progress bar DONE
 
