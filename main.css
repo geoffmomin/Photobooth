@@ -436,17 +436,17 @@ main{
     display: flex;
     width: 100%;
     flex-direction: column;
-    margin-top: -10px;
   }
 
   .imgHolder {
     width: 100%;
-    height: 100%;
+    height: 60vw;
+    position: relative;
   }
 
   .loadingImage {
-    min-width: 100%;
-    min-height: 90%;
+    width: 100%;
+    height: 100%;
   }
 
   .tagImage {
