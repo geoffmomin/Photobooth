@@ -14,10 +14,12 @@ Go to /home/nexisn4 on our server and run "node tripleThreatServer.js" and serve
 Go to a browser and type "http://138.68.25.50:8650/run/main.html" in the url. our app will load.
 
 USAGE:
-If you upload a picture and it doesn't show within 5 seconds, refresh the page.
-You can show all favorites by clicking the favorites on the sidebar and clicking favorites.
+You will be taken to splash page. You can click enter or scroll down to the main page.
+If you upload a picture and it doesn't show within 5 seconds, refresh the page. However, there is a progress bar to let you know of its progress. It should show you all the pictures when one finishes uploading.
+You can filter by a label using the sidebar. If there is not any photos that have that label, you will not see any pictures.
+	Click clear filter to show all photos.
+You can show all favorites by clicking the favorites on the sidebar and clicking favorites. If there is not any photos that have been favorited, you will not see any pictures.
 	Clicking it again will show all photos as normal.
-You can filter by a label using the sidebar. Click clear filter to show all photos.
 You can change the tags for a photo by clicking the triangle menu -> change tags.
-	You can exit change tags menu by clicing on the picture.
+	You can exit change tags menu by clicking on the picture.
 

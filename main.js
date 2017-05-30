@@ -351,7 +351,8 @@ function addTag(){
   //update database with new tag for this pic
   //callback
   function tagTransferCallback(){
-      //got stuff back
+    //got stuff back
+    // location.reload();
     console.log("db tags received for -" + picName);
     console.log(this.response);
     var dbData = JSON.parse(this.response);
