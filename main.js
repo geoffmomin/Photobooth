@@ -301,8 +301,8 @@ function uploadFile(){
       if (width >= 100) {
         clearInterval(id);
       } else {
-        width++; 
-        elem.style.width = width + '%'; 
+        width++;
+        elem.style.width = width + '%';
         elem.innerHTML = width * 1  + '%';
       }
     }
@@ -467,7 +467,7 @@ function addToFavorites(){
   function addToFavoritesCallback(){
     console.log("callabck for addToFavorites");
   }
-  
+
   //new xmlrequest
   var oReq = new XMLHttpRequest();
   oReq.addEventListener("load", addToFavoritesCallback);
@@ -583,7 +583,7 @@ function showFilteredPics(){
 function showFavoritePics(){
   console.log("showFavoritePics");
 
-  //if we run this func and we weren't showing favs before, then show them 
+  //if we run this func and we weren't showing favs before, then show them
   if (!showFav){
     function showFavCallback(){
       console.log("got fav pics");
@@ -676,3 +676,20 @@ function showFavoritePics(){
     location.reload();
   } //else
 } //showFavoritePics()
+
+
+$("button").click(function() {
+    $('html,body').animate({
+        scrollTop: $("main").offset().top},
+        'slow');
+});
+
+// function scrollDown() {
+//   console.log("scroll down");
+//
+//   var endofpage = scrollDown.caller.arguments[0].target.parentElement;
+//   //var endofpage = document.getElementById("welcome");
+//   var rect = endofpage.getBoundingClientRect();
+//   console.log(rect.bottom);
+//   window.scrollTo(0, rect.bottom - 100);
+// }
