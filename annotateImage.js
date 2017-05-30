@@ -8,7 +8,7 @@ requestObject = {
   "requests": [
     {
       "image": {
-        "source": {"imageUri": "http://www.homedepot.com/catalog/productImages/1000/a6/a619a055-6979-4b47-b0da-5dfa09d6ca2b_1000.jpg"}
+        "source": {"imageUri": "http://138.68.25.50:60401/hula.jpg"}
         },
       "features": [{ "type": "LABEL_DETECTION" }]
     }

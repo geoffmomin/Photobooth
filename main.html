@@ -5,24 +5,9 @@
     <meta name="viewport" content="width=device-width">
     <title>Photobooth</title>
     <link rel="stylesheet" type="text/css" href="main.css">
-
   </head>
-  <!-- SPLASH PAGE -->
-    <body>
-      <section  id="welcome">
-        <div id="wHeader">
-          <p>Welcome to </p>
-          <p>Photobooth.</p>
-        </div>
-      <button id="welcomeEnter"><a href="main.html">Enter</a></button>
 
-        <div id="info">
-          <p>Designed by</p>
-          <p>Powered by the Google</p>
-          <p>Cloud Vision API</p>
-        </div>
-      </section>
-
+  <body>
     <main>
       <!-- Display Logo -->
       <div id='top'>
@@ -63,7 +48,7 @@
       <div id="contents">
         <!-- each upload should insert a pictureContainer -->
         <div id="pictures">
-          <div class="pictureContainer" id="pictureContainer0">
+          <div class="pictureContainer" id="pictureContainer0" onclick="undoChangeTag()">
 
             <div class="imgHolder">
               <img class="loadingImage" id="loadingImage0" src="/Users/richard/Desktop/dog.jpg"/>
@@ -132,10 +117,9 @@
             <!-- this btn sld display when click change tag-->
             <button class="droppedButton" id="addTagButton" onclick="addTag()">Add to list</button>
 
+            <div id="myProgress"><div class="loadingBar" id="myBar">0%</div></div>
           </div>
-
-
-
+        
         </div>
 
         <!-- Side Bar Stuff -->
@@ -170,8 +154,8 @@
               <input type="text" id="filterSearch" name="filter" placeholder="filter" onchange=""/>
 
               <div id="filterDDbuttons">
-                <button class="droppedButton" id="enterFilter" onclick="">enter</button>
-                <button class="droppedButton" id="clearFilter" onclick="">clear filter</button>
+                <button class="droppedButton" id="enterFilter" onclick="showFilteredPics()">enter</button>
+                <button class="droppedButton" id="clearFilter" onclick="clearFilter()">clear filter</button>
               </div>
             </div>
           </div>
@@ -184,8 +168,7 @@
             </section>
 
             <div id="favoritesDropdown" class="dropdown-content">
-              <button class="droppedButton" id="clearFavorite" onclick="">favorites</button>
-              <button class="droppedButton" id="clearFavorite" onclick="">clear favorites</button>
+              <button class="droppedButton" id="clearFavorite" onclick="showFavoritePics()">favorites</button>
             </div>
           </div>
 

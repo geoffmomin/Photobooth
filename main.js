@@ -10,8 +10,13 @@ var favoritesClass = document.getElementById("favoritesDropdown").classList;
 var filterClass = document.getElementById("filterDropdown").classList;
 var uploadClass = document.getElementById("uploadDropdown").classList;
 
+var uploadMClass = document.getElementById('mobileUploadToggle').style;
+var filterMClass = document.getElementById('mobileFilterToggle').style;
+var favMClass = document.getElementById('mobileFavoriteToggle').style;
+
 var template = document.getElementById('pictureContainer0');
 
+var showFav = 0; //dont' show favs on load
 
 
 window.onload=function(){
@@ -34,6 +39,10 @@ window.onload=function(){
       //append early for debug
       document.getElementById("pictures").appendChild(clone);
 
+      //hide the loadingbar
+      // clone.children[3].style.display = "none";
+      clone.children[3].parentElement.removeChild(clone.children[3]);
+
       //clone's id will be picContainer + 1...n
       clone.id = "pictureContainer" + (i + 1);
 
@@ -46,11 +55,10 @@ window.onload=function(){
       //tags from db
       var dbTags = dbData[i].labels.split(",");
 
-      //if dbTags returns "" - like initil db upload
+      //if dbTags returns "" - like initial db upload
       if (dbTags.length == 1 && dbTags == ""){
         for (j = 0; j < 10; j++){
-          // tagArray[j].style.visibility = "hidden";
-          tagArray[i].parentElement.removeChild(tagArray[i]);
+          clone.children[1].children[0].removeChild(clone.children[1].children[0].children[0])
         }
       } //if db tag is empty
 
@@ -90,11 +98,6 @@ window.onload=function(){
 
 } //window.onload()
 
-/**new 05/24/17*/
-
-var uploadMClass = document.getElementById('mobileUploadToggle').style;
-var filterMClass = document.getElementById('mobileFilterToggle').style;
-var favMClass = document.getElementById('mobileFavoriteToggle').style;
 function toggleMUpload(){
     if(filterMClass.display == "block" || favMClass.display == "block"){
       filterMClass.display = "none";
@@ -139,8 +142,6 @@ function toggleMFavorites(){
     }
 
 }
-/**end of new*/
-
 
 function toggleUpload(){
   uploadClass.toggle("show");
@@ -186,7 +187,6 @@ window.onclick = function(event) {
   }
 } //window.onclick
 
-
 // Close the togglePicMenu() if the user clicks outside of it
 window.onclick = function(event) {
   if (!event.target.matches('.dropbtn')) {
@@ -205,18 +205,34 @@ window.onclick = function(event) {
   }
 }
 
+function undoChangeTag(){
+  var picCont = undoChangeTag.caller.arguments[0].target.parentElement.parentElement;
 
-window.onclick = function(){
-  console.log("kek");
-  if (!event.target.matches('.dropbtn')) {
-    
+  picCont.children[2].style.display = "none";
+  picCont.children[1].children[1].style.display = "none";
+
+  var tagCont = picCont.children[1].children[0];
+
+
+
+  for (i = 0; i < tagCont.childElementCount; i++){
+    tagCont.children[i].children[0].style.display = "none";
   }
-
 }
-
 
 function readFile() {
   document.getElementById("pictureContainer0").style.display = "block";
+
+  //hide tags
+  var tagIDs = document.getElementById("pictureContainer0").children[1].children[0];
+  for (i = 0; i < tagIDs.childElementCount; i++){
+    tagIDs.children[i].style.display = "none";
+  }
+
+  //hide input
+  tagIDs.parentElement.children[1].style.display = "none";
+  //hide add button
+  tagIDs.parentElement.parentElement.children[2].style.display = "none";
 
   var selectedFile = document.getElementById('fileSelector').files[0];
   var image = document.getElementById('loadingImage0');
@@ -232,7 +248,6 @@ function readFile() {
   document.getElementById("fileName").innerHTML = selectedFile.name;
 } //readFile()
 
-
 function uploadFile(){
   // uploads an image within a form object.  This currently seems
   // to be the easiest way to send a big binary file.
@@ -240,6 +255,12 @@ function uploadFile(){
 
   // where we find the file handle
   var selectedFile = document.getElementById('fileSelector').files[0];
+  //check if file is selected
+  if (!selectedFile){
+    console.log("nice try trying to upload nothing");
+    return;
+  }
+
   var formData = new FormData();
   // stick the file into the form
   formData.append("userfile", selectedFile);
@@ -255,6 +276,7 @@ function uploadFile(){
   oReq.onload = function() {
   	// the response, in case we want to look at it
   	console.log(oReq.responseText);
+    // location.reload();
   }
   oReq.send(formData);
   //finished uploading to server
@@ -265,12 +287,30 @@ function uploadFile(){
   //make the picture clear after uploading
   document.getElementById('loadingImage0').style.opacity = 1.0;
 
-  document.getElementById("pictureContainer0").style.display = "none";
-  location.reload();
+  // document.getElementById("pictureContainer0").style.display = "none";
+
+  console.log("waiting before refresh");
+  // location.reload();
+
+  //for loading bar
+  function move() {
+    var elem = document.getElementById("myBar");
+    var width = 0;
+    var id = setInterval(frame, 20);
+    function frame() {
+      if (width >= 100) {
+        clearInterval(id);
+      } else {
+        width++; 
+        elem.style.width = width + '%'; 
+        elem.innerHTML = width * 1  + '%';
+      }
+    }
+  } //move()
+  move();
+
+  setTimeout(function(){ location.reload() }, 3000);
 } //uploadfile()
-
-
-
 
 function addTag(){
   console.log("addTag function");
@@ -360,7 +400,6 @@ function addTag(){
   picCont.getElementsByTagName("input")[0].value = '';
 } //addTag()
 
-
 function removeTag(){
   console.log("removeTag function");
 
@@ -397,7 +436,6 @@ function removeTag(){
   console.log("sent GET to server [for update tags] of - " + picName);
 } //removeTag()
 
-
 function changeTag(){
   // -display x buttons for tags
   // -display input box
@@ -418,4 +456,223 @@ function changeTag(){
 
 function addToFavorites(){
   console.log("addToFavorites function");
+
+  //get name of pic
+  var picName = addToFavorites.caller.arguments[0].target.parentElement.parentElement.parentElement.children[0].src.split("/")[3];
+
+  //make url query
+  var url = mainUrl + "/query?op=favorite&fileName=" + picName;
+
+  //make callabck
+  function addToFavoritesCallback(){
+    console.log("callabck for addToFavorites");
+  }
+  
+  //new xmlrequest
+  var oReq = new XMLHttpRequest();
+  oReq.addEventListener("load", addToFavoritesCallback);
+  oReq.open("GET", url);
+  oReq.send();
+  console.log("sent GET to server [for addToFavorites] of - " + picName);
+} //addToFavorites()
+
+
+function clearFilter(){
+  console.log("clearFilter");
+  document.getElementById("filterSearch").value = "";
+  location.reload();
 }
+
+
+function showFilteredPics(){
+  console.log("showFilteredPics");
+  var filter = document.getElementById("filterSearch").value;
+  if (!filter){
+    console.log ("nice try filtering by nothing");
+    return;
+  }
+
+
+  function filterCallback(){
+    console.log("got filtered pics");
+    console.log(this.response);
+    var dbData = JSON.parse(this.response);
+    //array of all pics in db that are favorited
+
+    //if there is no favorites, show all. we are already showing all.
+    if (dbData.length == 0){
+      return;
+    }
+
+    //remove every pic and show only favs.
+    var pictures = document.getElementById("pictures");
+    while (pictures.childElementCount != 1){
+      pictures.children[1].parentElement.removeChild(pictures.children[1]);
+    }
+
+    //do something for each thing returned
+    for (i = 0; i < dbData.length; i++){
+      //clone the template. true means all child and eventhandlers
+      var clone = template.cloneNode(true);
+
+      //append early for debug
+      document.getElementById("pictures").appendChild(clone);
+
+      //make it visible
+      clone.style.display = "flex";
+
+      //remove the loading bar
+      clone.children[3].style.display = "none";
+
+      //clone's id will be picContainer + 1...n
+      clone.id = "pictureContainer" + (i + 1);
+
+      // http://138.68.25.50:8650/cat.jpg
+      clone.getElementsByTagName('img')[0].src = mainUrl + "/" + dbData[i].fileName;
+
+      var tagArray = clone.getElementsByClassName("testTag");
+      //10 tags in html
+
+      //tags from db
+      var dbTags = dbData[i].labels.split(",");
+
+      //if dbTags returns "" - like initial db upload
+      if (dbTags.length == 1 && dbTags == ""){
+        for (j = 0; j < 10; j++){
+          clone.children[1].children[0].removeChild(clone.children[1].children[0].children[0])
+        }
+      } //if db tag is empty
+
+      //else there is valid tags returned from db
+      else{
+        var emptyCount = 10 - dbTags.length;
+        var offset = 10 - emptyCount;
+
+        //update html 0-nth tag and make it visible
+        for (j = 0; j < dbTags.length; j++){
+          tagArray[j].getElementsByTagName("div")[1].innerHTML = dbTags[j];
+          tagArray[j].children[0].style.display = "none";
+        }
+
+        //make the rest invisible
+        for (j = offset; j < 10; j++){
+          tagArray[offset].parentElement.removeChild(tagArray[offset]);
+        }
+
+        //clone has x buttons of tags hidden
+        //hide clone's add button
+        clone.children[2].style.display = "none";
+        //hide clone's input box
+        clone.children[1].children[1].style.display = "none";
+      } //else  there is tags in db
+    } //for
+  } //callback
+
+  var url = mainUrl + "/query?op=getFilter&filter=" + filter;
+  var oReq = new XMLHttpRequest();
+  oReq.addEventListener("load", filterCallback);
+  oReq.open("GET", url);
+  oReq.send();
+  console.log("sent GET to server [for getFilter]");
+
+  showFilter = 1; //show favs turned on
+
+}
+
+
+function showFavoritePics(){
+  console.log("showFavoritePics");
+
+  //if we run this func and we weren't showing favs before, then show them 
+  if (!showFav){
+    function showFavCallback(){
+      console.log("got fav pics");
+      console.log(this.response);
+      var dbData = JSON.parse(this.response);
+      //array of all pics in db that are favorited
+
+      //if there is no favorites, show all. we are already showing all.
+      if (dbData.length == 0){
+        return;
+      }
+
+      //remove every pic and show only favs.
+      var pictures = document.getElementById("pictures");
+      while (pictures.childElementCount != 1){
+        pictures.children[1].parentElement.removeChild(pictures.children[1]);
+      }
+
+      //do something for each thing returned
+      for (i = 0; i < dbData.length; i++){
+        //clone the template. true means all child and eventhandlers
+        var clone = template.cloneNode(true);
+
+        //append early for debug
+        document.getElementById("pictures").appendChild(clone);
+
+        //make it visible
+        clone.style.display = "flex";
+
+        //remove the loading bar
+        clone.children[3].style.display = "none";
+
+        //clone's id will be picContainer + 1...n
+        clone.id = "pictureContainer" + (i + 1);
+
+        // http://138.68.25.50:8650/cat.jpg
+        clone.getElementsByTagName('img')[0].src = mainUrl + "/" + dbData[i].fileName;
+
+        var tagArray = clone.getElementsByClassName("testTag");
+        //10 tags in html
+
+        //tags from db
+        var dbTags = dbData[i].labels.split(",");
+
+        //if dbTags returns "" - like initial db upload
+        if (dbTags.length == 1 && dbTags == ""){
+          for (j = 0; j < 10; j++){
+            clone.children[1].children[0].removeChild(clone.children[1].children[0].children[0])
+          }
+        } //if db tag is empty
+
+        //else there is valid tags returned from db
+        else{
+          var emptyCount = 10 - dbTags.length;
+          var offset = 10 - emptyCount;
+
+          //update html 0-nth tag and make it visible
+          for (j = 0; j < dbTags.length; j++){
+            tagArray[j].getElementsByTagName("div")[1].innerHTML = dbTags[j];
+            tagArray[j].children[0].style.display = "none";
+          }
+
+          //make the rest invisible
+          for (j = offset; j < 10; j++){
+            tagArray[offset].parentElement.removeChild(tagArray[offset]);
+          }
+
+          //clone has x buttons of tags hidden
+          //hide clone's add button
+          clone.children[2].style.display = "none";
+          //hide clone's input box
+          clone.children[1].children[1].style.display = "none";
+        } //else  there is tags in db
+    } //for
+    } //callback
+
+    var url = mainUrl + "/query?op=getFavorites";
+    var oReq = new XMLHttpRequest();
+    oReq.addEventListener("load", showFavCallback);
+    oReq.open("GET", url);
+    oReq.send();
+    console.log("sent GET to server [for getFavorites]");
+
+    showFav = 1; //show favs turned on
+  } //if
+
+  //else we were showing favs before; then don't show them
+  else{
+    showFav = 0;
+    location.reload();
+  } //else
+} //showFavoritePics()
