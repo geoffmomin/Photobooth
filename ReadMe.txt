@@ -21,3 +21,7 @@ You can filter by a label using the sidebar. Click clear filter to show all phot
 You can change the tags for a photo by clicking the triangle menu -> change tags.
 	You can exit change tags menu by clicing on the picture.
 
+EXTRA CREDIT: 
+Filtering by favorites DONE
+Progress bar DONE
+
