@@ -561,6 +561,7 @@ html, body {
   border: 1px solid black;
   color: white;
   margin: 30px 0;
+  cursor: pointer;
 }
 
 #welcomeEnter a{
