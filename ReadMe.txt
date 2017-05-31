@@ -5,7 +5,8 @@ How to run our app:
 SETUP:
 ssh into the server (138.68.25.50) and go to /home/nexisn4.
 place tripleThreatServer.js into that location. (overwrite is ok - we have backups)
-clear the photos.db database (run "$sqlite3 photos.db" then "delete from photolabels;")
+also place photos.db into /home/nexisn4.
+clear the photos.db database (database shoudl be empty but run this just in case - run "$sqlite3 photos.db" then "delete from photolabels;")
 place the photobooth folder + main.html/js/css into /home/nexisn4/public/run
 you are ready to run the app.
 
@@ -21,10 +22,8 @@ You can filter by a label using the sidebar. If there is not any photos that hav
 You can show all favorites by clicking the favorites on the sidebar and clicking favorites. If there is not any photos that have been favorited, you will not see any pictures.
 	Clicking it again will show all photos as normal.
 You can change the tags for a photo by clicking the triangle menu -> change tags.
-
-You can exit change tags menu by clicing on the picture.
+	You can exit change tags menu by clicking on the picture.
 
 EXTRA CREDIT: 
 Filtering by favorites DONE
 Progress bar DONE
-

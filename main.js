@@ -248,6 +248,35 @@ function readFile() {
   document.getElementById("fileName").innerHTML = selectedFile.name;
 } //readFile()
 
+
+function readMFile(){
+  document.getElementById("pictureContainer0").style.display = "block";
+
+  //hide tags
+  var tagIDs = document.getElementById("pictureContainer0").children[1].children[0];
+  for (i = 0; i < tagIDs.childElementCount; i++){
+    tagIDs.children[i].style.display = "none";
+  }
+
+  //hide input
+  tagIDs.parentElement.children[1].style.display = "none";
+  //hide add button
+  tagIDs.parentElement.parentElement.children[2].style.display = "none";
+
+  var selectedFile = document.getElementById('fileMSelector').files[0];
+  var image = document.getElementById('loadingImage0');
+  var fr = new FileReader();
+  // anonymous callback uses file as image source
+  fr.onload = function () {
+     image.src = fr.result;
+  };
+  fr.readAsDataURL(selectedFile);    // begin reading
+  // make the picture unclear when displaying before upload
+  image.style.opacity = 0.5;
+  // dynamic file name
+  document.getElementById("fileName").innerHTML = selectedFile.name;
+} //readMFile()
+
 function uploadFile(){
   // uploads an image within a form object.  This currently seems
   // to be the easiest way to send a big binary file.
