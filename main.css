@@ -402,6 +402,7 @@ main{
     }
 
 #filterDDbuttons{
+  display: none;
   display: flex;
   flex-direction: row;
 }
@@ -526,6 +527,7 @@ main{
     display: none;
   }
 }
+
 
 /* SPLASH PAGE */
 html, body {

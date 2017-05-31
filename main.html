@@ -42,16 +42,16 @@
           </section>
 
           <div class="mobileDropdown" id="mobileUploadToggle">
-            <input type="file" class="droppedButton" onchange="readFile()"/>
-            <button id="mobileUploadButton" onclick="uploadFile()">upload</button>
+            <input type="file" id="fileMSelector" class="droppedButton" onchange="readFile()"/>
+            <button id="mobileUploadButton" onclick="uploadMFile()">upload</button>
           </div>
 
           <div class="mobileDropdown" id="mobileFilterToggle">
             <input type="text" id="filterMSearch" name="filter" placeholder="filter" onchange=""/>
 
             <div id="filterMDDbuttons">
-              <button class="droppedButton" id="enterFilter" onclick="showFilteredPics()">enter</button>
-              <button class="droppedButton" id="clearFilter" onclick="clearFilter()"> clear filter</button>
+              <button class="droppedButton" id="enterFilter" onclick="showMFilteredPics()">enter</button>
+              <button class="droppedButton" id="clearFilter" onclick="clearFilter()">clear filter</button>
             </div>
           </div>
 
@@ -64,10 +64,10 @@
       <div id="contents">
         <!-- each upload should insert a pictureContainer -->
         <div id="pictures">
-          <div class="pictureContainer" id="pictureContainer0" onclick="undoChangeTag()">
+          <div class="pictureContainer" id="pictureContainer0"">
 
             <div class="imgHolder">
-              <img class="loadingImage" id="loadingImage0" src="/Users/richard/Desktop/dog.jpg"/>
+              <img class="loadingImage" id="loadingImage0" onclick="undoChangeTag()" src="/Users/richard/Desktop/dog.jpg"/>
 
               <div class="dropdown">
 
