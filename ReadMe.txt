@@ -5,7 +5,8 @@ How to run our app:
 SETUP:
 ssh into the server (138.68.25.50) and go to /home/nexisn4.
 place tripleThreatServer.js into that location. (overwrite is ok - we have backups)
-clear the photos.db database (run "$sqlite3 photos.db" then "delete from photolabels;")
+also place photos.db into /home/nexisn4.
+clear the photos.db database (database shoudl be empty but run this just in case - run "$sqlite3 photos.db" then "delete from photolabels;")
 place the photobooth folder + main.html/js/css into /home/nexisn4/public/run
 you are ready to run the app.
 
