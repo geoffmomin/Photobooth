@@ -42,21 +42,21 @@
           </section>
 
           <div class="mobileDropdown" id="mobileUploadToggle">
-            <input type="file" class="droppedButton" onchange="readFile()"/>
-            <button id="mobileUploadButton" onclick="uploadFile()">upload</button>
+            <input type="file" id="fileMSelector" class="droppedButton" onchange="readFile()"/>
+            <button id="mobileUploadButton" onclick="uploadMFile()">upload</button>
           </div>
 
           <div class="mobileDropdown" id="mobileFilterToggle">
-            <input type="text" id="filterSearch" name="filter" placeholder="filter" onchange=""/>
+            <input type="text" id="filterMSearch" name="filter" placeholder="filter" onchange=""/>
 
             <div id="filterMDDbuttons">
-              <button class="droppedButton" onclick="showFilteredPics()">enter</button>
-              <button class="droppedButton" onclick="showFavoritePics()">clear filter</button>
+              <button class="droppedButton" id="enterFilter" onclick="showMFilteredPics()">enter</button>
+              <button class="droppedButton" id="clearFilter" onclick="clearFilter()">clear filter</button>
             </div>
           </div>
 
           <div class="mobileDropdown" id="mobileFavoriteToggle">
-              <button class="droppedButton" onclick="">favorites</button>
+              <button class="droppedButton" id="clearFavorite" onclick="showFavoritePics()">favorites</button>
           </div>
       </div>
 

@@ -312,6 +312,72 @@ function uploadFile(){
   setTimeout(function(){ location.reload() }, 3000);
 } //uploadfile()
 
+function uploadMFile(){
+  // uploads an image within a form object.  This currently seems
+  // to be the easiest way to send a big binary file.
+  var url = "http://138.68.25.50:" + port;
+
+  // where we find the file handle
+  var selectedFile = document.getElementById('fileMSelector').files[0];
+  //check if file is selected
+  if (!selectedFile){
+    console.log("nice try trying to upload nothing in mobile");
+    return;
+  }
+
+  var formData = new FormData();
+  // stick the file into the form
+  formData.append("userfile", selectedFile);
+
+  // more or less a standard http request
+  var oReq = new XMLHttpRequest();
+  // POST requests contain data in the body
+  // the "true" is the default for the third param, so
+  // it is often omitted; it means do the upload
+  // asynchornously, that is, using a callback instead
+  // of blocking until the operation is completed.
+  oReq.open("POST", url, true);
+  oReq.onload = function() {
+  	// the response, in case we want to look at it
+  	console.log(oReq.responseText);
+    // location.reload();
+  }
+  oReq.send(formData);
+  //finished uploading to server
+
+  //make the img src = server url
+  document.getElementById('loadingImage0').src = mainUrl + "/" + selectedFile.name;
+
+  //make the picture clear after uploading
+  document.getElementById('loadingImage0').style.opacity = 1.0;
+
+  // document.getElementById("pictureContainer0").style.display = "none";
+
+  console.log("waiting before refresh");
+  // location.reload();
+
+  //for loading bar
+  function move() {
+    var elem = document.getElementById("myBar");
+    var width = 0;
+    var id = setInterval(frame, 20);
+    function frame() {
+      if (width >= 100) {
+        clearInterval(id);
+      } else {
+        width++;
+        elem.style.width = width + '%';
+        elem.innerHTML = width * 1  + '%';
+      }
+    }
+  } //move()
+  move();
+
+  setTimeout(function(){ location.reload() }, 3000);
+} //uploadMfile()
+
+
+
 function addTag(){
   console.log("addTag function");
 
@@ -490,6 +556,106 @@ function showFilteredPics(){
   var filter = document.getElementById("filterSearch").value;
   if (!filter){
     console.log ("nice try filtering by nothing");
+    return;
+  }
+
+
+  function filterCallback(){
+    console.log("got filtered pics");
+    console.log(this.response);
+    var dbData = JSON.parse(this.response);
+    //array of all pics in db that are favorited
+
+    //if there is no favorites, show all. we are already showing all.
+    if (dbData.length == 0){
+      var pics = document.getElementById("pictures");
+      while (pics.childElementCount > 1){
+        pics.removeChild(pics.children[1]);
+      }
+      return;
+    }
+
+    //remove every pic and show only favs.
+    var pictures = document.getElementById("pictures");
+    while (pictures.childElementCount != 1){
+      pictures.children[1].parentElement.removeChild(pictures.children[1]);
+    }
+
+    //do something for each thing returned
+    for (i = 0; i < dbData.length; i++){
+      //clone the template. true means all child and eventhandlers
+      var clone = template.cloneNode(true);
+
+      //append early for debug
+      document.getElementById("pictures").appendChild(clone);
+
+      //make it visible
+      clone.style.display = "flex";
+
+      //remove the loading bar
+      clone.children[3].style.display = "none";
+
+      //clone's id will be picContainer + 1...n
+      clone.id = "pictureContainer" + (i + 1);
+
+      // http://138.68.25.50:8650/cat.jpg
+      clone.getElementsByTagName('img')[0].src = mainUrl + "/" + dbData[i].fileName;
+
+      var tagArray = clone.getElementsByClassName("testTag");
+      //10 tags in html
+
+      //tags from db
+      var dbTags = dbData[i].labels.split(",");
+
+      //if dbTags returns "" - like initial db upload
+      if (dbTags.length == 1 && dbTags == ""){
+        for (j = 0; j < 10; j++){
+          clone.children[1].children[0].removeChild(clone.children[1].children[0].children[0])
+        }
+      } //if db tag is empty
+
+      //else there is valid tags returned from db
+      else{
+        var emptyCount = 10 - dbTags.length;
+        var offset = 10 - emptyCount;
+
+        //update html 0-nth tag and make it visible
+        for (j = 0; j < dbTags.length; j++){
+          tagArray[j].getElementsByTagName("div")[1].innerHTML = dbTags[j];
+          tagArray[j].children[0].style.display = "none";
+        }
+
+        //make the rest invisible
+        for (j = offset; j < 10; j++){
+          tagArray[offset].parentElement.removeChild(tagArray[offset]);
+        }
+
+        //clone has x buttons of tags hidden
+        //hide clone's add button
+        clone.children[2].style.display = "none";
+        //hide clone's input box
+        clone.children[1].children[1].style.display = "none";
+      } //else  there is tags in db
+    } //for
+  } //callback
+
+  var url = mainUrl + "/query?op=getFilter&filter=" + filter;
+  var oReq = new XMLHttpRequest();
+  oReq.addEventListener("load", filterCallback);
+  oReq.open("GET", url);
+  oReq.send();
+  console.log("sent GET to server [for getFilter]");
+
+  showFilter = 1; //show favs turned on
+
+}
+
+
+function showMFilteredPics(){
+  console.log("showMFilteredPics");
+  var filter = document.getElementById("filterMSearch").value;
+  if (!filter){
+    console.log ("nice try filtering by nothing in mobile");
     return;
   }
 
