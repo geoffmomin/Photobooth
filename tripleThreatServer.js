@@ -13,8 +13,8 @@ var LIVE = true;
 var request2 = require('request');
 var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 
-// URL containing the API key 
-var apiKeyURL = 'https://vision.googleapis.com/v1/images:annotate?key=AIzaSyCed8rPNBMEB3hvgGLfgWpVgTPlT0ZX67M';
+// URL containing the API key
+var apiKeyURL = 'https://vision.googleapis.com/v1/images:annotate?key=AIzaSyAmqOXA3nVIqiaoVcUzla4Y4PHK9M8yYOk';
 
 
 //for db ops
@@ -90,16 +90,16 @@ app.post('/', function (request, response){
 
 
     //TEST BEGIN
-    var requestObject = {  
-       "requests":[  
-          {  
-             "image":{  
-                "source":{  
+    var requestObject = {
+       "requests":[
+          {
+             "image":{
+                "source":{
                    "imageUri":"http://138.68.25.50:60401/hula.jpg"
                 }
              },
-             "features":[  
-                {  
+             "features":[
+                {
                    "type":"LABEL_DETECTION"
                 }
              ]
@@ -115,31 +115,31 @@ app.post('/', function (request, response){
       console.log("live");
       // Uses the Node request module, which packs up and sends off
       // The code that makes a request to the API
-      // an XMLHttpRequest. 
+      // an XMLHttpRequest.
 
       request2(
       { // HTTP header stuff
         url: 'https://vision.googleapis.com/v1/images:annotate?key=AIzaSyCed8rPNBMEB3hvgGLfgWpVgTPlT0ZX67M',
         method: "POST",
         headers: {"content-type": "application/json"},
-        // stringifies object and puts into HTTP request body as JSON 
+        // stringifies object and puts into HTTP request body as JSON
         json: requestObject,
       },
       // callback function for API request
       APIcallback
       );
-    } 
+    }
     else {  // not live! return fake response
       // call fake callback in 2 seconds
       console.log("not live");
       setTimeout(fakeAPIcallback, 2000);
-      } 
+      }
     }
 
     // live callback function
     function APIcallback(err, APIresponse, body) {
       if ((err) || (APIresponse.statusCode != 200)) {
-       console.log("Got API error"); 
+       console.log("Got API error");
       } //if
       else{
         APIresponseJSON = body.responses[0];
@@ -167,7 +167,7 @@ app.post('/', function (request, response){
     // fake callback function
     function fakeAPIcallback() {
       console.log("fake");
-        
+
       console.log( ` { labelAnnotations:    [ { mid: '/m/026bk', description: 'fakeLabel1', score: 0.89219457 },
          { mid: '/m/05qjc',
            description: 'fakeLabel2',
