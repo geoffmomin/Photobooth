@@ -24,6 +24,6 @@ You can show all favorites by clicking the favorites on the sidebar and clicking
 You can change the tags for a photo by clicking the triangle menu -> change tags.
 	You can exit change tags menu by clicking on the picture.
 
-EXTRA CREDIT: 
+EXTRA CREDIT:
 Filtering by favorites DONE
 Progress bar DONE
