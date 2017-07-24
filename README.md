@@ -1,4 +1,4 @@
-![splash](https://user-images.githubusercontent.com/18225387/28536813-abc064a0-705d-11e7-9af7-6ccb73bff568.PNG)
+![splash](https://user-images.githubusercontent.com/18225387/28536813-abc064a0-705d-11e7-9af7-6ccb73bff568.PNG  =100x50)
 ![web](https://user-images.githubusercontent.com/18225387/28536814-abd49c68-705d-11e7-8c25-ce8ca98b75db.PNG)
 ![mobile](https://user-images.githubusercontent.com/18225387/28536812-abb154ec-705d-11e7-8529-b0a677bf3288.PNG)
 
