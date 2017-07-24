@@ -886,13 +886,3 @@ $("button").click(function() {
         scrollTop: $("main").offset().top},
         'slow');
 });
-
-// function scrollDown() {
-//   console.log("scroll down");
-//
-//   var endofpage = scrollDown.caller.arguments[0].target.parentElement;
-//   //var endofpage = document.getElementById("welcome");
-//   var rect = endofpage.getBoundingClientRect();
-//   console.log(rect.bottom);
-//   window.scrollTo(0, rect.bottom - 100);
-// }
