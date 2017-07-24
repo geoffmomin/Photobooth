@@ -43,12 +43,6 @@ table {
       border-spacing: 0;
 }
 /*** END OF RESET ***/
-img[alt=splash] {
-  width: 50%;
-  height: 50%;
-  border: none;
-  background: none;
-}
 
 #line{
   width: 95%;
