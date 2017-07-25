@@ -4,4 +4,4 @@
 
 Developed by Richard Kim, Youchan Kim, and Jaime Park.
 
-[Design](http://web.cs.ucdavis.edu/~amenta/s17/photobooth.pdf) by Dani Macedo.
+[Design](pdf/Design by Dani Macedo.pdf) by Dani Macedo.
