@@ -4,4 +4,4 @@
 
 Developed by Richard Kim, Youchan Kim, and Jaime Park.
 
-[Design](pdf/Design by Dani Macedo.pdf) by Dani Macedo.
+[Design](pdf/Design_by_Dani_Macedo.pdf) by Dani Macedo.
